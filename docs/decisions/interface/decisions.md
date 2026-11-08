@@ -146,7 +146,7 @@ de l'IGN connaît les adresses et les lieux publics (mairies, gares), pas les ca
 restaurants. Pour « king falafel », il proposait « Résidence Universitaire Martin Luther King ».
 
 **Choisi** : en plus de l'IGN, on interroge Photon (recherche dans OpenStreetMap, sans clé),
-limité aux lieux (`osm_tag` amenity, shop, tourism, leisure), autour de soi. On garde les lieux à
+limité aux lieux (`osm_tag` amenity, shop, tourism, leisure ; élargi en D26), autour de soi. On garde les lieux à
 moins de 20 km. D'abord ceux dont le nom contient ce qu'on a tapé, puis les noms approchants, du
 plus proche au plus loin. Ordre de la liste :
 1. les lieux déjà chargés autour (ils ouvrent leur fiche) ;
@@ -385,3 +385,22 @@ difficile à 50 m, qu'on voit pourtant depuis le trottoir.
 **Choisi** : les plus faciles d'abord (facile et places, puis attention), chacun par distance. Puis
 les difficiles et les sans info **mêlés, du plus proche au plus loin**, sous un seul titre :
 « Difficiles ou sans info, par distance ». Chaque ligne garde son état en mots.
+
+## D26 — Chercher n'importe quel lieu où l'on va
+
+**Contexte** : la recherche ne trouvait que les cafés, magasins et loisirs d'OpenStreetMap. « Gare
+de Lyon », depuis Paris, donnait un hôtel, un dentiste, puis des rues à Lyon : la gare n'était pas
+proposée. Or on va aussi à l'hôpital, dans un centre de santé, à la mairie, à la gare.
+
+**Choisi** : Photon cherche tous les genres de lieux où l'on peut aller (`amenity`, `shop`,
+`tourism`, `leisure`, `healthcare`, `office`, `railway`, `public_transport`, `aeroway`,
+`historic`, `building`, `club`, `craft`, `emergency`, `sport`), toujours sans les rues ni les villes,
+que l'IGN donne déjà. On écarte les points qui portent seulement le nom d'un lieu (station de taxi
+« Hôpital Saint-Antoine », bouche de métro et station de vélos « Mairie du 11e », arrêts, quais),
+et l'on ne garde qu'un lieu par nom et par ville (une gare est à la fois un bâtiment et une
+station). La phrase du premier usage cite « hôpital Saint-Antoine » en exemple.
+
+Le nom tapé tel quel passe avant un nom qui le contient (« Hôpital Saint-Antoine » avant « CeGIDD -
+Hôpital Saint Antoine »), sans tenir compte des accents ni des traits d'union. Quand un lieu proche
+correspond, les adresses à plus de 20 km disparaissent (« Rue de la Gare, Lyon » pour « gare de
+lyon »).

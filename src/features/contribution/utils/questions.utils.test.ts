@@ -13,7 +13,9 @@ describe('questionsPour', () => {
 
   it('ne propose que des valeurs du wiki', () => {
     expect(questionsPour('cafe')[0].choix.map(c => c.valeur)).toEqual(['yes', 'limited', 'no'])
-    expect(questionsPour('cafe')[1].choix.map(c => c.valeur)).toEqual(['yes', 'no'])
+    expect(questionsPour('cafe')[1].choix.map(c => `${c.cle ?? 'toilets:wheelchair'}=${c.valeur}`)).toEqual([
+      'toilets:wheelchair=yes', 'toilets:wheelchair=no', 'toilets=no',
+    ])
   })
 })
 
@@ -27,6 +29,14 @@ describe('nouvellesEtiquettes', () => {
 
   it('date aussi une réponse qui confirme la valeur existante', () => {
     expect(nouvellesEtiquettes({ wheelchair: 'yes' }, { wheelchair: 'yes' }, new Date('2026-11-08'))['check_date:wheelchair']).toBe('2026-11-08')
+  })
+
+  it('« pas de toilettes » pose toilets=no, pas « toilettes non adaptées »', () => {
+    expect(nouvellesEtiquettes({ amenity: 'cafe' }, { toilets: 'no' }, new Date('2026-11-08'))).toEqual({
+      amenity: 'cafe', toilets: 'no', 'check_date:toilets': '2026-11-08',
+    })
+    expect(enMots('toilets', 'no')).toBe('pas de toilettes')
+    expect(commentaire({ toilets: 'no' }, 'cafe')).toBe('Accessibilité vérifiée sur place : toilettes')
   })
 })
 

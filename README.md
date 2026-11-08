@@ -1,5 +1,7 @@
 # Handiplan
 
+[![CI](https://github.com/garancewetz/handiplan-app/actions/workflows/ci.yml/badge.svg)](https://github.com/garancewetz/handiplan-app/actions/workflows/ci.yml)
+
 Une carte pour sortir quand on a un handicap moteur : **quels cafés et restaurants sont faciles
 d'accès autour de soi**, et **où se garer** quand on va quelque part.
 
@@ -14,12 +16,13 @@ Pourquoi cette appli plutôt qu'une autre : [docs/pourquoi-handiplan.md](docs/po
   difficile, ou si l'on ne sait pas encore.
 - **La fiche d'un lieu** : la réponse d'abord (« Attention : toilettes, on ne sait pas »), puis
   l'entrée, les toilettes, le stationnement, et les détails (marches, main courante, étage…).
-- **Aller quelque part** : on cherche une adresse ou un lieu (au clavier ou à la voix) ; l'appli
-  montre les cafés et les places handicapées du quartier. « Me garer ici » ouvre Waze ou Google Maps
-  vers la place.
+- **Aller quelque part** : on cherche une adresse ou n'importe quel lieu (café, gare, hôpital,
+  centre de santé, mairie…), au clavier ou à la voix ; l'appli montre les cafés et les places
+  handicapées du quartier. « Me garer ici » ouvre Waze ou Google Maps vers la place.
 - **Compléter la carte** : avec son compte OpenStreetMap, on répond à deux questions sur ce qu'on voit
-  (une marche pour entrer ? des toilettes adaptées ?), comme dans StreetComplete. Pour l'instant, sur
-  le serveur de test d'OSM seulement.
+  (des marches ? des toilettes adaptées ?), comme dans StreetComplete. Pour l'instant, sur le serveur
+  de test d'OSM seulement : [docs/contribuer-en-test.md](docs/contribuer-en-test.md) explique comment
+  l'essayer.
 
 ## D'où viennent les données
 
@@ -39,6 +42,8 @@ les lieux autour) et le texte tapé (pour chercher une adresse) partent vers ces
 quartiers déjà vus et les destinations récentes restent sur le téléphone.
 
 ## Lancer
+
+Il faut Node.js 20 ou plus récent.
 
 ```bash
 npm install

@@ -76,7 +76,7 @@ Pages lues le 7 novembre 2026 :
 |---|---|---|
 | Étiquette absente = « on ne sait pas » | ✅ | Les lieux sans info sont blancs en pointillé, jamais classés « accessibles ». |
 | Toilettes publiques : `wheelchair` | ✅ | `description-osm.utils.ts` lit bien `wheelchair` sur `amenity=toilets`. |
-| Ne jamais afficher « toilettes adaptées » sans source explicite | ✅ | Règle de `CLAUDE.md`, respectée. |
+| Ne jamais afficher « toilettes adaptées » sans source explicite | ✅ | Règle du projet, respectée : seulement si `toilets:wheelchair` (ou Acceslibre) le dit. |
 | Texte de `wheelchair` | ✅ (corrigé) | Définitions du wiki, mot pour mot : « Accès partiel en fauteuil : marche de 7 cm au plus ». |
 | Seulement des critères handicap OSM | ✅ (corrigé) | Plus d'étiquettes sans rapport (gratuit, table à langer…), plus de seuils inventés (décision interface D12). Acceslibre garde ses propres critères. |
 | `wheelchair:description:fr` | ✅ | Affichée dans la fiche (« Précision laissée par un visiteur »). |
@@ -87,7 +87,7 @@ Pages lues le 7 novembre 2026 :
 
 | Point | État | Détail |
 |---|---|---|
-| « © OpenStreetMap » sur la carte, avec lien | ✅ | Dans le coin de la carte, lien vers /copyright. |
+| « © OpenStreetMap » sur la carte, avec lien | ✅ (corrigé) | En premier dans le coin de la carte, lien vers /copyright. Sur téléphone, la mention « Leaflet » la repoussait hors de l'écran : retirée. |
 | Source de chaque lieu | ✅ | « Source : Acceslibre et OpenStreetMap » en bas de la fiche. |
 | **Données préparées** (script désactivé) | ✅ | Si on les republie un jour, le script écrit un `README.txt` et un champ `licences` dans `index.json` : « © OpenStreetMap contributors, ODbL », « Acceslibre, Licence Ouverte 2.0 ». |
 | Page « D'où viennent les infos » | ✅ | Cite OpenStreetMap (ODbL), Acceslibre (Licence Ouverte), la Base Adresse Nationale, l'IGN et Photon. |
@@ -104,24 +104,28 @@ Pages lues le 7 novembre 2026 :
 
 ### Modifier depuis l'appli (OAuth)
 
-On répond à deux questions dans Handiplan, et l'appli pose les étiquettes avec **son propre** compte
-OSM. Les règles suivies pour que ce soit bien accueilli (toutes en place, testées de bout en bout ;
+On répond à deux questions dans Handiplan, et l'appli pose les étiquettes avec **le compte OSM de la
+personne** : chaque modification est signée de son pseudo, jamais d'un compte commun. Les règles suivies pour que ce soit bien accueilli (toutes en place, testées de bout en bout ;
 pour l'instant sur le serveur de test seulement) :
 
 1. **Connexion OSM obligatoire** pour modifier. La page de connexion d'OSM propose aussi Google.
 2. **Une modification = un lieu = un groupe de modifications (changeset)**, avec :
-   - `comment` : une phrase claire (« Accessibilité constatée sur place : entrée, toilettes ») ;
-   - `source=survey` : vu sur place ;
-   - `created_by=Handiplan` ;
+   - `comment` : une phrase claire (« Accessibilité vérifiée sur place : entrée, toilettes ») ;
+   - `source=survey` : vu sur place (pas pour une place handicapée, qu'on peut placer de chez soi :
+     son commentaire est alors « Place handicapée ajoutée », sans prétendre l'avoir vue) ;
+   - `created_by=Handiplan 0.1` : l'appli et sa version ;
    - `hashtags=#handiplan`.
-   Et sur le lieu, `check_date:wheelchair` à la date du jour, comme StreetComplete.
+   Et sur le lieu, `check_date:<clé>` à la date du jour pour chaque réponse, comme StreetComplete.
 3. **Montrer avant d'envoyer** ce qui va changer, en clair et en étiquettes (« Entrée sans marche →
    `wheelchair=yes` »).
 4. **Questions alignées sur le wiki**, pour ne pas poser de mauvaises étiquettes :
-   - « Entrée sans marche ? » → `wheelchair=yes`. Si non, demander « Une petite marche (7 cm au
-     plus) ou plus haute ? » → `limited` / `no`.
-   - « Toilettes adaptées au fauteuil (porte large, barre d'appui, place pour tourner) ? » →
-     `toilets:wheelchair=yes` / `no`.
+   - « Y a-t-il des marches ? Pour entrer, et à l'intérieur » → « aucune marche » = `wheelchair=yes`,
+     « une petite marche (7 cm au plus, ou dans une partie du lieu) » = `limited`, « plus haute ou un
+     escalier » = `no`. Le wiki définit `yes` pour tout le lieu, pas seulement l'entrée : la question
+     le demande donc.
+   - « Toilettes adaptées (porte large, barre d'appui, place pour tourner) ? » →
+     `toilets:wheelchair=yes` / `no`, ou « Il n'y a pas de toilettes » → `toilets=no` (et pas
+     « non adaptées », qui serait faux).
    - **Aucune question hors des critères du wiki** : « toilettes au rez-de-chaussée », par
      exemple, n'a pas d'étiquette, donc on ne la pose pas.
 5. **Ne jamais écraser une valeur existante sans le dire** : « OpenStreetMap dit *limité*, vous
@@ -151,7 +155,7 @@ sur les toilettes *dans un lieu* (`toilets:wheelchair`).
 
 | Point | État | Détail |
 |---|---|---|
-| Charge sur Overpass | ✅ | Une demande par quartier manquant (≈ 280 m), puis le quartier est gardé 7 jours sur le téléphone ; d'abord le serveur d'OpenStreetMap France, les serveurs internationaux en secours, un à la fois. Usage personnel. |
+| Charge sur Overpass | ✅ | Une seule demande pour tous les quartiers manquants (≈ 280 m chacun), puis le quartier est gardé 7 jours sur le téléphone ; d'abord le serveur d'OpenStreetMap France, les serveurs internationaux en secours, un à la fois. Usage personnel. |
 | Fond de carte | ✅ | Plan IGN, donc pas de charge sur les tuiles d'OSM. |
 | Recherche par nom (Photon) | ✅ | Seulement après 3 lettres et une courte pause, et chaque nouvelle frappe annule la demande précédente. Usage personnel, bien en dessous des limites. |
 
@@ -159,10 +163,13 @@ sur les toilettes *dans un lieu* (`toilets:wheelchair`).
 
 ## 3. Ce qui reste à faire
 
-Il ne reste rien à corriger dans le code. Avant d'écrire sur la vraie carte :
+Le code suit les règles ci-dessus, vérifiées par les tests (unitaires et de bout en bout). Avant
+d'écrire sur la vraie carte :
 
 1. **Répondre sur le forum**, et recueillir les avis sur la contribution depuis l'appli.
 2. **Enregistrer l'appli** sur openstreetmap.org (OAuth 2) et passer `VITE_OSM_URL` sur la vraie
    carte (voir `contribuer-en-test.md`).
 3. **Créer une page wiki « Handiplan »** si l'appli est un jour utilisée par d'autres personnes
    (édition organisée).
+4. **Vérifier sur la vraie carte** que le lien « Modifier sur OpenStreetMap » pré-remplit bien
+   `#handiplan` dans iD (testé seulement dans le code, pas encore sur openstreetmap.org).

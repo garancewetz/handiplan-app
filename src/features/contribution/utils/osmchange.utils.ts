@@ -1,3 +1,5 @@
+import { CREE_PAR } from '~/features/contribution/constants/osm.constants'
+
 // Les messages XML de l'API d'OpenStreetMap (0.6) : ouvrir un groupe de modifications, puis y
 // déposer le lieu modifié. Fonctions pures, testées : l'envoi lui-même est dans osm-edition.api.ts.
 
@@ -26,7 +28,7 @@ const etiquettesXml = (etiquettes: Record<string, string>) =>
  * `surPlace` : la personne répond à ce qu'elle voit (`source=survey`, comme StreetComplete).
  */
 export function xmlGroupe(commentaire: string, surPlace: boolean): string {
-  const etiquettes = { comment: commentaire, created_by: 'Handiplan', hashtags: '#handiplan', ...(surPlace ? { source: 'survey' } : {}) }
+  const etiquettes = { comment: commentaire, created_by: CREE_PAR, hashtags: '#handiplan', ...(surPlace ? { source: 'survey' } : {}) }
   return `<osm><changeset>${etiquettesXml(etiquettes)}</changeset></osm>`
 }
 
@@ -44,7 +46,7 @@ export function xmlModification(element: ElementOsm, groupe: number, etiquettes:
       : element.type === 'way'
         ? `<way ${attributs}>${(element.nodes ?? []).map(n => `<nd ref="${n}"/>`).join('')}${tags}</way>`
         : `<relation ${attributs}>${(element.members ?? []).map(m => `<member type="${m.type}" ref="${m.ref}" role="${echapper(m.role)}"/>`).join('')}${tags}</relation>`
-  return `<osmChange version="0.6" generator="Handiplan"><modify>${corps}</modify></osmChange>`
+  return `<osmChange version="0.6" generator="${CREE_PAR}"><modify>${corps}</modify></osmChange>`
 }
 
 /**
@@ -52,5 +54,5 @@ export function xmlModification(element: ElementOsm, groupe: number, etiquettes:
  * carte n'existent pas), une copie du lieu avec les nouvelles étiquettes.
  */
 export function xmlNouveauPoint(point: { lat: number; lon: number }, groupe: number, etiquettes: Record<string, string>): string {
-  return `<osmChange version="0.6" generator="Handiplan"><create><node id="-1" changeset="${groupe}" lat="${point.lat}" lon="${point.lon}">${etiquettesXml(etiquettes)}</node></create></osmChange>`
+  return `<osmChange version="0.6" generator="${CREE_PAR}"><create><node id="-1" changeset="${groupe}" lat="${point.lat}" lon="${point.lon}">${etiquettesXml(etiquettes)}</node></create></osmChange>`
 }

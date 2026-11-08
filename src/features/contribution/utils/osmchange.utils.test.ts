@@ -4,7 +4,7 @@ import { xmlNouveauPoint, xmlGroupe, xmlModification, type ElementOsm } from '~/
 describe('xmlGroupe', () => {
   it('signe le groupe avec un commentaire clair, l’appli et #handiplan', () => {
     expect(xmlGroupe('Place ajoutée', false)).toBe(
-      '<osm><changeset><tag k="comment" v="Place ajoutée"/><tag k="created_by" v="Handiplan"/><tag k="hashtags" v="#handiplan"/></changeset></osm>',
+      '<osm><changeset><tag k="comment" v="Place ajoutée"/><tag k="created_by" v="Handiplan 0.1"/><tag k="hashtags" v="#handiplan"/></changeset></osm>',
     )
   })
 
@@ -17,7 +17,7 @@ describe('xmlModification', () => {
   it('renvoie le point entier, avec sa version et ses nouvelles étiquettes', () => {
     const cafe: ElementOsm = { type: 'node', id: 42, version: 7, lat: 48.85, lon: 2.35, tags: { name: 'Café & Co' } }
     expect(xmlModification(cafe, 99, { name: 'Café & Co', wheelchair: 'yes' })).toBe(
-      '<osmChange version="0.6" generator="Handiplan"><modify>'
+      '<osmChange version="0.6" generator="Handiplan 0.1"><modify>'
       + '<node id="42" version="7" changeset="99" lat="48.85" lon="2.35"><tag k="name" v="Café &amp; Co"/><tag k="wheelchair" v="yes"/></node>'
       + '</modify></osmChange>',
     )

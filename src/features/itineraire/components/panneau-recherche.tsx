@@ -124,7 +124,7 @@ export function PanneauRecherche({ lieux, recentes, proche, onChoisir, onChoisir
           {/* Un panneau tout vide ne dit pas quoi faire : au premier usage, une phrase et des exemples. */}
           {vide && recentes.length === 0 && (
             <p className="px-2 pb-1 text-xl leading-8">
-              Écrivez une adresse ou le nom d’un lieu, comme « 12 rue de Rivoli » ou « Marlette ».
+              Écrivez une adresse ou le nom d’un lieu, comme « 12 rue de Rivoli », « hôpital Saint-Antoine » ou « Marlette ».
               {dictee.disponible && <span className="block text-doux">Ou touchez le micro pour le dire.</span>}
             </p>
           )}

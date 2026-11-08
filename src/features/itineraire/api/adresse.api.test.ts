@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { lieuxProches, type LieuPhoton } from '~/features/itineraire/api/adresse.api'
 
 const marais = { lat: 48.857, lon: 2.358 }
-const lieu = (name: string, lat: number, lon: number, osm_key = 'amenity', city = 'Paris'): LieuPhoton =>
-  ({ geometry: { coordinates: [lon, lat] }, properties: { name, osm_key, city } })
+const lieu = (name: string, lat: number, lon: number, osm_key = 'amenity', city = 'Paris', osm_value?: string): LieuPhoton =>
+  ({ geometry: { coordinates: [lon, lat] }, properties: { name, osm_key, osm_value, city } })
 
 describe('lieuxProches', () => {
   it('met le lieu du même nom le plus proche en premier, et écarte ceux d’autres villes', () => {
@@ -20,8 +20,32 @@ describe('lieuxProches', () => {
     expect(lieuxProches(resultats, marais, 'amourette').map(s => s.titre)).toEqual(['L’Amourette', 'Amulette'])
   })
 
+  it('trouve tous les lieux où l’on va : gare, hôpital, centre de santé, mairie', () => {
+    const resultats = [
+      lieu('Gare de Lyon', 48.8443, 2.3744, 'railway'),
+      lieu('Hôpital Saint-Antoine', 48.849, 2.384, 'amenity'),
+      lieu('Centre de santé Richerand', 48.871, 2.364, 'healthcare'),
+    ]
+    expect(lieuxProches(resultats, marais)).toHaveLength(3)
+  })
+
+  it('fait passer le nom exact avant un nom plus long, malgré accents et traits d’union', () => {
+    const resultats = [lieu('CeGIDD - Hôpital Saint Antoine - Paris', 48.849, 2.384), lieu('Hôpital Saint-Antoine', 48.849, 2.384)]
+    expect(lieuxProches(resultats, marais, 'hopital saint antoine').map(s => s.titre)).toEqual(['Hôpital Saint-Antoine', 'CeGIDD - Hôpital Saint Antoine - Paris'])
+  })
+
+  it('écarte les points qui portent seulement le nom (taxi, bouche de métro) et les doublons', () => {
+    const resultats = [
+      lieu('Gare de Lyon', 48.8443, 2.3744, 'railway', 'Paris', 'station'),
+      lieu('Gare de Lyon', 48.8445, 2.3740, 'building', 'Paris', 'train_station'),
+      lieu('Hôpital Saint-Antoine', 48.849, 2.384, 'amenity', 'Paris', 'taxi'),
+      lieu('Mairie du 11e', 48.857, 2.379, 'railway', 'Paris', 'subway_entrance'),
+    ]
+    expect(lieuxProches(resultats, marais).map(s => s.titre)).toEqual(['Gare de Lyon'])
+  })
+
   it('ignore les rues et les villes du même nom', () => {
-    expect(lieuxProches([lieu('Rue du Roi', 48.857, 2.358, 'highway')], marais)).toEqual([])
+    expect(lieuxProches([lieu('Rue du Roi', 48.857, 2.358, 'highway'), lieu('Lyon', 45.76, 4.83, 'place')], marais)).toEqual([])
   })
 
   it('dit à quelle distance est le lieu', () => {

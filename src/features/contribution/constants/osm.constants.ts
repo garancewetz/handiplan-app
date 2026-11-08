@@ -12,3 +12,6 @@ export const API_LECTURE = 'https://api.openstreetmap.org/api/0.6'
 
 /** L'identifiant de l'appli enregistrée sur le serveur choisi (Réglages → Applications OAuth 2). */
 export const OSM_CLIENT_ID: string | undefined = import.meta.env.VITE_OSM_CLIENT_ID
+
+/** L'appli et sa version, dans chaque groupe de modifications : la communauté sait d'où vient une erreur. */
+export const CREE_PAR = 'Handiplan 0.1'

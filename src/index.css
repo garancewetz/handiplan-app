@@ -82,3 +82,5 @@ body { @apply bg-papier text-encre font-sans antialiased; }
 .leaflet-container { font-family: inherit; background: #E7E3D8; }
 .fond-calme { filter: saturate(.45) sepia(.12) brightness(1.04); }
 .leaflet-div-icon { background: transparent; border: 0; }
+/* La carte a des coins arrondis : sans marge, le coin rognait la fin de l'attribution. */
+.leaflet-control-attribution.leaflet-control { margin-right: 14px; border-radius: 6px 6px 0 0; }

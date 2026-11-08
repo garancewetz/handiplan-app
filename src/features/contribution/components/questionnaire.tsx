@@ -126,8 +126,8 @@ export function Questionnaire({ lieu, cle, nom, onFermer }: Props) {
       <div className="flex flex-col gap-2.5">
         {question.choix.map(c => (
           <button
-            key={c.valeur}
-            onClick={() => repondre(question.cle, c.valeur)}
+            key={`${c.cle ?? question.cle}=${c.valeur}`}
+            onClick={() => repondre(c.cle ?? question.cle, c.valeur)}
             className="flex shrink-0 flex-col items-start gap-0.5 rounded-[20px] border-2 border-encre/20 bg-white px-4 py-3.5 text-left"
           >
             <span className="text-[21px] font-bold">{c.titre}</span>

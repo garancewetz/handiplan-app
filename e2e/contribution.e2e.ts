@@ -16,7 +16,7 @@ test.describe('Compléter la carte, sur le serveur de test OSM', () => {
     await fiche(page).getByRole('button', { name: 'Modifier ou compléter' }).click()
     await page.getByRole('button', { name: 'Répondre aux questions' }).click()
 
-    await expect(page.getByRole('heading', { name: 'Y a-t-il une marche pour entrer ?' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Y a-t-il des marches ?' })).toBeVisible()
     await page.getByRole('button', { name: /Une petite marche/ }).click()
     await expect(page.getByRole('heading', { name: 'Les toilettes sont-elles adaptées ?' })).toBeVisible()
     await page.getByRole('button', { name: 'Oui', exact: true }).click()
@@ -28,13 +28,30 @@ test.describe('Compléter la carte, sur le serveur de test OSM', () => {
     await expect(page.getByText('C’est fait, merci !')).toBeVisible()
 
     const [creation, envoi] = envoisOsm.map(r => r.postData() ?? '')
-    expect(creation).toContain('<tag k="created_by" v="Handiplan"/>')
+    expect(creation).toContain('<tag k="created_by" v="Handiplan 0.1"/>')
     expect(creation).toContain('<tag k="hashtags" v="#handiplan"/>')
     expect(creation).toContain('<tag k="source" v="survey"/>')
     expect(envoi).toContain('<tag k="wheelchair" v="limited"/>')
     expect(envoi).toContain('<tag k="toilets:wheelchair" v="yes"/>')
     expect(envoi).toMatch(/<tag k="check_date:toilets:wheelchair" v="\d{4}-\d{2}-\d{2}"\/>/)
     expect(envoisOsm.every(r => r.url().startsWith('https://master.apis.dev.openstreetmap.org/'))).toBe(true)
+  })
+
+  test('« pas de toilettes » pose toilets=no, sans juger des toilettes qui n’existent pas', async ({ page, ouvrir, envoisOsm }) => {
+    await connecterOsm(page)
+    await ouvrir()
+    await pastille(page, 'Marlette, attention').click()
+    await fiche(page).getByRole('button', { name: 'Modifier ou compléter' }).click()
+    await page.getByRole('button', { name: 'Répondre aux questions' }).click()
+    await page.getByRole('button', { name: 'Je ne sais pas, passer' }).click()
+    await page.getByRole('button', { name: 'Il n’y a pas de toilettes' }).click()
+
+    await expect(page.getByText('Nouveau : pas de toilettes')).toBeVisible()
+    await page.getByRole('button', { name: 'Oui, modifier' }).click()
+    await expect(page.getByText('C’est fait, merci !')).toBeVisible()
+    const envoi = envoisOsm.map(r => r.postData() ?? '').join('')
+    expect(envoi).toContain('<tag k="toilets" v="no"/>')
+    expect(envoi).not.toContain('<tag k="toilets:wheelchair" v="no"/>')
   })
 
   test('ajouter une place handicapée, après vérification de l’endroit', async ({ page, ouvrir, envoisOsm }) => {

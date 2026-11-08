@@ -10,7 +10,19 @@ const GEOCODEUR_INVERSE = 'https://data.geopf.fr/geocodage/reverse'
 const LIEUX_OSM = 'https://photon.komoot.io/api/'
 // Au-delà, un lieu du même nom est sans doute dans une autre ville.
 const RAYON_LIEUX_M = 20000
-const GENRES_LIEUX = new Set(['amenity', 'shop', 'tourism', 'leisure'])
+// Tous les lieux où l'on peut aller : cafés et magasins, mais aussi hôpital, centre de santé, mairie
+// (amenity, healthcare), gare et métro (railway, public_transport), musée, stade, bureau… Pas les rues
+// ni les villes, que le géocodeur de l'IGN donne déjà.
+const GENRES_LIEUX = new Set([
+  'amenity', 'shop', 'tourism', 'leisure', 'healthcare', 'office', 'railway', 'public_transport',
+  'aeroway', 'historic', 'building', 'club', 'craft', 'emergency', 'sport',
+])
+// Des points qui portent le nom d'un lieu sans en être un : « Hôpital Saint-Antoine » est aussi une
+// station de taxi, « Mairie du 11e » une bouche de métro et une station de vélos.
+const PAS_UNE_DESTINATION = new Set([
+  'taxi', 'bicycle_rental', 'bicycle_parking', 'motorcycle_parking', 'parking_entrance', 'subway_entrance',
+  'stop', 'stop_position', 'platform',
+])
 
 export type Suggestion = Arrivee & {
   /** ligne principale, en gros */
@@ -65,7 +77,7 @@ async function interroger(texte: string, index: 'address' | 'poi', limite: numbe
 
 export type LieuPhoton = {
   geometry: { coordinates: [number, number] }
-  properties: { name?: string; osm_key?: string; city?: string; street?: string }
+  properties: { name?: string; osm_key?: string; osm_value?: string; city?: string; street?: string }
 }
 
 /** Cafés, restaurants, magasins… d'OpenStreetMap dont le nom correspond, du plus proche au plus loin. */
@@ -79,24 +91,29 @@ async function lieuxParNom(texte: string, proche: Point | null, signal?: AbortSi
   return lieuxProches((await reponse.json()).features ?? [], proche, texte)
 }
 
-const simplifier = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+// Sans accents ni ponctuation : « hopital saint antoine » correspond à « Hôpital Saint-Antoine ».
+const simplifier = (s: string) =>
+  s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim()
 
 /**
- * Garde les vrais lieux (pas les rues ni les villes) à moins de 20 km. D'abord ceux dont le nom
+ * Garde les vrais lieux (pas les rues ni les villes), un seul par nom, à moins de 20 km. D'abord ceux dont le nom
  * contient ce qu'on a tapé, puis les noms approchants (Photon tolère les fautes) ; chaque groupe du
  * plus proche au plus loin.
  */
 export function lieuxProches(resultats: LieuPhoton[], proche: Point | null, texte = ''): Suggestion[] {
   const tape = simplifier(texte.trim())
-  const exact = (nom: string) => (tape && simplifier(nom).includes(tape) ? 0 : 1)
+  // D'abord le nom tapé tel quel, puis un nom qui le contient (« CeGIDD - Hôpital Saint-Antoine »).
+  const exact = (nom: string) => (!tape ? 1 : simplifier(nom) === tape ? 0 : simplifier(nom).includes(tape) ? 1 : 2)
   return resultats
-    .filter(r => r.properties.name && GENRES_LIEUX.has(r.properties.osm_key ?? ''))
+    .filter(r => r.properties.name && GENRES_LIEUX.has(r.properties.osm_key ?? '') && !PAS_UNE_DESTINATION.has(r.properties.osm_value ?? ''))
     .map(r => {
       const [lon, lat] = r.geometry.coordinates
       return { r, lat, lon, metres: proche ? distanceMetres(proche, { lat, lon }) : null }
     })
     .filter(({ metres }) => metres === null || metres <= RAYON_LIEUX_M)
     .sort((a, b) => exact(a.r.properties.name!) - exact(b.r.properties.name!) || (a.metres ?? 0) - (b.metres ?? 0))
+    // Une gare est souvent plusieurs objets du même nom (bâtiment, station) : on n'en garde qu'un.
+    .filter(({ r }, i, tous) => tous.findIndex(({ r: autre }) => autre.properties.name === r.properties.name && autre.properties.city === r.properties.city) === i)
     .slice(0, 3)
     .map(({ r, lat, lon, metres }) => {
       const nom = r.properties.name!
@@ -122,7 +139,9 @@ export async function suggerer(texte: string, proche: Point | null, signal?: Abo
   // Des lieux trouvés par leur nom : les lieux publics de l'IGN ne seraient que du bruit
   // (« king falafel » donnait « Résidence Universitaire Martin Luther King »).
   const publics = lieuxOsm.length > 0 ? [] : lieux.filter(pasTropLoin)
-  return [...lieuxOsm, ...adresses, ...publics].filter(s => !vus.has(s.adresse) && vus.add(s.adresse))
+  // De même, « gare de lyon » trouvée tout près : « Rue de la Gare, Lyon » n'est que du bruit.
+  const rues = lieuxOsm.length > 0 ? adresses.filter(pasTropLoin) : adresses
+  return [...lieuxOsm, ...rues, ...publics].filter(s => !vus.has(s.adresse) && vus.add(s.adresse))
 }
 
 export async function chercherAdresse(texte: string, proche: Point | null = null): Promise<Arrivee | null> {

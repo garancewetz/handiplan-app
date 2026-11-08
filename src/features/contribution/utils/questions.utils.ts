@@ -3,24 +3,30 @@ import type { TypeLieu } from '~/types/lieu.types'
 // Les questions posées sur place, une à la fois, comme StreetComplete. Chaque réponse est une valeur
 // du wiki d'OpenStreetMap, rien d'autre (docs/bien-contribuer-a-osm.md, docs/decisions/interface D12).
 
-type Choix = { valeur: string; titre: string; aide?: string }
+/** `cle` : une réponse qui pose une autre étiquette que celle de la question (« pas de toilettes »). */
+type Choix = { valeur: string; titre: string; aide?: string; cle?: string }
 export type Question = { cle: string; question: string; aide?: string; choix: Choix[] }
 
 /**
- * FR:Key:wheelchair : yes = sans marche, limited = marche de 7 cm au plus, no = plus haute. On demande
- * ce qu'on voit (des marches), pas d'imaginer un fauteuil : les valeurs posées restent celles du wiki.
+ * FR:Key:wheelchair : yes = sans marche, à l'entrée et dans tout le lieu ; limited = une marche de
+ * 7 cm au plus, ou une partie du lieu seulement ; no = plus haute. On demande ce qu'on voit (des
+ * marches), pas d'imaginer un fauteuil : les valeurs posées restent celles du wiki.
  */
 const ENTREE: Question = {
   cle: 'wheelchair',
-  question: 'Y a-t-il une marche pour entrer ?',
+  question: 'Y a-t-il des marches ?',
+  aide: 'Pour entrer, et à l’intérieur',
   choix: [
-    { valeur: 'yes', titre: 'Non, aucune marche', aide: 'Ou une rampe' },
-    { valeur: 'limited', titre: 'Une petite marche', aide: '7 cm au plus' },
+    { valeur: 'yes', titre: 'Non, aucune marche', aide: 'Ni à l’entrée, ni dedans (ou une rampe)' },
+    { valeur: 'limited', titre: 'Une petite marche', aide: '7 cm au plus, ou dans une partie du lieu' },
     { valeur: 'no', titre: 'Oui, plus haute', aide: 'Ou un escalier' },
   ],
 }
 
-/** FR:Key:toilets:wheelchair : « yes » suppose porte large, place pour tourner, barre d'appui. */
+/**
+ * FR:Key:toilets:wheelchair : « yes » suppose porte large, place pour tourner, barre d'appui. Sans
+ * toilettes, « non adaptées » serait faux : on pose alors `toilets=no` (FR:Key:toilets).
+ */
 const TOILETTES: Question = {
   cle: 'toilets:wheelchair',
   question: 'Les toilettes sont-elles adaptées ?',
@@ -28,6 +34,7 @@ const TOILETTES: Question = {
   choix: [
     { valeur: 'yes', titre: 'Oui' },
     { valeur: 'no', titre: 'Non' },
+    { valeur: 'no', titre: 'Il n’y a pas de toilettes', cle: 'toilets' },
   ],
 }
 
@@ -52,6 +59,7 @@ export function questionsPour(type: TypeLieu): Question[] {
 const MOTS: Record<string, Record<string, string>> = {
   wheelchair: { yes: 'sans marche', limited: 'une petite marche', no: 'marche haute ou escalier', designated: 'sans marche' },
   'toilets:wheelchair': { yes: 'adaptées', no: 'non adaptées', designated: 'adaptées' },
+  toilets: { yes: 'il y a des toilettes', no: 'pas de toilettes' },
 }
 export const enMots = (cle: string, valeur: string | undefined) =>
   valeur === undefined ? 'on ne sait pas' : MOTS[cle]?.[valeur] ?? valeur
@@ -87,4 +95,5 @@ export function commentaire(reponses: Reponses, type: TypeLieu): string {
 
 /** Une place handicapée, comme le wiki la décrit (FR:Tag:parking_space=disabled). */
 export const ETIQUETTES_PLACE = { amenity: 'parking_space', parking_space: 'disabled' }
-export const COMMENTAIRE_PLACE = 'Place handicapée ajoutée, vue sur place'
+// Une place peut se placer depuis chez soi (pas de `source=survey`) : le commentaire ne prétend pas l'avoir vue.
+export const COMMENTAIRE_PLACE = 'Place handicapée ajoutée'
