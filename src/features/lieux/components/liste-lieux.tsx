@@ -35,27 +35,28 @@ export function Liste({ lieux, onChoisir }: { lieux: Lieu[]; onChoisir: (l: Lieu
           )}
           <button
             onClick={() => onChoisir(l)}
-            className="flex w-full items-start gap-3.5 rounded-[22px] bg-white p-3.5 text-left"
+            className="flex w-full flex-col gap-2.5 rounded-[22px] bg-white p-3.5 text-left"
           >
-            <span aria-hidden className={clsx('flex size-13 shrink-0 items-center justify-center rounded-[18px]', STYLE_ICONE[l.etat])}>
-              <Icone nom={l.type} className="size-8" />
-            </span>
-            {/* Le nom et la distance sur une ligne, l'état dessous sur toute la largeur : il ne se coupe pas. */}
-            <span className="flex min-w-0 flex-1 flex-col gap-2">
-              <span className="flex items-baseline gap-2.5">
-                <b className="line-clamp-2 flex-1 text-[22px] leading-[27px] font-semibold">{l.nom}</b>
-                <span className="text-xl font-bold whitespace-nowrap"><span className="pour-lecteur">à </span>{formaterDistance(l.metres)}</span>
+            {/* L'icône, puis le nom avec la distance dessous : le nom a toute la largeur et se coupe rarement. */}
+            <span className="flex items-center gap-3.5">
+              <span aria-hidden className={clsx('flex size-13 shrink-0 items-center justify-center rounded-[18px]', STYLE_ICONE[l.etat])}>
+                <Icone nom={l.type} className="size-8" />
               </span>
-              {/* Une place s'appelle déjà « Place handicapée » : la redire n'apprendrait rien. */}
-              {l.etat !== 'parking' && (
-                <span className={clsx('flex items-center gap-2 text-lg font-semibold', STATUT[l.etat].texte)}>
-                  <span aria-hidden className={clsx('flex size-6.5 shrink-0 items-center justify-center rounded-full text-[15px] font-bold text-white', STATUT[l.etat].rond)}>
-                    {STATUT[l.etat].symbole}
-                  </span>
-                  {ETIQUETTE[l.etat]}
-                </span>
-              )}
+              <span className="flex min-w-0 flex-1 flex-col">
+                <b className="line-clamp-2 text-[22px] leading-[27px] font-semibold">{l.nom}</b>
+                <span className="text-xl leading-7 text-doux"><span className="pour-lecteur">à </span>{formaterDistance(l.metres)}</span>
+              </span>
             </span>
+            {/* L'état dessous, sur toute la largeur de la carte : « Facile, toilettes adaptées » tient sur une ligne. */}
+            {/* Une place s'appelle déjà « Place handicapée » : la redire n'apprendrait rien. */}
+            {l.etat !== 'parking' && (
+              <span className={clsx('flex items-center gap-2 text-lg font-semibold', STATUT[l.etat].texte)}>
+                <span aria-hidden className={clsx('flex size-6.5 shrink-0 items-center justify-center rounded-full text-[15px] font-bold text-white', STATUT[l.etat].rond)}>
+                  {STATUT[l.etat].symbole}
+                </span>
+                {ETIQUETTE[l.etat]}
+              </span>
+            )}
           </button>
         </li>
       ))}

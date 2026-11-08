@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { chargerParQuartiers } from '~/features/lieux/api/quartiers.api'
 import type { Garde, Stockage } from '~/features/lieux/api/stockage-quartiers.api'
-import { cleZone } from '~/features/lieux/utils/zones.utils'
+import { cleZone, zonesAutour } from '~/features/lieux/utils/zones.utils'
 
 // Un localStorage en mémoire, pour le ménage de l'ancienne forme : les tests tournent sans navigateur.
 const ancien = new Map<string, string>()
@@ -47,6 +47,16 @@ describe('chargerParQuartiers', () => {
     const charger = vi.fn(async () => [{ lat: 48.8562, lon: 2.3562 }, { lat: 48.8563, lon: 2.3563 }])
     expect(await chargerParQuartiers(options(charger))).toHaveLength(1)
     await vi.waitFor(() => expect(gardes.get(cle)?.donnees).toHaveLength(2))
+  })
+
+  it('ne donne pas deux fois un lieu d’un quartier gardé que le rectangle chargé recouvre', async () => {
+    const autour = { ...options(async () => []), rayon: 300 }
+    const cles = zonesAutour(centre, autour.rayon)
+    const cafe = { lat: 48.8562, lon: 2.3562 }
+    // Tous les quartiers sont gardés, sauf un ; celui du café est gardé, et le rectangle le recouvre.
+    for (const c of cles.slice(1)) gardes.set(`essai:${c}`, { date: Date.now(), donnees: c === cleZone(cafe.lat, cafe.lon) ? [cafe] : [] })
+    const lieux = await chargerParQuartiers({ ...autour, charger: async () => [cafe] })
+    expect(lieux).toEqual([cafe])
   })
 
   it('donne quand même les lieux si le téléphone ne peut pas les garder', async () => {

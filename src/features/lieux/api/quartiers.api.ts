@@ -35,12 +35,14 @@ function faireLeMenage() {
 }
 
 async function chargerEtGarder<T>({ jeu, charger, position, stockage }: Options<T>, cles: string[]) {
-  const elements = await charger(rectangleZones(cles))
+  const parZone = repartir(await charger(rectangleZones(cles)), cles, position)
   const date = Date.now()
-  const entrees = [...repartir(elements, cles, position)].map(([cle, liste]): [string, Garde] => [`${jeu}:${cle}`, { date, donnees: liste }])
+  const entrees = [...parZone].map(([cle, liste]): [string, Garde] => [`${jeu}:${cle}`, { date, donnees: liste }])
   // Garder est un plus : si la base refuse (pleine, indisponible), on a quand même les lieux.
   await stockage?.ecrire(entrees).catch(() => {})
-  return elements
+  // Seulement les quartiers demandés : le rectangle peut couvrir un quartier déjà gardé, dont les
+  // lieux sont déjà dans la liste (ils apparaissaient en double).
+  return [...parZone.values()].flat()
 }
 
 /**
