@@ -1,0 +1,17 @@
+{
+  "name": "Handiplan",
+  "short_name": "Handiplan",
+  "description": "Les lieux avec toilettes adaptées et les places handicapées autour de vous.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F1EA",
+  "theme_color": "#F4F1EA",
+  "icons": [
+    { "src": "/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icone.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

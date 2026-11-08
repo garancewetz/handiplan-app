@@ -1,0 +1,39 @@
+name: CI
+
+# La CI fait foi : lint, typage, tests, build et tests de bout en bout doivent passer avant de publier.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  bout-en-bout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: rapport-playwright
+          path: playwright-report

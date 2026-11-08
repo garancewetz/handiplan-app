@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Le manifeste doit être servi avec le bon type pour que l'iPhone et Android proposent l'installation.
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"

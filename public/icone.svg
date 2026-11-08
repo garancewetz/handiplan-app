@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fond vert mousse (thème Jardin) -->
+  <rect width="512" height="512" fill="#3F6B3A"/>
+  <!-- Clin d'œil au drapeau de la fierté handicapée : 5 bandes en diagonale dans le coin -->
+  <g>
+    <polygon points="300,0 322,0 512,190 512,212" fill="#CF7280"/>
+    <polygon points="322,0 344,0 512,168 512,190" fill="#EEDE77"/>
+    <polygon points="344,0 366,0 512,146 512,168" fill="#E8E8E8"/>
+    <polygon points="366,0 388,0 512,124 512,146" fill="#7BC2E0"/>
+    <polygon points="388,0 410,0 512,102 512,124" fill="#3BB07D"/>
+  </g>
+  <!-- Repère de carte -->
+  <path d="M256 92c-70 0-126 55-126 124 0 92 126 210 126 210s126-118 126-210c0-69-56-124-126-124z" fill="#F4F1EA"/>
+  <circle cx="256" cy="214" r="52" fill="#3F6B3A"/>
+</svg>

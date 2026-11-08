@@ -1,0 +1,45 @@
+name: Prepared data
+
+# Prepares accessible places and disabled parking spaces for all of France and publishes them to a
+# Netlify site. CURRENTLY OFF: the app no longer reads prepared data, so this only runs by hand from
+# the Actions tab (it used to run every Monday). Secrets needed: NETLIFY_AUTH_TOKEN, NETLIFY_DATA_SITE_ID.
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install osmium
+        run: sudo apt-get update && sudo apt-get install -y osmium-tool
+      # Geofabrik publishes daily OpenStreetMap extracts: no Overpass, no rate limits.
+      - name: Extract places from OpenStreetMap
+        run: |
+          set -euo pipefail
+          mkdir -p osm
+          for region in europe/france europe/france/guadeloupe europe/france/martinique \
+                        europe/france/guyane europe/france/reunion europe/france/mayotte; do
+            name=$(basename "$region")
+            curl -sSfL -o "osm/$name.osm.pbf" "https://download.geofabrik.de/$region-latest.osm.pbf"
+            # Broad filter here; scripts/lib/prepare.mjs applies the exact criteria.
+            osmium tags-filter "osm/$name.osm.pbf" \
+              nwr/parking_space=disabled nwr/capacity:disabled \
+              nwr/amenity=toilets,cafe,restaurant,fast_food,bar,pub nwr/shop \
+              -o "osm/$name.filtered.osm.pbf"
+            osmium export "osm/$name.filtered.osm.pbf" -f geojsonseq --add-unique-id=type_id \
+              --format-option print_record_separator=false -o "osm/$name.geojsonseq"
+            rm "osm/$name.osm.pbf" "osm/$name.filtered.osm.pbf"
+          done
+      - name: Prepare zones
+        run: node scripts/prepare-data.mjs --osm "$(ls osm/*.geojsonseq | paste -sd, -)" --out data-out
+      # --no-build: publish the folder as is (the repo's netlify.toml is for the app, not the data).
+      - name: Publish to Netlify
+        run: npx --yes netlify-cli@27.14.2 deploy --prod --no-build --dir data-out --site "$NETLIFY_DATA_SITE_ID" --message "Data of $(date +%F)"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_DATA_SITE_ID: ${{ secrets.NETLIFY_DATA_SITE_ID }}
