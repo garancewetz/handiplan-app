@@ -9,6 +9,8 @@ Handiplan est un projet personnel, fait pour une proche après un AVC (un côté
 main, elle marche). La question à laquelle l'appli répond : « est-ce que c'est galère d'y aller ? ».
 Pourquoi cette appli plutôt qu'une autre : [docs/pourquoi-handiplan.md](docs/pourquoi-handiplan.md).
 
+**L'essayer : [handiplan.garancewetz.dev](https://handiplan.garancewetz.dev)** (sur un téléphone, de préférence).
+
 ## Ce que fait l'appli
 
 - **Autour de soi** : une carte et une liste des cafés, restaurants et toilettes publiques, les plus
