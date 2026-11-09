@@ -100,7 +100,7 @@ function reunir(o: Lieu, a: Lieu): Lieu {
  * « EATALY PARIS MARAIS » en Restauration rapide) : on les réunit comme OSM et Acceslibre, la fiche qui
  * sait l'emportant sur celle qui ne sait pas. On part de celle qui en sait le plus.
  */
-export function unParLieu(lieux: Lieu[]): Lieu[] {
+function unParLieu(lieux: Lieu[]): Lieu[] {
   const savoir = (l: Lieu) => (sait(l, 'entree') ? 1 : 0) + (sait(l, 'toilettes') ? 1 : 0)
   const tries = [...lieux].sort((x, y) => savoir(y) - savoir(x) || y.lignes.length - x.lignes.length)
   return regrouper(tries.map(candidat)).map(([premier, ...autres]) =>

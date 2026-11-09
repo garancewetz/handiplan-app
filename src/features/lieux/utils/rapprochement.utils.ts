@@ -184,10 +184,10 @@ export function memeAdresse(a?: Candidat['adresse'], b?: Candidat['adresse']): b
 // les deux bases ne notent pas toujours le même numéro). Un seul mot commun, quand chacun a d'autres mots
 // (« Little Boston » et « Boston », « Café du Marais » et « Kyo Marais »), est une preuve faible : à 15 m au
 // plus, ou à la même adresse.
-export const TOUT_PRES_M = 15
-export const PROCHE_M = 40
-export const MEME_ADRESSE_M = 80
-export const MEME_NOM_M = 100
+const TOUT_PRES_M = 15
+const PROCHE_M = 40
+const MEME_ADRESSE_M = 80
+const MEME_NOM_M = 100
 
 /**
  * Ce qui fait croire que c'est le même lieu, ou 0 si ce n'en est pas un : plus c'est grand, plus c'est sûr.

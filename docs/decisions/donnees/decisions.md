@@ -304,7 +304,8 @@ indices, comme le site web ou le téléphone, ou des paires vérifiées sur plac
 - à la même adresse, un mot de l'endroit en commun (« Brique House Bordeaux » et « Fuxia Bordeaux ») ;
 - un café et un hôtel du même nom (« Café Rohan » et « Hôtel Rohan »).
 
-Les cinq endroits du lot 3 ne sont pas dans les tests : ils restent pour mesurer la prochaine version.
+Les cinq endroits du lot 3 ne sont pas dans les tests : ils sont gardés à part (`mocks/rapprochement/controle`)
+pour mesurer la prochaine version.
 
 **Écarté, à dessein** : retrouver « Buon Gusto » / « Bon Gusto », « Le Bistrot » / « Le bistrot
 Sarlat », « O'Tacos » / « O'Tacos Montreuil » (une chaîne et une ville), « Le Corneille », rue Corneille. Il faudrait tolérer davantage, au risque de réunir deux lieux différents : on préfère rater

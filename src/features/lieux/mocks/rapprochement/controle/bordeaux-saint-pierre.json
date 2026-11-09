@@ -1,0 +1,7171 @@
+{
+"zone": "bordeaux-saint-pierre",
+"centre": {
+"lat": 44.84,
+"lon": -0.572
+},
+"rayon": 500,
+"telecharge": "2026-11-09",
+"osm": [
+{
+"type": "node",
+"id": 447976441,
+"lat": 44.8440041,
+"lon": -0.5708803,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Allée d'Orleans",
+"amenity": "restaurant",
+"name": "La Belle Époque",
+"toilets:wheelchair": "no",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 568265889,
+"lat": 44.8410609,
+"lon": -0.5744708,
+"tags": {
+"amenity": "fast_food",
+"name": "McDonald's"
+}
+},
+{
+"type": "node",
+"id": 573417737,
+"lat": 44.8438895,
+"lon": -0.5742405,
+"tags": {
+"amenity": "toilets",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 573429681,
+"lat": 44.8442311,
+"lon": -0.574051,
+"tags": {
+"amenity": "cafe",
+"name": "Chez Jean"
+}
+},
+{
+"type": "node",
+"id": 581993493,
+"lat": 44.8443083,
+"lon": -0.5739587,
+"tags": {
+"amenity": "toilets",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 603773613,
+"lat": 44.8428176,
+"lon": -0.5781398,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue Montesquieu",
+"amenity": "restaurant",
+"name": "Le Chapon Fin",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 610401592,
+"lat": 44.8423008,
+"lon": -0.5722518,
+"tags": {
+"amenity": "toilets",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 686670644,
+"lat": 44.8414283,
+"lon": -0.575174,
+"tags": {
+"amenity": "restaurant",
+"name": "Chez Alex"
+}
+},
+{
+"type": "node",
+"id": 923140384,
+"lat": 44.8387207,
+"lon": -0.5670326,
+"tags": {
+"amenity": "toilets",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 923140388,
+"lat": 44.838916,
+"lon": -0.5671979,
+"tags": {
+"amenity": "cafe",
+"name": "Café Lunaire"
+}
+},
+{
+"type": "node",
+"id": 930762038,
+"lat": 44.837711,
+"lon": -0.5672736,
+"tags": {
+"amenity": "restaurant",
+"name": "L'Hirondelle"
+}
+},
+{
+"type": "node",
+"id": 930818083,
+"lat": 44.8422563,
+"lon": -0.5713592,
+"tags": {
+"amenity": "cafe",
+"name": "Aéro"
+}
+},
+{
+"type": "node",
+"id": 933747024,
+"lat": 44.8357965,
+"lon": -0.5734162,
+"tags": {
+"addr:housenumber": "164",
+"addr:street": "Rue Sainte-Catherine",
+"amenity": "cafe",
+"name": "Cotti Coffee"
+}
+},
+{
+"type": "node",
+"id": 1102737806,
+"lat": 44.840396,
+"lon": -0.571535,
+"tags": {
+"addr:housenumber": "25",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "pub",
+"name": "La Comtesse"
+}
+},
+{
+"type": "node",
+"id": 1166981920,
+"lat": 44.8372816,
+"lon": -0.5716937,
+"tags": {
+"addr:housenumber": "19",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "bar",
+"name": "L'Apollo"
+}
+},
+{
+"type": "node",
+"id": 1166981923,
+"lat": 44.8371233,
+"lon": -0.5715283,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "restaurant",
+"name": "Le Santosha",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 1175054867,
+"lat": 44.8379392,
+"lon": -0.5676541,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "pub",
+"name": "Sweeney Todd's",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 1228560248,
+"lat": 44.8401324,
+"lon": -0.5705691,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Place Saint-Pierre",
+"amenity": "restaurant",
+"name": "La Terrasse Saint-Pierre",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 1228567701,
+"lat": 44.840097,
+"lon": -0.570452,
+"tags": {
+"addr:housenumber": "1",
+"addr:street": "Impasse Saint Pierre",
+"amenity": "restaurant",
+"name": "La talenquère",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 1345277657,
+"lat": 44.84241,
+"lon": -0.5762373,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Passage Sarget",
+"amenity": "cafe",
+"name": "Any'Teas"
+}
+},
+{
+"type": "node",
+"id": 1345282196,
+"lat": 44.838875,
+"lon": -0.573759,
+"tags": {
+"amenity": "fast_food",
+"name": "Elysée Doner Kebab"
+}
+},
+{
+"type": "node",
+"id": 1345283623,
+"lat": 44.839592,
+"lon": -0.5705993,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue des Bahutiers",
+"amenity": "fast_food",
+"name": "Cappadoce",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 1345283871,
+"lat": 44.8394264,
+"lon": -0.5704967,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue des Bahutiers",
+"amenity": "fast_food",
+"name": "Six",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 1361457587,
+"lat": 44.8365024,
+"lon": -0.571429,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Rue Saint-James",
+"amenity": "bar",
+"name": "Bar Jeux Barjo"
+}
+},
+{
+"type": "node",
+"id": 1428378627,
+"lat": 44.840914,
+"lon": -0.571978,
+"tags": {
+"amenity": "restaurant",
+"name": "Coq Hibou",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 1456898997,
+"lat": 44.8363526,
+"lon": -0.5759082,
+"tags": {
+"addr:housenumber": "23",
+"addr:street": "Rue Duffour Dubergier",
+"amenity": "pub",
+"name": "The Cock And Bull"
+}
+},
+{
+"type": "node",
+"id": 1484524772,
+"lat": 44.8389182,
+"lon": -0.5731494,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Rue Saint-Siméon",
+"amenity": "restaurant",
+"name": "Café Japonais"
+}
+},
+{
+"type": "node",
+"id": 1841026038,
+"lat": 44.8374597,
+"lon": -0.5764954,
+"tags": {
+"addr:street": "Place Pey Berland",
+"amenity": "cafe",
+"name": "Basta Kiosque"
+}
+},
+{
+"type": "node",
+"id": 1879677981,
+"lat": 44.8432713,
+"lon": -0.5742017,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Cours du XXX Juillet",
+"amenity": "restaurant",
+"name": "L'Entrecôte",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 1879700558,
+"lat": 44.8390301,
+"lon": -0.5713676,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue Maucoudinat",
+"amenity": "restaurant",
+"name": "Artusi"
+}
+},
+{
+"type": "node",
+"id": 1918787917,
+"lat": 44.8421821,
+"lon": -0.5718287,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Cours du Chapeau Rouge",
+"amenity": "restaurant",
+"name": "Artis"
+}
+},
+{
+"type": "node",
+"id": 1928803088,
+"lat": 44.8404243,
+"lon": -0.5719779,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Place du Parlement",
+"amenity": "restaurant",
+"name": "Karl",
+"toilets:wheelchair": "yes",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 1982605208,
+"lat": 44.8368725,
+"lon": -0.5716614,
+"tags": {
+"amenity": "fast_food",
+"name": "Bimbo"
+}
+},
+{
+"type": "node",
+"id": 2229051438,
+"lat": 44.8409557,
+"lon": -0.5736231,
+"tags": {
+"addr:housenumber": "23",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "bar",
+"name": "Cépages & Fromages"
+}
+},
+{
+"type": "node",
+"id": 2231859760,
+"lat": 44.841293,
+"lon": -0.5731941,
+"tags": {
+"amenity": "restaurant",
+"name": "Le Bistro Régent"
+}
+},
+{
+"type": "node",
+"id": 2238415795,
+"lat": 44.8386466,
+"lon": -0.5744252,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Place Saint-Projet",
+"amenity": "cafe",
+"name": "Le Saint Projet"
+}
+},
+{
+"type": "node",
+"id": 2238427757,
+"lat": 44.8378644,
+"lon": -0.5754935,
+"tags": {
+"addr:housenumber": "81, 83",
+"addr:street": "Rue du Loup",
+"amenity": "restaurant",
+"name": "Le Cheverus Café",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 2238491966,
+"lat": 44.8389004,
+"lon": -0.5750142,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue des Trois Conils",
+"amenity": "fast_food",
+"name": "Bunami"
+}
+},
+{
+"type": "node",
+"id": 2238491979,
+"lat": 44.8386475,
+"lon": -0.5763043,
+"tags": {
+"addr:housenumber": "28",
+"addr:street": "Rue Père Louis de Jabrun",
+"amenity": "cafe",
+"name": "Couleur Café"
+}
+},
+{
+"type": "node",
+"id": 2238492007,
+"lat": 44.838576,
+"lon": -0.5769695,
+"tags": {
+"addr:housenumber": "46",
+"addr:street": "Rue des Trois Conils",
+"amenity": "cafe",
+"name": "Suzzi",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 2282194142,
+"lat": 44.8392933,
+"lon": -0.5700786,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue des Argentiers",
+"amenity": "cafe",
+"name": "Cafeincup"
+}
+},
+{
+"type": "node",
+"id": 2353105920,
+"lat": 44.8412443,
+"lon": -0.5720269,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Nom d'Une Crepe",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 2353105960,
+"lat": 44.841301,
+"lon": -0.5731075,
+"tags": {
+"addr:housenumber": "51",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "La Saint-Georges"
+}
+},
+{
+"type": "node",
+"id": 2353174675,
+"lat": 44.841375,
+"lon": -0.5718545,
+"tags": {
+"addr:housenumber": "25",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "OAKBERRY AÇAI"
+}
+},
+{
+"type": "node",
+"id": 2353659441,
+"lat": 44.840337,
+"lon": -0.5705248,
+"tags": {
+"addr:housenumber": "14-16",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Da Bartolo"
+}
+},
+{
+"type": "node",
+"id": 2353659455,
+"lat": 44.8403901,
+"lon": -0.5706162,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Osteria Pizzeria da Bartolo"
+}
+},
+{
+"type": "node",
+"id": 2353659478,
+"lat": 44.8403356,
+"lon": -0.5706394,
+"tags": {
+"addr:housenumber": "17",
+"amenity": "restaurant",
+"name": "Le Rajwal"
+}
+},
+{
+"type": "node",
+"id": 2353659488,
+"lat": 44.8402684,
+"lon": -0.5705575,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Ottoman",
+"toilets:wheelchair": "no",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 2353659519,
+"lat": 44.8406946,
+"lon": -0.5703634,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Le Grill au Thym"
+}
+},
+{
+"type": "node",
+"id": 2353659535,
+"lat": 44.8405389,
+"lon": -0.5732745,
+"tags": {
+"addr:housenumber": "20",
+"addr:street": "Rue du Parlement Sainte-Catherine",
+"amenity": "restaurant",
+"name": "Yumyum"
+}
+},
+{
+"type": "node",
+"id": 2353659546,
+"lat": 44.8402748,
+"lon": -0.5706693,
+"tags": {
+"addr:housenumber": "19",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Les Fils à Maman"
+}
+},
+{
+"type": "node",
+"id": 2353659705,
+"lat": 44.8398772,
+"lon": -0.569592,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue de la Cour des Aides",
+"amenity": "restaurant",
+"name": "Capperi Pizzaioli Italiani"
+}
+},
+{
+"type": "node",
+"id": 2353659711,
+"lat": 44.8407225,
+"lon": -0.5704868,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Lume"
+}
+},
+{
+"type": "node",
+"id": 2353659743,
+"lat": 44.8403731,
+"lon": -0.571649,
+"tags": {
+"addr:housenumber": "34",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "restaurant",
+"name": "Jako"
+}
+},
+{
+"type": "node",
+"id": 2353659824,
+"lat": 44.840677,
+"lon": -0.5704987,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Bacchus"
+}
+},
+{
+"type": "node",
+"id": 2353659829,
+"lat": 44.8409401,
+"lon": -0.5708685,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue du Puits Descujols",
+"amenity": "restaurant",
+"name": "Koh I Noor"
+}
+},
+{
+"type": "node",
+"id": 2353659885,
+"lat": 44.8405986,
+"lon": -0.5704048,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Mélodie"
+}
+},
+{
+"type": "node",
+"id": 2353660005,
+"lat": 44.8401765,
+"lon": -0.5707195,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Rue du Parlement Sainte-Catherine",
+"amenity": "cafe",
+"name": "Cafecito"
+}
+},
+{
+"type": "node",
+"id": 2353660020,
+"lat": 44.8406174,
+"lon": -0.5705243,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Les Voûtes"
+}
+},
+{
+"type": "node",
+"id": 2373672267,
+"lat": 44.8426619,
+"lon": -0.5740336,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Place de la Comédie",
+"amenity": "restaurant",
+"name": "Le Quatrième Mur"
+}
+},
+{
+"type": "node",
+"id": 2385436370,
+"lat": 44.8421595,
+"lon": -0.5722407,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Cours du Chapeau Rouge",
+"amenity": "restaurant",
+"name": "Elio's"
+}
+},
+{
+"type": "node",
+"id": 2463788303,
+"lat": 44.838866,
+"lon": -0.570708,
+"tags": {
+"addr:housenumber": "27",
+"addr:street": "Rue des Bahutiers",
+"amenity": "bar",
+"name": "Judor - Bar & cave à Cidres"
+}
+},
+{
+"type": "node",
+"id": 2463795332,
+"lat": 44.8380199,
+"lon": -0.5715142,
+"tags": {
+"addr:housenumber": "19",
+"addr:street": "Rue du Cerf Volant",
+"amenity": "restaurant",
+"name": "El Chivito"
+}
+},
+{
+"type": "node",
+"id": 2465172780,
+"lat": 44.8379608,
+"lon": -0.5675762,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "cafe",
+"name": "Cafe 750"
+}
+},
+{
+"type": "node",
+"id": 2465172814,
+"lat": 44.8372278,
+"lon": -0.5767826,
+"tags": {
+"addr:housenumber": "27",
+"addr:street": "Place Pey Berland",
+"amenity": "cafe",
+"name": "Black List",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 2485601499,
+"lat": 44.836865,
+"lon": -0.5721129,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Rue des Ayres",
+"amenity": "fast_food",
+"name": "ASAP Pizza"
+}
+},
+{
+"type": "node",
+"id": 2518438996,
+"lat": 44.8355471,
+"lon": -0.5716573,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue de Guienne",
+"amenity": "restaurant",
+"name": "Les Négociants"
+}
+},
+{
+"type": "node",
+"id": 2529154764,
+"lat": 44.8397188,
+"lon": -0.5721485,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Michel's",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 2546928936,
+"lat": 44.838722,
+"lon": -0.5725748,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Place Camille Jullian",
+"amenity": "restaurant",
+"name": "Simeone dell'Arte",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 2567662967,
+"lat": 44.8358773,
+"lon": -0.5692951,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Rue des Boucheries",
+"amenity": "bar",
+"name": "Galipette",
+"toilets:wheelchair": "no",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 2567697000,
+"lat": 44.8377356,
+"lon": -0.575487,
+"tags": {
+"addr:housenumber": "42",
+"addr:street": "Rue de Cheverus",
+"amenity": "bar",
+"name": "Le Fiacre"
+}
+},
+{
+"type": "node",
+"id": 2567785079,
+"lat": 44.8378195,
+"lon": -0.5673341,
+"tags": {
+"addr:housenumber": "41",
+"addr:street": "Quai Richelieu",
+"amenity": "restaurant",
+"name": "La Tanière"
+}
+},
+{
+"type": "node",
+"id": 2567785354,
+"lat": 44.8377641,
+"lon": -0.5680961,
+"tags": {
+"amenity": "pub",
+"name": "The Frog And Rosbif",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 2567786022,
+"lat": 44.8383899,
+"lon": -0.5695982,
+"tags": {
+"addr:housenumber": "19",
+"addr:street": "Place du Palais",
+"amenity": "bar",
+"name": "Chez Fred"
+}
+},
+{
+"type": "node",
+"id": 2567788262,
+"lat": 44.8399865,
+"lon": -0.5693662,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Quai de la Douane",
+"amenity": "pub",
+"name": "Charles Dickens"
+}
+},
+{
+"type": "node",
+"id": 2895814501,
+"lat": 44.840706,
+"lon": -0.572348,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Place du Parlement",
+"amenity": "restaurant",
+"name": "Totto",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 2895913001,
+"lat": 44.840919,
+"lon": -0.572109,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Place du Parlement",
+"amenity": "restaurant",
+"name": "L'Ombriere",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 2895917401,
+"lat": 44.840713,
+"lon": -0.571717,
+"tags": {
+"addr:housenumber": "1",
+"addr:street": "Place du Parlement",
+"amenity": "restaurant",
+"name": "Le Mascaron"
+}
+},
+{
+"type": "node",
+"id": 2895923301,
+"lat": 44.840846,
+"lon": -0.572389,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Place du Parlement",
+"amenity": "restaurant",
+"name": "L'Autre Petit Bois",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 2895947201,
+"lat": 44.839915,
+"lon": -0.57083,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Place Saint-Pierre",
+"amenity": "restaurant",
+"name": "Les Vaillants Père & Fils"
+}
+},
+{
+"type": "node",
+"id": 2896958001,
+"lat": 44.8370579,
+"lon": -0.5783328,
+"tags": {
+"addr:housenumber": "35B",
+"addr:street": "Place Pey Berland",
+"amenity": "restaurant",
+"name": "O Marie Annie"
+}
+},
+{
+"type": "node",
+"id": 2897023304,
+"lat": 44.843602,
+"lon": -0.573893,
+"tags": {
+"addr:housenumber": "40",
+"addr:street": "Allées d'Orléans",
+"amenity": "restaurant",
+"name": "Backyard"
+}
+},
+{
+"type": "node",
+"id": 2897666120,
+"lat": 44.839121,
+"lon": -0.569794,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Rue des Argentiers",
+"amenity": "pub",
+"name": "El Pata Negra"
+}
+},
+{
+"type": "node",
+"id": 2897681001,
+"lat": 44.8390556,
+"lon": -0.5698975,
+"tags": {
+"amenity": "restaurant",
+"name": "La Petite Savoie"
+}
+},
+{
+"type": "node",
+"id": 2897710401,
+"lat": 44.838308,
+"lon": -0.569663,
+"tags": {
+"addr:housenumber": "17",
+"addr:street": "Place du Palais",
+"amenity": "bar",
+"name": "Le Sur Mesure"
+}
+},
+{
+"type": "node",
+"id": 2897710402,
+"lat": 44.8381921,
+"lon": -0.5694648,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Place du Palais",
+"amenity": "restaurant",
+"name": "Bistrot Cul Sec",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 2897718201,
+"lat": 44.8381117,
+"lon": -0.5695984,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Place du Palais",
+"amenity": "bar",
+"name": "La Solera"
+}
+},
+{
+"type": "node",
+"id": 2932703628,
+"lat": 44.8372545,
+"lon": -0.5667134,
+"tags": {
+"addr:housenumber": "56",
+"addr:street": "Quai Richelieu",
+"amenity": "pub",
+"name": "The Ramblin' Man",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 2950620804,
+"lat": 44.8405425,
+"lon": -0.5704207,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Pita Pita"
+}
+},
+{
+"type": "node",
+"id": 2953791457,
+"lat": 44.8418273,
+"lon": -0.5753808,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Rue Louis Combes",
+"amenity": "cafe",
+"name": "l'Épicerie Bistro"
+}
+},
+{
+"type": "node",
+"id": 2973129363,
+"lat": 44.8388548,
+"lon": -0.5687198,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Rue du Chai des Farines",
+"amenity": "pub",
+"name": "Ambrosia"
+}
+},
+{
+"type": "node",
+"id": 3027465883,
+"lat": 44.8393919,
+"lon": -0.5700009,
+"tags": {
+"amenity": "cafe",
+"name": "Seven tea's"
+}
+},
+{
+"type": "node",
+"id": 3027465886,
+"lat": 44.8399356,
+"lon": -0.56976,
+"tags": {
+"addr:housenumber": "17",
+"addr:street": "Rue Emile Duploye",
+"amenity": "restaurant",
+"name": "Aphrodite"
+}
+},
+{
+"type": "node",
+"id": 3027476266,
+"lat": 44.8395364,
+"lon": -0.5704338,
+"tags": {
+"amenity": "restaurant",
+"name": "Istanbul Café",
+"toilets:wheelchair": "no",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 3027523762,
+"lat": 44.8395727,
+"lon": -0.569237,
+"tags": {
+"amenity": "bar",
+"name": "Chez Marcel et Lilly"
+}
+},
+{
+"type": "node",
+"id": 3109654281,
+"lat": 44.8384344,
+"lon": -0.568492,
+"tags": {
+"addr:street": "Rue Ausone",
+"amenity": "restaurant",
+"name": "Le Plat dans l'Assiette"
+}
+},
+{
+"type": "node",
+"id": 3329834694,
+"lat": 44.8386746,
+"lon": -0.5692483,
+"tags": {
+"addr:housenumber": "23-24",
+"addr:street": "Place du Palais",
+"amenity": "cafe",
+"name": "Les Frères Cailloux"
+}
+},
+{
+"type": "node",
+"id": 3329834698,
+"lat": 44.8381288,
+"lon": -0.5698465,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Place du Palais",
+"amenity": "cafe",
+"name": "Momone"
+}
+},
+{
+"type": "node",
+"id": 3336589773,
+"lat": 44.8406289,
+"lon": -0.5729845,
+"tags": {
+"addr:housenumber": "11",
+"addr:street": "Rue du Parlement Sainte-Catherine",
+"amenity": "pub",
+"name": "The Houses Of Parliament",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 3362693093,
+"lat": 44.8370086,
+"lon": -0.5669786,
+"tags": {
+"addr:housenumber": "68",
+"addr:street": "Rue de la Rousselle",
+"amenity": "cafe",
+"name": "Mediacafe au Calice du Dragon"
+}
+},
+{
+"type": "node",
+"id": 3602458212,
+"lat": 44.8383488,
+"lon": -0.5756187,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Rue de Cheverus",
+"amenity": "bar",
+"name": "Magnus"
+}
+},
+{
+"type": "node",
+"id": 3638955966,
+"lat": 44.8359835,
+"lon": -0.5694249,
+"tags": {
+"addr:housenumber": "64",
+"addr:street": "Rue Bouquière",
+"amenity": "restaurant",
+"name": "Papin"
+}
+},
+{
+"type": "node",
+"id": 3657646879,
+"lat": 44.8391653,
+"lon": -0.5719253,
+"tags": {
+"addr:housenumber": "40",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "fast_food",
+"name": "Coluche",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 3701199651,
+"lat": 44.8437094,
+"lon": -0.5747913,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Cours du XXX Juillet",
+"amenity": "restaurant",
+"name": "Bar à Vin"
+}
+},
+{
+"type": "node",
+"id": 3706811437,
+"lat": 44.8409222,
+"lon": -0.5722406,
+"tags": {
+"addr:housenumber": "43",
+"addr:street": "Place du Parlement",
+"amenity": "cafe",
+"name": "L'Ombriere",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 3796890459,
+"lat": 44.8387621,
+"lon": -0.5695451,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Rue des Argentiers",
+"amenity": "restaurant",
+"name": "Filoche"
+}
+},
+{
+"type": "node",
+"id": 3806604168,
+"lat": 44.8398987,
+"lon": -0.5752091,
+"tags": {
+"amenity": "fast_food",
+"name": "McDonald's"
+}
+},
+{
+"type": "node",
+"id": 3816866938,
+"lat": 44.8426105,
+"lon": -0.57484,
+"tags": {
+"addr:street": "Place de la Comédie",
+"amenity": "restaurant",
+"name": "Le Bordeaux"
+}
+},
+{
+"type": "node",
+"id": 4002232196,
+"lat": 44.8373409,
+"lon": -0.5704411,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "restaurant",
+"name": "Les Récoltants"
+}
+},
+{
+"type": "node",
+"id": 4003456886,
+"lat": 44.8368604,
+"lon": -0.5732729,
+"tags": {
+"addr:housenumber": "24",
+"addr:street": "Rue des Ayres",
+"amenity": "cafe",
+"name": "Verde Nero"
+}
+},
+{
+"type": "node",
+"id": 4235276870,
+"lat": 44.8380233,
+"lon": -0.5721172,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue du Loup",
+"amenity": "fast_food",
+"name": "Funky Burger",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 4258420808,
+"lat": 44.8360311,
+"lon": -0.5673788,
+"tags": {
+"addr:housenumber": "21",
+"addr:street": "Cours Victor Hugo",
+"amenity": "fast_food",
+"name": "Chez Mémo"
+}
+},
+{
+"type": "node",
+"id": 4327045494,
+"lat": 44.8372171,
+"lon": -0.5708805,
+"tags": {
+"addr:housenumber": "28",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "bar",
+"name": "La Cueva"
+}
+},
+{
+"type": "node",
+"id": 4327531189,
+"lat": 44.8372422,
+"lon": -0.5707651,
+"tags": {
+"addr:housenumber": "24",
+"addr:street": "Rue Sainte Colombe",
+"amenity": "bar",
+"name": "The Starfish"
+}
+},
+{
+"type": "node",
+"id": 4427575089,
+"lat": 44.8432473,
+"lon": -0.5756391,
+"tags": {
+"amenity": "restaurant",
+"name": "Le Noailles",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 4434294983,
+"lat": 44.8384638,
+"lon": -0.5698427,
+"tags": {
+"amenity": "restaurant",
+"name": "Sel et Sucre"
+}
+},
+{
+"type": "node",
+"id": 4440381889,
+"lat": 44.8434718,
+"lon": -0.5759526,
+"tags": {
+"addr:housenumber": "20",
+"addr:street": "Allée de Tourny",
+"amenity": "restaurant",
+"name": "Villa Tourny",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 4440388489,
+"lat": 44.8422593,
+"lon": -0.5747582,
+"tags": {
+"addr:street": "Place de la Comédie",
+"amenity": "restaurant",
+"name": "Comptoir Cuisine"
+}
+},
+{
+"type": "node",
+"id": 4453601834,
+"lat": 44.8389107,
+"lon": -0.5733946,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Rue de la Merci",
+"amenity": "fast_food",
+"name": "Árbol",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 4453608125,
+"lat": 44.8390816,
+"lon": -0.5725372,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Place Camille Jullian",
+"amenity": "restaurant",
+"name": "Café Utopia"
+}
+},
+{
+"type": "node",
+"id": 4457984713,
+"lat": 44.837308,
+"lon": -0.5718617,
+"tags": {
+"amenity": "bar",
+"name": "Bar du Chalet"
+}
+},
+{
+"type": "node",
+"id": 4568770569,
+"lat": 44.8378955,
+"lon": -0.5679829,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "restaurant",
+"name": "Au Bon Jaja",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 4590603533,
+"lat": 44.8402405,
+"lon": -0.5712429,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "restaurant",
+"name": "Le Petit Commerce"
+}
+},
+{
+"type": "node",
+"id": 4634570090,
+"lat": 44.8408512,
+"lon": -0.5760252,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Rue Castillon",
+"amenity": "restaurant",
+"name": "Hestïa",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 4634570091,
+"lat": 44.8406724,
+"lon": -0.5759995,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue Castillon",
+"amenity": "restaurant",
+"name": "Le Prévert",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 4685488191,
+"lat": 44.839473,
+"lon": -0.570959,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue du Cancera",
+"amenity": "restaurant",
+"name": "Grain de sel"
+}
+},
+{
+"type": "node",
+"id": 4685493989,
+"lat": 44.8370549,
+"lon": -0.5725947,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Rue Ravez",
+"amenity": "cafe",
+"name": "Carmel"
+}
+},
+{
+"type": "node",
+"id": 4690461890,
+"lat": 44.8395446,
+"lon": -0.5706165,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Tante Charlotte"
+}
+},
+{
+"type": "node",
+"id": 4690461891,
+"lat": 44.8393699,
+"lon": -0.5705098,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Rue des Bahutiers",
+"amenity": "fast_food",
+"name": "Fortiche Club"
+}
+},
+{
+"type": "node",
+"id": 4704353247,
+"lat": 44.8368936,
+"lon": -0.5738721,
+"tags": {
+"addr:housenumber": "36",
+"addr:street": "Rue des Ayres",
+"amenity": "cafe",
+"name": "Homie's Kitchen",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 4704353251,
+"lat": 44.8368083,
+"lon": -0.5737634,
+"tags": {
+"addr:housenumber": "129",
+"addr:street": "Rue Sainte-Catherine",
+"amenity": "restaurant",
+"name": "Nadai Ramen"
+}
+},
+{
+"type": "node",
+"id": 4704353253,
+"lat": 44.8360639,
+"lon": -0.572992,
+"tags": {
+"addr:housenumber": "30",
+"addr:street": "Place de la Ferme de Richemont",
+"amenity": "restaurant",
+"name": "L’abeille gourmande",
+"toilets:wheelchair": "no",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 4716466091,
+"lat": 44.837924,
+"lon": -0.5704596,
+"tags": {
+"amenity": "fast_food",
+"name": "Best Eat"
+}
+},
+{
+"type": "node",
+"id": 4758076151,
+"lat": 44.8433639,
+"lon": -0.571231,
+"tags": {
+"addr:housenumber": "1",
+"addr:street": "Rue Esprit des Lois",
+"amenity": "restaurant",
+"name": "Sushi design"
+}
+},
+{
+"type": "node",
+"id": 4810826622,
+"lat": 44.8400346,
+"lon": -0.569659,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue Émile Duployé",
+"amenity": "restaurant",
+"name": "Porte Quinze"
+}
+},
+{
+"type": "node",
+"id": 4810826623,
+"lat": 44.8372813,
+"lon": -0.5705888,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "restaurant",
+"name": "Germain"
+}
+},
+{
+"type": "node",
+"id": 4823164323,
+"lat": 44.8421429,
+"lon": -0.5728548,
+"tags": {
+"addr:housenumber": "38",
+"addr:street": "Cours du Chapeau Rouge",
+"amenity": "restaurant",
+"name": "La Boîte à Huîtres"
+}
+},
+{
+"type": "node",
+"id": 4828313238,
+"lat": 44.8418548,
+"lon": -0.5729829,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Rue Courbin",
+"amenity": "restaurant",
+"name": "Le Bouchon Bordelais"
+}
+},
+{
+"type": "node",
+"id": 4838866383,
+"lat": 44.8387038,
+"lon": -0.5721931,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue du Serpolet",
+"amenity": "cafe",
+"name": "Cajou caffé"
+}
+},
+{
+"type": "node",
+"id": 4838866387,
+"lat": 44.8404786,
+"lon": -0.5704545,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "Chez les Ploucs"
+}
+},
+{
+"type": "node",
+"id": 4838866388,
+"lat": 44.8387677,
+"lon": -0.5681716,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Quai Richelieu",
+"amenity": "restaurant",
+"name": "Le Cabanon Marin"
+}
+},
+{
+"type": "node",
+"id": 4838866389,
+"lat": 44.8390796,
+"lon": -0.5683802,
+"tags": {
+"addr:housenumber": "19",
+"addr:street": "Quai Richelieu",
+"amenity": "cafe",
+"name": "Vintage Café"
+}
+},
+{
+"type": "node",
+"id": 4838866390,
+"lat": 44.8394776,
+"lon": -0.568693,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Quai Richelieu",
+"amenity": "restaurant",
+"name": "Ragazzi da Peppone"
+}
+},
+{
+"type": "node",
+"id": 4838866392,
+"lat": 44.8401592,
+"lon": -0.5720532,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "L'Embarcadère"
+}
+},
+{
+"type": "node",
+"id": 4850314022,
+"lat": 44.8410964,
+"lon": -0.5722646,
+"tags": {
+"amenity": "restaurant",
+"name": "Bistrot Vanzetti",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 4896537821,
+"lat": 44.836755,
+"lon": -0.5749602,
+"tags": {
+"addr:housenumber": "69",
+"addr:street": "Rue des Ayres",
+"amenity": "cafe",
+"name": "Café Piha"
+}
+},
+{
+"type": "node",
+"id": 4903386922,
+"lat": 44.8391004,
+"lon": -0.5721681,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Place Camille Jullian",
+"amenity": "cafe",
+"name": "Le Saint-Georges"
+}
+},
+{
+"type": "node",
+"id": 4917627721,
+"lat": 44.8364977,
+"lon": -0.5755897,
+"tags": {
+"addr:street": "Rue des Ayres",
+"amenity": "cafe",
+"name": "Carnaval Café",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 4917627722,
+"lat": 44.8413609,
+"lon": -0.5743217,
+"tags": {
+"amenity": "bar",
+"name": "Maison du Café"
+}
+},
+{
+"type": "node",
+"id": 4932005300,
+"lat": 44.8420327,
+"lon": -0.5741915,
+"tags": {
+"addr:housenumber": "52",
+"addr:street": "Cours du Chapeau Rouge",
+"amenity": "cafe",
+"name": "Le Régent"
+}
+},
+{
+"type": "node",
+"id": 4935896886,
+"lat": 44.8361852,
+"lon": -0.5661224,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Place Bir-Hakeim",
+"amenity": "bar",
+"name": "Le Tequila"
+}
+},
+{
+"type": "node",
+"id": 4961403682,
+"lat": 44.8411818,
+"lon": -0.5730011,
+"tags": {
+"addr:housenumber": "50",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "La Brasserie Bordelaise"
+}
+},
+{
+"type": "node",
+"id": 4977329121,
+"lat": 44.841166,
+"lon": -0.5733326,
+"tags": {
+"addr:housenumber": "56",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "La cheminée royale"
+}
+},
+{
+"type": "node",
+"id": 5061439421,
+"lat": 44.8385862,
+"lon": -0.5768326,
+"tags": {
+"addr:housenumber": "44",
+"addr:street": "Rue des Trois Conils",
+"amenity": "cafe",
+"name": "Comptoir ChocolaThé"
+}
+},
+{
+"type": "node",
+"id": 5252950501,
+"lat": 44.8378836,
+"lon": -0.5748174,
+"tags": {
+"addr:housenumber": "72",
+"addr:street": "Rue du Loup",
+"amenity": "pub",
+"name": "Dick Turpin's"
+}
+},
+{
+"type": "node",
+"id": 5284411436,
+"lat": 44.8389408,
+"lon": -0.5682931,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Quai Richelieu",
+"amenity": "bar",
+"name": "Vintage Café"
+}
+},
+{
+"type": "node",
+"id": 5324810323,
+"lat": 44.8426747,
+"lon": -0.5751038,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue Mautrec",
+"amenity": "cafe",
+"name": "Kuro Expresso Bar"
+}
+},
+{
+"type": "node",
+"id": 5324825122,
+"lat": 44.8370999,
+"lon": -0.5726028,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Rue Ravez",
+"amenity": "cafe",
+"name": "Osmose"
+}
+},
+{
+"type": "node",
+"id": 5324839321,
+"lat": 44.8364911,
+"lon": -0.5724797,
+"tags": {
+"addr:housenumber": "24",
+"addr:street": "Rue Ravez",
+"amenity": "cafe",
+"name": "Café Ravez",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 5370099436,
+"lat": 44.8370575,
+"lon": -0.5758987,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue Duffour-Dubergier",
+"amenity": "fast_food",
+"name": "Subway"
+}
+},
+{
+"type": "node",
+"id": 5438078845,
+"lat": 44.841941,
+"lon": -0.5751732,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Cours de l'Intendance",
+"amenity": "restaurant",
+"name": "La Fusion Intendance"
+}
+},
+{
+"type": "node",
+"id": 5655740120,
+"lat": 44.8372992,
+"lon": -0.5736413,
+"tags": {
+"addr:housenumber": "124",
+"addr:street": "Rue Sainte-Catherine",
+"amenity": "restaurant",
+"name": "Pokéo",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 5720900996,
+"lat": 44.8437644,
+"lon": -0.5707965,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Quai Louis XVIII",
+"amenity": "pub",
+"name": "The Dog & Duck"
+}
+},
+{
+"type": "node",
+"id": 5729291921,
+"lat": 44.8404292,
+"lon": -0.5715938,
+"tags": {
+"addr:housenumber": "27",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "restaurant",
+"name": "Crème"
+}
+},
+{
+"type": "node",
+"id": 5747148221,
+"lat": 44.8400451,
+"lon": -0.5707484,
+"tags": {
+"amenity": "cafe",
+"name": "Cafecito"
+}
+},
+{
+"type": "node",
+"id": 5784036459,
+"lat": 44.8382627,
+"lon": -0.5780325,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Rue de l'Hotel de Ville",
+"amenity": "cafe",
+"name": "Bistrot de l'Hôtel de Ville"
+}
+},
+{
+"type": "node",
+"id": 5812467954,
+"lat": 44.8374583,
+"lon": -0.5766161,
+"tags": {
+"amenity": "toilets",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 5841568786,
+"lat": 44.8412147,
+"lon": -0.5725683,
+"tags": {
+"addr:housenumber": "42",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Monsieur le Kébabier"
+}
+},
+{
+"type": "node",
+"id": 5841572687,
+"lat": 44.8413844,
+"lon": -0.5724863,
+"tags": {
+"addr:housenumber": "39",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Punjab Bordeaux",
+"toilets:wheelchair": "yes",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 5841982646,
+"lat": 44.8385899,
+"lon": -0.5720099,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue du Serpolet",
+"amenity": "restaurant",
+"name": "Mokoji"
+}
+},
+{
+"type": "node",
+"id": 5841982661,
+"lat": 44.8384047,
+"lon": -0.5678672,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Quai Richelieu",
+"amenity": "restaurant",
+"name": "Dose Podologie Addictive"
+}
+},
+{
+"type": "node",
+"id": 5841982669,
+"lat": 44.8391833,
+"lon": -0.5684761,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Quai Richelieu",
+"amenity": "pub",
+"name": "Le Brixton"
+}
+},
+{
+"type": "node",
+"id": 5928423095,
+"lat": 44.8398348,
+"lon": -0.5748264,
+"tags": {
+"amenity": "toilets",
+"name": "Pause V. I. Pee",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 5996583359,
+"lat": 44.8414367,
+"lon": -0.5717372,
+"tags": {
+"addr:housenumber": "21",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Les drôles",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 6027840887,
+"lat": 44.8368722,
+"lon": -0.5717557,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "restaurant",
+"name": "Umami",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 6086310725,
+"lat": 44.8403013,
+"lon": -0.5718343,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Suzette",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 6086424685,
+"lat": 44.8355096,
+"lon": -0.5733448,
+"tags": {
+"addr:housenumber": "172",
+"addr:street": "Rue Sainte-Catherine",
+"amenity": "cafe",
+"name": "Petit Deli"
+}
+},
+{
+"type": "node",
+"id": 6086424686,
+"lat": 44.8390522,
+"lon": -0.5712766,
+"tags": {
+"addr:housenumber": "8 bis",
+"addr:street": "Rue Maucoudinat",
+"amenity": "restaurant",
+"name": "La Douce Parenthèse"
+}
+},
+{
+"type": "node",
+"id": 6172681786,
+"lat": 44.8413181,
+"lon": -0.572821,
+"tags": {
+"addr:housenumber": "45",
+"addr:street": "Rue Saint Rémi",
+"amenity": "pub",
+"name": "Café Brun"
+}
+},
+{
+"type": "node",
+"id": 6172735785,
+"lat": 44.8413295,
+"lon": -0.5726361,
+"tags": {
+"addr:housenumber": "43",
+"addr:street": "Rue Saint Rémi",
+"amenity": "fast_food",
+"name": "Five Guys"
+}
+},
+{
+"type": "node",
+"id": 6203813287,
+"lat": 44.841487,
+"lon": -0.5753505,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue Louis Combes",
+"amenity": "restaurant",
+"name": "Comptoir Ceviche"
+}
+},
+{
+"type": "node",
+"id": 6224728640,
+"lat": 44.8390536,
+"lon": -0.5727373,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue Saint-Siméon",
+"amenity": "restaurant",
+"name": "Café Japonais"
+}
+},
+{
+"type": "node",
+"id": 6272265079,
+"lat": 44.8411194,
+"lon": -0.57372,
+"tags": {
+"addr:housenumber": "62",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "fast_food",
+"name": "Wok to Walk",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 6279288885,
+"lat": 44.8382922,
+"lon": -0.5683934,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Rue Ausone",
+"amenity": "restaurant",
+"name": "C'Yusha"
+}
+},
+{
+"type": "node",
+"id": 6279317185,
+"lat": 44.8412142,
+"lon": -0.5726546,
+"tags": {
+"addr:housenumber": "44",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Un soir à Shibuya"
+}
+},
+{
+"type": "node",
+"id": 6350967381,
+"lat": 44.8396249,
+"lon": -0.5698583,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Rue de la Cour des Aides",
+"amenity": "restaurant",
+"name": "Canard"
+}
+},
+{
+"type": "node",
+"id": 6423764486,
+"lat": 44.8415841,
+"lon": -0.5735794,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "restaurant",
+"name": "Les Burgers de Colette",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 6499337439,
+"lat": 44.8388399,
+"lon": -0.5775777,
+"tags": {
+"addr:housenumber": "17",
+"addr:street": "Rue Beaubadat",
+"amenity": "fast_food",
+"name": "Pako bowl"
+}
+},
+{
+"type": "node",
+"id": 6515505585,
+"lat": 44.8435887,
+"lon": -0.5707495,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Quai Louis XVIII",
+"amenity": "bar",
+"name": "Simone"
+}
+},
+{
+"type": "node",
+"id": 6528662217,
+"lat": 44.8382553,
+"lon": -0.578206,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Place Pey Berland",
+"amenity": "cafe",
+"name": "Le Café Français",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 6759071506,
+"lat": 44.8429371,
+"lon": -0.5774866,
+"tags": {
+"amenity": "toilets"
+}
+},
+{
+"type": "node",
+"id": 6851604935,
+"lat": 44.8380363,
+"lon": -0.573028,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Rue du Loup",
+"amenity": "fast_food",
+"name": "Mangez-moi"
+}
+},
+{
+"type": "node",
+"id": 6851623203,
+"lat": 44.8376271,
+"lon": -0.5718944,
+"tags": {
+"amenity": "bar",
+"name": "La vie moderne"
+}
+},
+{
+"type": "node",
+"id": 6894760887,
+"lat": 44.8411604,
+"lon": -0.573213,
+"tags": {
+"amenity": "restaurant",
+"name": "Kokomo"
+}
+},
+{
+"type": "node",
+"id": 6894760986,
+"lat": 44.8412877,
+"lon": -0.5733174,
+"tags": {
+"amenity": "fast_food",
+"name": "too pita"
+}
+},
+{
+"type": "node",
+"id": 6964917092,
+"lat": 44.8412727,
+"lon": -0.5719222,
+"tags": {
+"addr:housenumber": "30",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "La Meule du Berger"
+}
+},
+{
+"type": "node",
+"id": 6966661719,
+"lat": 44.8417759,
+"lon": -0.5736072,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "restaurant",
+"name": "Bodega Bodega"
+}
+},
+{
+"type": "node",
+"id": 6966709369,
+"lat": 44.8407889,
+"lon": -0.5734282,
+"tags": {
+"addr:housenumber": "24",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "bar",
+"name": "Calle Ocho - Café Cubano",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 6982116485,
+"lat": 44.8383704,
+"lon": -0.5766878,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Place Pey Berland",
+"amenity": "bar",
+"name": "chantilly"
+}
+},
+{
+"type": "node",
+"id": 7038718309,
+"lat": 44.8386024,
+"lon": -0.5767383,
+"tags": {
+"addr:housenumber": "42",
+"addr:street": "Rue des Trois Conils",
+"amenity": "restaurant",
+"name": "Morajú",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7041701302,
+"lat": 44.8398813,
+"lon": -0.5723913,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Rue du Cancera",
+"amenity": "fast_food",
+"name": "Aslan Berliner"
+}
+},
+{
+"type": "node",
+"id": 7041701303,
+"lat": 44.8397425,
+"lon": -0.5708363,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Place Saint-Pierre",
+"amenity": "restaurant",
+"name": "Neo"
+}
+},
+{
+"type": "node",
+"id": 7041701304,
+"lat": 44.8402165,
+"lon": -0.5708032,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "fast_food",
+"name": "Burgerti"
+}
+},
+{
+"type": "node",
+"id": 7041701305,
+"lat": 44.8392896,
+"lon": -0.5706948,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Berthus",
+"toilets:wheelchair": "no",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7041701307,
+"lat": 44.8381235,
+"lon": -0.5679012,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "restaurant",
+"name": "Label Terre"
+}
+},
+{
+"type": "node",
+"id": 7078468047,
+"lat": 44.8393062,
+"lon": -0.5776449,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue Beaubadat",
+"amenity": "bar",
+"name": "Space Factory - Bar à bières artisanales"
+}
+},
+{
+"type": "node",
+"id": 7122918086,
+"lat": 44.8389337,
+"lon": -0.5718817,
+"tags": {
+"addr:housenumber": "46",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Bibibap"
+}
+},
+{
+"type": "node",
+"id": 7122942785,
+"lat": 44.840557,
+"lon": -0.5709858,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue de Mérignac",
+"amenity": "bar",
+"name": "Levrette Café Bordeaux"
+}
+},
+{
+"type": "node",
+"id": 7123001785,
+"lat": 44.838336,
+"lon": -0.5686021,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Rue Ausone",
+"amenity": "restaurant",
+"name": "Demeter",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7125324106,
+"lat": 44.8364817,
+"lon": -0.5752949,
+"tags": {
+"addr:housenumber": "70",
+"addr:street": "Rue des Ayres",
+"amenity": "restaurant",
+"name": "Big Black Cook - Carribean Food",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 7142666185,
+"lat": 44.835641,
+"lon": -0.5720267,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Place de la Ferme de Richemont",
+"amenity": "restaurant",
+"name": "Tupaq"
+}
+},
+{
+"type": "node",
+"id": 7157252985,
+"lat": 44.8397767,
+"lon": -0.5723589,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Rue du Cancera",
+"amenity": "restaurant",
+"name": "Quartier B"
+}
+},
+{
+"type": "node",
+"id": 7160741901,
+"lat": 44.8370484,
+"lon": -0.5715148,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "restaurant",
+"name": "Côté Sushi"
+}
+},
+{
+"type": "node",
+"id": 7169135786,
+"lat": 44.8422795,
+"lon": -0.5760216,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue Martignac",
+"amenity": "restaurant",
+"name": "Influence Wok",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7173168085,
+"lat": 44.8383369,
+"lon": -0.5707405,
+"tags": {
+"addr:housenumber": "42",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Les Mille et Une nuits"
+}
+},
+{
+"type": "node",
+"id": 7173177985,
+"lat": 44.8381604,
+"lon": -0.5709475,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue du Cerf Volant",
+"amenity": "bar",
+"name": "Le Pavillon Noir"
+}
+},
+{
+"type": "node",
+"id": 7193049787,
+"lat": 44.8378205,
+"lon": -0.5715599,
+"tags": {
+"addr:housenumber": "55",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "bar",
+"name": "Sputnik Bar"
+}
+},
+{
+"type": "node",
+"id": 7193216885,
+"lat": 44.8405142,
+"lon": -0.5731742,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue du Parlement Sainte-Catherine",
+"amenity": "restaurant",
+"name": "Le Bistro Rigoletto",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 7193258285,
+"lat": 44.8390083,
+"lon": -0.5706893,
+"tags": {
+"addr:housenumber": "21",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Ici Argentine",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7197239149,
+"lat": 44.8368463,
+"lon": -0.5712686,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue Bouquière",
+"amenity": "restaurant",
+"name": "Le Lion Lilas"
+}
+},
+{
+"type": "node",
+"id": 7197239161,
+"lat": 44.84335,
+"lon": -0.5779489,
+"tags": {
+"amenity": "restaurant",
+"name": "Amoré",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7200091985,
+"lat": 44.8376105,
+"lon": -0.5720193,
+"tags": {
+"addr:housenumber": "74",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "restaurant",
+"name": "Le Modjo"
+}
+},
+{
+"type": "node",
+"id": 7208681986,
+"lat": 44.8436692,
+"lon": -0.5707708,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Quai Louis XVIII",
+"amenity": "bar",
+"name": "Rockwood"
+}
+},
+{
+"type": "node",
+"id": 7208882185,
+"lat": 44.8369853,
+"lon": -0.5741512,
+"tags": {
+"addr:housenumber": "49",
+"addr:street": "Rue des Ayres",
+"amenity": "restaurant",
+"name": "Heiko"
+}
+},
+{
+"type": "node",
+"id": 7214632085,
+"lat": 44.8379054,
+"lon": -0.5709044,
+"tags": {
+"addr:housenumber": "45",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "pub",
+"name": "Les Berthom Bordeaux"
+}
+},
+{
+"type": "node",
+"id": 7217161885,
+"lat": 44.8361366,
+"lon": -0.5766054,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Rue du Hâ",
+"amenity": "restaurant",
+"name": "Ishikawa",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 7220829086,
+"lat": 44.8360074,
+"lon": -0.5778415,
+"tags": {
+"addr:housenumber": "50",
+"addr:street": "Rue du Hâ",
+"amenity": "restaurant",
+"name": "Bossa Boteco Brasiliano",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 7227923685,
+"lat": 44.836507,
+"lon": -0.5702439,
+"tags": {
+"addr:housenumber": "31",
+"addr:street": "Rue Bouquière",
+"amenity": "bar",
+"name": "Philippe"
+}
+},
+{
+"type": "node",
+"id": 7245983686,
+"lat": 44.8410249,
+"lon": -0.5736419,
+"tags": {
+"addr:housenumber": "21",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "restaurant",
+"name": "Bao Burger Ramen",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7245994385,
+"lat": 44.8382342,
+"lon": -0.5709179,
+"tags": {
+"addr:housenumber": "1",
+"addr:street": "Rue du Cerf Volant",
+"amenity": "restaurant",
+"name": "Ann Kha"
+}
+},
+{
+"type": "node",
+"id": 7246427685,
+"lat": 44.8403216,
+"lon": -0.5712891,
+"tags": {
+"amenity": "bar",
+"name": "Le Milo’s"
+}
+},
+{
+"type": "node",
+"id": 7248342287,
+"lat": 44.8387964,
+"lon": -0.573252,
+"tags": {
+"addr:housenumber": "27",
+"addr:street": "Rue Arnaud Miqueu",
+"amenity": "bar",
+"name": "Code 23"
+}
+},
+{
+"type": "node",
+"id": 7255408453,
+"lat": 44.8361439,
+"lon": -0.5662107,
+"tags": {
+"amenity": "fast_food",
+"name": "Tequila Burger",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 7257665269,
+"lat": 44.8433886,
+"lon": -0.5707009,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Place Jean Jaurès",
+"amenity": "bar",
+"name": "Skull Miroir Bar"
+}
+},
+{
+"type": "node",
+"id": 7258001205,
+"lat": 44.8372547,
+"lon": -0.5765391,
+"tags": {
+"addr:housenumber": "23",
+"addr:street": "Place Pey Berland",
+"amenity": "restaurant",
+"name": "Oshi Sushi"
+}
+},
+{
+"type": "node",
+"id": 7258001720,
+"lat": 44.8412985,
+"lon": -0.576215,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Place Puy Paulin",
+"amenity": "restaurant",
+"name": "french.house",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 7258010149,
+"lat": 44.8372448,
+"lon": -0.5766025,
+"tags": {
+"addr:housenumber": "24",
+"addr:street": "Place Pey Berland",
+"amenity": "cafe",
+"name": "Authentic Coffe"
+}
+},
+{
+"type": "node",
+"id": 7263292702,
+"lat": 44.8389307,
+"lon": -0.5729658,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue Saint-Siméon",
+"amenity": "restaurant",
+"name": "Que toi"
+}
+},
+{
+"type": "node",
+"id": 7263296545,
+"lat": 44.8389836,
+"lon": -0.5738262,
+"tags": {
+"amenity": "restaurant",
+"name": "Wok and Wok"
+}
+},
+{
+"type": "node",
+"id": 7263342275,
+"lat": 44.8411337,
+"lon": -0.5711343,
+"tags": {
+"amenity": "cafe",
+"name": "Café des Goumets"
+}
+},
+{
+"type": "node",
+"id": 7263373695,
+"lat": 44.8437578,
+"lon": -0.5734302,
+"tags": {
+"addr:housenumber": "36",
+"addr:street": "Allées d'Orléans",
+"amenity": "restaurant",
+"name": "Bouillon des Quinconces"
+}
+},
+{
+"type": "node",
+"id": 7263506238,
+"lat": 44.8363197,
+"lon": -0.5762081,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue du Ha",
+"amenity": "restaurant",
+"name": "OKRA"
+}
+},
+{
+"type": "node",
+"id": 7263508401,
+"lat": 44.8361448,
+"lon": -0.5764803,
+"tags": {
+"amenity": "restaurant",
+"name": "Bouche Bée",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 7271385486,
+"lat": 44.8386241,
+"lon": -0.5683673,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue de la Porte Cailhau",
+"amenity": "cafe",
+"name": "Ô P'tit Palais"
+}
+},
+{
+"type": "node",
+"id": 7280481986,
+"lat": 44.8377883,
+"lon": -0.5754192,
+"tags": {
+"addr:housenumber": "84",
+"addr:street": "Rue du Loup",
+"amenity": "cafe",
+"name": "Paulette",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7368257674,
+"lat": 44.8357736,
+"lon": -0.5714837,
+"tags": {
+"addr:housenumber": "45",
+"addr:street": "Rue Saint-James",
+"amenity": "bar",
+"name": "Vintage Bar",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7368257676,
+"lat": 44.8369115,
+"lon": -0.5744643,
+"tags": {
+"addr:housenumber": "57",
+"addr:street": "Rue des Ayres",
+"amenity": "cafe",
+"name": "PNP"
+}
+},
+{
+"type": "node",
+"id": 7368285113,
+"lat": 44.8360626,
+"lon": -0.5713498,
+"tags": {
+"addr:housenumber": "24-26",
+"addr:street": "Rue Saint-James",
+"amenity": "cafe",
+"name": "The Books & Coffee",
+"toilets:wheelchair": "yes",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 7368308946,
+"lat": 44.8374205,
+"lon": -0.5710487,
+"tags": {
+"addr:housenumber": "37",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "restaurant",
+"name": "Padang Padang"
+}
+},
+{
+"type": "node",
+"id": 7371202682,
+"lat": 44.8384196,
+"lon": -0.5744213,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Rue Tustal",
+"amenity": "fast_food",
+"name": "Les délices de Vérone"
+}
+},
+{
+"type": "node",
+"id": 7403471072,
+"lat": 44.8398878,
+"lon": -0.5768043,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Rue Poquelin Molière",
+"amenity": "restaurant",
+"name": "MAÈ TÛ"
+}
+},
+{
+"type": "node",
+"id": 7418537240,
+"lat": 44.8381168,
+"lon": -0.5709739,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Rue du Cerf Volant",
+"amenity": "bar",
+"name": "RedCat Bar"
+}
+},
+{
+"type": "node",
+"id": 7429891884,
+"lat": 44.8402464,
+"lon": -0.5728023,
+"tags": {
+"addr:housenumber": "45",
+"addr:street": "Rue de la Devise",
+"amenity": "restaurant",
+"name": "Le chien de Pavlov"
+}
+},
+{
+"type": "node",
+"id": 7449488085,
+"lat": 44.8423174,
+"lon": -0.5747632,
+"tags": {
+"addr:street": "Place de la Comédie",
+"amenity": "restaurant",
+"name": "Le Pressoir d'Argent - Gordon Ramsay"
+}
+},
+{
+"type": "node",
+"id": 7478500365,
+"lat": 44.838652,
+"lon": -0.5718455,
+"tags": {
+"addr:housenumber": "56",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Mama Dumpling"
+}
+},
+{
+"type": "node",
+"id": 7494291650,
+"lat": 44.8368045,
+"lon": -0.5748137,
+"tags": {
+"addr:housenumber": "67",
+"addr:street": "Rue des Ayres",
+"amenity": "restaurant",
+"name": "Mademoiselle Simone"
+}
+},
+{
+"type": "node",
+"id": 7527122585,
+"lat": 44.8433235,
+"lon": -0.5780422,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue Buffon",
+"amenity": "cafe",
+"name": "Le Café Gourmand",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 7533136487,
+"lat": 44.8380132,
+"lon": -0.5756982,
+"tags": {
+"addr:housenumber": "43",
+"addr:street": "Rue de Cheverus",
+"amenity": "restaurant",
+"name": "Bao. B"
+}
+},
+{
+"type": "node",
+"id": 7590554385,
+"lat": 44.8374635,
+"lon": -0.5708157,
+"tags": {
+"addr:housenumber": "31",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "cafe",
+"name": "Café Joyeux"
+}
+},
+{
+"type": "node",
+"id": 7590554486,
+"lat": 44.8374367,
+"lon": -0.5709781,
+"tags": {
+"addr:housenumber": "35",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "restaurant",
+"name": "Hestïa"
+}
+},
+{
+"type": "node",
+"id": 7682687786,
+"lat": 44.8373495,
+"lon": -0.5711995,
+"tags": {
+"addr:housenumber": "43",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "restaurant",
+"name": "Nomad"
+}
+},
+{
+"type": "node",
+"id": 7692345383,
+"lat": 44.8396154,
+"lon": -0.5748314,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue Guiraude",
+"amenity": "restaurant",
+"name": "Matsuri"
+}
+},
+{
+"type": "node",
+"id": 7696389885,
+"lat": 44.8394464,
+"lon": -0.5693189,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Rue du Chai des Farines",
+"amenity": "bar",
+"name": "Absolem"
+}
+},
+{
+"type": "node",
+"id": 7703631080,
+"lat": 44.8396829,
+"lon": -0.5719398,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "bar",
+"name": "Jamboree Shooters"
+}
+},
+{
+"type": "node",
+"id": 7707499685,
+"lat": 44.8362331,
+"lon": -0.5692891,
+"tags": {
+"addr:housenumber": "41",
+"addr:street": "Rue Neuve",
+"amenity": "restaurant",
+"name": "Les doux secrets d'Hélène"
+}
+},
+{
+"type": "node",
+"id": 7714479986,
+"lat": 44.8395006,
+"lon": -0.5776614,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Place Saint-Christoly",
+"amenity": "restaurant",
+"name": "Comptoir Christoly"
+}
+},
+{
+"type": "node",
+"id": 7731778550,
+"lat": 44.8397961,
+"lon": -0.5751611,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Rue Margaux",
+"amenity": "cafe",
+"name": "Starbucks"
+}
+},
+{
+"type": "node",
+"id": 7767815598,
+"lat": 44.8414155,
+"lon": -0.5754766,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Place Puy Paulin",
+"amenity": "restaurant",
+"name": "Le Puy Paulin"
+}
+},
+{
+"type": "node",
+"id": 7770708828,
+"lat": 44.8373516,
+"lon": -0.5736508,
+"tags": {
+"addr:housenumber": "124",
+"addr:street": "Rue Sainte-Catherine",
+"amenity": "restaurant",
+"name": "Tasty Rice",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7804953858,
+"lat": 44.8406312,
+"lon": -0.5728927,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Rue du Parlement Sainte-Catherine",
+"amenity": "restaurant",
+"name": "Le Parlement des Graves",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 7804953859,
+"lat": 44.8404974,
+"lon": -0.5733523,
+"tags": {
+"addr:housenumber": "30",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "fast_food",
+"name": "Kapital Kebab",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7804953862,
+"lat": 44.841274,
+"lon": -0.5735336,
+"tags": {
+"addr:housenumber": "61",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "cafe",
+"name": "Café Brazza"
+}
+},
+{
+"type": "node",
+"id": 7814554385,
+"lat": 44.8372752,
+"lon": -0.5719885,
+"tags": {
+"addr:housenumber": "17",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "bar",
+"name": "Fainà"
+}
+},
+{
+"type": "node",
+"id": 7814554485,
+"lat": 44.8372736,
+"lon": -0.571893,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "restaurant",
+"name": "Rôtisserie Poulettes"
+}
+},
+{
+"type": "node",
+"id": 7817504677,
+"lat": 44.8355401,
+"lon": -0.5718741,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue de Guienne",
+"amenity": "fast_food",
+"name": "Orto"
+}
+},
+{
+"type": "node",
+"id": 7817504680,
+"lat": 44.8358472,
+"lon": -0.5718986,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Rue Pierre de Coubertin",
+"amenity": "cafe",
+"name": "Le Comptoir des Chats"
+}
+},
+{
+"type": "node",
+"id": 7817504681,
+"lat": 44.8359723,
+"lon": -0.5720599,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Place de la Ferme de Richemont",
+"amenity": "restaurant",
+"name": "Saigon 68"
+}
+},
+{
+"type": "node",
+"id": 7830144894,
+"lat": 44.8401525,
+"lon": -0.5710107,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "restaurant",
+"name": "Malavida"
+}
+},
+{
+"type": "node",
+"id": 7897150297,
+"lat": 44.8395106,
+"lon": -0.5748019,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Rue Guiraude",
+"amenity": "restaurant",
+"name": "Monzù"
+}
+},
+{
+"type": "node",
+"id": 7900555185,
+"lat": 44.8397279,
+"lon": -0.57074,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Place Saint-Pierre",
+"amenity": "restaurant",
+"name": "Néo"
+}
+},
+{
+"type": "node",
+"id": 7929085549,
+"lat": 44.8440276,
+"lon": -0.5767231,
+"tags": {
+"addr:housenumber": "34",
+"addr:street": "Allées de Tourny",
+"amenity": "restaurant",
+"name": "Signature par Philippe Etchebest",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 7947386899,
+"lat": 44.8380063,
+"lon": -0.5731577,
+"tags": {
+"addr:housenumber": "35",
+"addr:street": "Rue du Loup",
+"amenity": "restaurant",
+"name": "L'Originel"
+}
+},
+{
+"type": "node",
+"id": 7948794808,
+"lat": 44.8397552,
+"lon": -0.5709281,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Rue de la Devise",
+"amenity": "bar",
+"name": "Aux quatre coins du vin",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7954673471,
+"lat": 44.8433488,
+"lon": -0.5781254,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue Buffon",
+"amenity": "restaurant",
+"name": "Miremont",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 7995633585,
+"lat": 44.8376161,
+"lon": -0.5720097,
+"tags": {
+"addr:housenumber": "74",
+"addr:street": "Cours d'Alsace et Lorraine",
+"amenity": "restaurant",
+"name": "Modjo"
+}
+},
+{
+"type": "node",
+"id": 8054062185,
+"lat": 44.8415099,
+"lon": -0.5737448,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "restaurant",
+"name": "Le Bistrot de tutelle"
+}
+},
+{
+"type": "node",
+"id": 8060382086,
+"lat": 44.8360046,
+"lon": -0.5696862,
+"tags": {
+"addr:housenumber": "55",
+"addr:street": "Rue Bouquière",
+"amenity": "restaurant",
+"name": "L'assiette musicale"
+}
+},
+{
+"type": "node",
+"id": 8060382087,
+"lat": 44.839209,
+"lon": -0.5705668,
+"tags": {
+"addr:housenumber": "14",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "A Cantina Comptoir Corse",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 8154258828,
+"lat": 44.8401048,
+"lon": -0.569378,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Quai de la Douane",
+"amenity": "bar",
+"name": "The Wall Street"
+}
+},
+{
+"type": "node",
+"id": 8154258836,
+"lat": 44.8412769,
+"lon": -0.5734631,
+"tags": {
+"addr:housenumber": "59",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Sakura Sushi"
+}
+},
+{
+"type": "node",
+"id": 8407657657,
+"lat": 44.8439476,
+"lon": -0.5753369,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Allée de Tourny",
+"amenity": "restaurant",
+"name": "Oui Madame"
+}
+},
+{
+"type": "node",
+"id": 8787149118,
+"lat": 44.8432545,
+"lon": -0.577561,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Place des Grands Hommes",
+"amenity": "restaurant",
+"name": "Monzú"
+}
+},
+{
+"type": "node",
+"id": 8787169617,
+"lat": 44.844194,
+"lon": -0.5769409,
+"tags": {
+"addr:housenumber": "42 - 44",
+"addr:street": "Allées de Tourny",
+"amenity": "restaurant",
+"name": "Quanjude",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 8787171117,
+"lat": 44.8358248,
+"lon": -0.5705104,
+"tags": {
+"addr:housenumber": "27-29",
+"addr:street": "Rue Buhan",
+"amenity": "restaurant",
+"name": "Frida"
+}
+},
+{
+"type": "node",
+"id": 8829856018,
+"lat": 44.8436264,
+"lon": -0.5771859,
+"tags": {
+"amenity": "restaurant",
+"name": "Amicis"
+}
+},
+{
+"type": "node",
+"id": 8963399017,
+"lat": 44.8402739,
+"lon": -0.5711092,
+"tags": {
+"addr:housenumber": "17",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "restaurant",
+"name": "La"
+}
+},
+{
+"type": "node",
+"id": 9001638017,
+"lat": 44.837637,
+"lon": -0.5671205,
+"tags": {
+"addr:housenumber": "45",
+"addr:street": "Quai Richelieu",
+"amenity": "restaurant",
+"name": "Roze"
+}
+},
+{
+"type": "node",
+"id": 9105779404,
+"lat": 44.8414454,
+"lon": -0.5714738,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Le Marrakech",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 9120589717,
+"lat": 44.8384596,
+"lon": -0.5698523,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue du Palais de l'Ombrière",
+"amenity": "restaurant",
+"name": "Brutus"
+}
+},
+{
+"type": "node",
+"id": 9177675296,
+"lat": 44.8391283,
+"lon": -0.5717816,
+"tags": {
+"addr:housenumber": "21",
+"addr:street": "Rue Maucoudinat",
+"amenity": "restaurant",
+"name": "Le Comptoir d'Étienne",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 9183987417,
+"lat": 44.840551,
+"lon": -0.5747882,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Rue Margaux",
+"amenity": "restaurant",
+"name": "Rishi"
+}
+},
+{
+"type": "node",
+"id": 9297714417,
+"lat": 44.8402931,
+"lon": -0.5714742,
+"tags": {
+"addr:housenumber": "28",
+"addr:street": "Rue du Parlement Saint-Pierre",
+"amenity": "bar",
+"name": "La Drôlerie"
+}
+},
+{
+"type": "node",
+"id": 9297718817,
+"lat": 44.8389236,
+"lon": -0.5730118,
+"tags": {
+"addr:street": "Rue Saint-Siméon",
+"amenity": "restaurant",
+"name": "Bonh"
+}
+},
+{
+"type": "node",
+"id": 9297722017,
+"lat": 44.8389264,
+"lon": -0.5729078,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue Saint-Siméon",
+"amenity": "restaurant",
+"name": "Sambrosa"
+}
+},
+{
+"type": "node",
+"id": 9297734017,
+"lat": 44.8398731,
+"lon": -0.5723926,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Rue du Cancera",
+"amenity": "restaurant",
+"name": "Hanzō"
+}
+},
+{
+"type": "node",
+"id": 9297746517,
+"lat": 44.8392736,
+"lon": -0.5705569,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Nyam Baï",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 9297783017,
+"lat": 44.8401992,
+"lon": -0.5711802,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Place Saint Pierre",
+"amenity": "restaurant",
+"name": "Bouillon Saint Pierre",
+"toilets:wheelchair": "yes",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 9307480650,
+"lat": 44.8368231,
+"lon": -0.5716429,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Rue Saint-James",
+"amenity": "cafe",
+"name": "Le Saint Christophe"
+}
+},
+{
+"type": "node",
+"id": 9344526738,
+"lat": 44.8363785,
+"lon": -0.5727685,
+"tags": {
+"amenity": "toilets",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 9373859240,
+"lat": 44.8421602,
+"lon": -0.5726328,
+"tags": {
+"amenity": "restaurant",
+"name": "Le Murano"
+}
+},
+{
+"type": "node",
+"id": 9373859241,
+"lat": 44.8421435,
+"lon": -0.5727569,
+"tags": {
+"amenity": "restaurant",
+"name": "La Folie Rouge"
+}
+},
+{
+"type": "node",
+"id": 9378706858,
+"lat": 44.8396198,
+"lon": -0.5749677,
+"tags": {
+"amenity": "fast_food",
+"name": "Big Fernand"
+}
+},
+{
+"type": "node",
+"id": 9525001993,
+"lat": 44.837581,
+"lon": -0.5690587,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue de la Rousselle",
+"amenity": "restaurant",
+"name": "Arcada"
+}
+},
+{
+"type": "node",
+"id": 9566852054,
+"lat": 44.8379841,
+"lon": -0.57352,
+"tags": {
+"addr:housenumber": "45",
+"addr:street": "Rue du Loup",
+"amenity": "restaurant",
+"name": "Chez Hibou",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 9566852055,
+"lat": 44.8379906,
+"lon": -0.573435,
+"tags": {
+"amenity": "restaurant",
+"name": "Dis leur",
+"toilets:wheelchair": "no",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 9570948217,
+"lat": 44.8398899,
+"lon": -0.572494,
+"tags": {
+"addr:housenumber": "35",
+"addr:street": "Rue du Cancera",
+"amenity": "restaurant",
+"name": "Soif"
+}
+},
+{
+"type": "node",
+"id": 9610904517,
+"lat": 44.8413598,
+"lon": -0.5722481,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "fast_food",
+"name": "Petit Mi",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 9735014293,
+"lat": 44.8417705,
+"lon": -0.5740963,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue de la Maison Daurade",
+"amenity": "restaurant",
+"name": "Maison mère"
+}
+},
+{
+"type": "node",
+"id": 9737916017,
+"lat": 44.8396382,
+"lon": -0.569074,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue du Quai Bourgeois",
+"amenity": "bar",
+"name": "Road House"
+}
+},
+{
+"type": "node",
+"id": 9737941818,
+"lat": 44.8390913,
+"lon": -0.5707483,
+"tags": {
+"addr:housenumber": "19",
+"addr:street": "Rue des Bahutiers",
+"amenity": "bar",
+"name": "A Cocktail Collective"
+}
+},
+{
+"type": "node",
+"id": 10031377717,
+"lat": 44.8362493,
+"lon": -0.5753471,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Cours Pasteur",
+"amenity": "restaurant",
+"name": "New York New York",
+"toilets:wheelchair": "no",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 10095995572,
+"lat": 44.8363336,
+"lon": -0.5760687,
+"tags": {
+"addr:housenumber": "3 bis",
+"addr:street": "Rue du Hâ",
+"amenity": "restaurant",
+"name": "Orta"
+}
+},
+{
+"type": "node",
+"id": 10125916619,
+"lat": 44.839939,
+"lon": -0.5710562,
+"tags": {
+"addr:housenumber": "11",
+"addr:street": "Rue de la Devise",
+"amenity": "restaurant",
+"name": "L'encoche Yakiniku"
+}
+},
+{
+"type": "node",
+"id": 10139568518,
+"lat": 44.841359,
+"lon": -0.5723896,
+"tags": {
+"addr:housenumber": "37",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Fufu Ramen",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 10295449971,
+"lat": 44.8389696,
+"lon": -0.5739331,
+"tags": {
+"addr:housenumber": "82",
+"addr:street": "Rue Sainte-Catherine",
+"amenity": "fast_food",
+"name": "Barapom",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 10295461529,
+"lat": 44.8408877,
+"lon": -0.5717806,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Place du Parlement",
+"amenity": "cafe",
+"name": "DS Café Bordeaux",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 10708618305,
+"lat": 44.8387956,
+"lon": -0.5718777,
+"tags": {
+"addr:housenumber": "50-52",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Le Kiosque Bordeaux"
+}
+},
+{
+"type": "node",
+"id": 10741904908,
+"lat": 44.8363683,
+"lon": -0.56698,
+"tags": {
+"addr:housenumber": "75",
+"addr:street": "Rue de la Rousselle",
+"amenity": "bar",
+"name": "Levain Le Vin (Bar à vin,Boulangerie)"
+}
+},
+{
+"type": "node",
+"id": 10839764797,
+"lat": 44.8395209,
+"lon": -0.5700739,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue de la Cour des Aides",
+"amenity": "restaurant",
+"name": "ECHO"
+}
+},
+{
+"type": "node",
+"id": 10839803888,
+"lat": 44.8385342,
+"lon": -0.5696657,
+"tags": {
+"addr:housenumber": "20",
+"addr:street": "Place du Palais",
+"amenity": "restaurant",
+"name": "Merlot Petit Amour"
+}
+},
+{
+"type": "node",
+"id": 10841654606,
+"lat": 44.8416903,
+"lon": -0.575362,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Rue Louis Combes",
+"amenity": "restaurant",
+"name": "La Belle Suzette"
+}
+},
+{
+"type": "node",
+"id": 10842073406,
+"lat": 44.8415325,
+"lon": -0.5759906,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue Guillaume Brochon",
+"amenity": "restaurant",
+"name": "Bistrot Chic"
+}
+},
+{
+"type": "node",
+"id": 10848403905,
+"lat": 44.8384199,
+"lon": -0.5780067,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Place Jean Moulin",
+"amenity": "cafe",
+"name": "Les Mots Bleus"
+}
+},
+{
+"type": "node",
+"id": 10871231106,
+"lat": 44.839927,
+"lon": -0.5715171,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Rue de la Devise",
+"amenity": "bar",
+"name": "Madame Pang"
+}
+},
+{
+"type": "node",
+"id": 10924145005,
+"lat": 44.8358154,
+"lon": -0.5713186,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Rue Saint-James",
+"amenity": "cafe",
+"name": "Tamatebako Café"
+}
+},
+{
+"type": "node",
+"id": 10924479405,
+"lat": 44.8395841,
+"lon": -0.5699619,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Rue de la Cour des Aides",
+"amenity": "restaurant",
+"name": "LouLou"
+}
+},
+{
+"type": "node",
+"id": 10924640705,
+"lat": 44.840008,
+"lon": -0.5720866,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "fast_food",
+"name": "Chez Anatole",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 10924675705,
+"lat": 44.8400193,
+"lon": -0.5714546,
+"tags": {
+"addr:housenumber": "19",
+"addr:street": "Rue de la Devise",
+"amenity": "bar",
+"name": "Papin",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 11017926720,
+"lat": 44.8355978,
+"lon": -0.5678251,
+"tags": {
+"addr:housenumber": "34",
+"addr:street": "Cours Victor Hugo",
+"amenity": "bar",
+"name": "Baron Samedi"
+}
+},
+{
+"type": "node",
+"id": 11045320205,
+"lat": 44.8385205,
+"lon": -0.5700787,
+"tags": {
+"addr:street": "Place des Basques",
+"amenity": "restaurant",
+"name": "Topa - Comptoir Basque"
+}
+},
+{
+"type": "node",
+"id": 11061304169,
+"lat": 44.8386947,
+"lon": -0.5707735,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Joki",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 11116732769,
+"lat": 44.8374549,
+"lon": -0.5716926,
+"tags": {
+"addr:housenumber": "84",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "fast_food",
+"name": "Pizza Capri"
+}
+},
+{
+"type": "node",
+"id": 11179143937,
+"lat": 44.8401084,
+"lon": -0.5734813,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "bar",
+"name": "Motto",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 11181065266,
+"lat": 44.837361,
+"lon": -0.5685029,
+"tags": {
+"addr:housenumber": "29",
+"addr:street": "Rue de la Rousselle",
+"amenity": "cafe",
+"name": "Atelier B"
+}
+},
+{
+"type": "node",
+"id": 11288883167,
+"lat": 44.8368717,
+"lon": -0.5718391,
+"tags": {
+"addr:housenumber": "9",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "restaurant",
+"name": "Kokomo Cantine",
+"toilets:wheelchair": "limited",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 11409624324,
+"lat": 44.8373555,
+"lon": -0.5675356,
+"tags": {
+"addr:housenumber": "39",
+"addr:street": "Rue Ausone",
+"amenity": "bar",
+"name": "Wash Bar"
+}
+},
+{
+"type": "node",
+"id": 11446153270,
+"lat": 44.8412389,
+"lon": -0.5741171,
+"tags": {
+"amenity": "restaurant",
+"name": "Italian Trattoria",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 11543568928,
+"lat": 44.8414184,
+"lon": -0.5716097,
+"tags": {
+"addr:housenumber": "17",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Brasserie Maillard"
+}
+},
+{
+"type": "node",
+"id": 11543568929,
+"lat": 44.841404,
+"lon": -0.5717964,
+"tags": {
+"addr:housenumber": "23",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "fast_food",
+"name": "MOTHAIBAYO"
+}
+},
+{
+"type": "node",
+"id": 11581287069,
+"lat": 44.8422141,
+"lon": -0.5717068,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Cours du Chapeau Rouge",
+"amenity": "bar",
+"name": "Connor's Australian Sports Bar"
+}
+},
+{
+"type": "node",
+"id": 11586717978,
+"lat": 44.8412603,
+"lon": -0.5779167,
+"tags": {
+"amenity": "bar",
+"name": "Bar Casa Bordeaux By Ginto Hotels"
+}
+},
+{
+"type": "node",
+"id": 11718008869,
+"lat": 44.8416155,
+"lon": -0.5737588,
+"tags": {
+"addr:housenumber": "11",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "restaurant",
+"name": "Mitsuba"
+}
+},
+{
+"type": "node",
+"id": 11875708814,
+"lat": 44.838316,
+"lon": -0.569227,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Place du Palais",
+"amenity": "restaurant",
+"name": "Gueuleton Bordeaux"
+}
+},
+{
+"type": "node",
+"id": 11903671069,
+"lat": 44.8388836,
+"lon": -0.5735628,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Rue de la Merci",
+"amenity": "restaurant",
+"name": "Osteria Palatino"
+}
+},
+{
+"type": "node",
+"id": 11907077169,
+"lat": 44.83801,
+"lon": -0.5713591,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue du Cerf Volant",
+"amenity": "restaurant",
+"name": "Stai Calmo"
+}
+},
+{
+"type": "node",
+"id": 11907804869,
+"lat": 44.839357,
+"lon": -0.5706748,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Vivants"
+}
+},
+{
+"type": "node",
+"id": 11945086369,
+"lat": 44.8411151,
+"lon": -0.5738643,
+"tags": {
+"addr:housenumber": "64/66",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "BIG Bistrot Girondin",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 12042489672,
+"lat": 44.8404951,
+"lon": -0.5735676,
+"tags": {
+"addr:housenumber": "24",
+"addr:street": "Rue du Parlement Sainte-Catherine",
+"amenity": "restaurant",
+"name": "TajMahal Bordeaux"
+}
+},
+{
+"type": "node",
+"id": 12066112376,
+"lat": 44.8393885,
+"lon": -0.5699503,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue des Argentiers",
+"amenity": "restaurant",
+"name": "La Collation"
+}
+},
+{
+"type": "node",
+"id": 12066268708,
+"lat": 44.8407918,
+"lon": -0.5716152,
+"tags": {
+"amenity": "restaurant",
+"name": "Isshin Ramen"
+}
+},
+{
+"type": "node",
+"id": 12086789369,
+"lat": 44.8378762,
+"lon": -0.5745271,
+"tags": {
+"addr:housenumber": "66",
+"addr:street": "Rue du Loup",
+"amenity": "restaurant",
+"name": "Le loup",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 12096615005,
+"lat": 44.8359935,
+"lon": -0.5666156,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Cours Victor Hugo",
+"amenity": "bar",
+"name": "Adiu"
+}
+},
+{
+"type": "node",
+"id": 12096935618,
+"lat": 44.8391906,
+"lon": -0.5689554,
+"tags": {
+"addr:housenumber": "22",
+"addr:street": "Rue du Chai des Farines",
+"amenity": "cafe",
+"name": "Le Beau Jeu"
+}
+},
+{
+"type": "node",
+"id": 12120026268,
+"lat": 44.8390194,
+"lon": -0.5733863,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue de la Merci",
+"amenity": "restaurant",
+"name": "Lasagna",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 12120046508,
+"lat": 44.8368697,
+"lon": -0.5720308,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Place Fernand Lafargue",
+"amenity": "bar",
+"name": "Le Motel"
+}
+},
+{
+"type": "node",
+"id": 12120700292,
+"lat": 44.8384414,
+"lon": -0.5743691,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Rue Tustal",
+"amenity": "restaurant",
+"name": "Bo tannique"
+}
+},
+{
+"type": "node",
+"id": 12162056568,
+"lat": 44.8401209,
+"lon": -0.5708679,
+"tags": {
+"amenity": "cafe",
+"name": "Mouche"
+}
+},
+{
+"type": "node",
+"id": 12183649035,
+"lat": 44.8360757,
+"lon": -0.5769476,
+"tags": {
+"addr:housenumber": "30",
+"addr:street": "Rue du Hâ",
+"amenity": "restaurant",
+"name": "La fine Bouche",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 12205277974,
+"lat": 44.8391191,
+"lon": -0.570425,
+"tags": {
+"addr:housenumber": "7",
+"addr:street": "Rue de la Tour de Gassies",
+"amenity": "restaurant",
+"name": "Papy",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 12205420407,
+"lat": 44.8391948,
+"lon": -0.5710153,
+"tags": {
+"amenity": "restaurant",
+"name": "Gallika",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 12235064316,
+"lat": 44.8411272,
+"lon": -0.5733928,
+"tags": {
+"amenity": "bar",
+"name": "Canard Street Bordeaux",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 12235082101,
+"lat": 44.8366271,
+"lon": -0.5698872,
+"tags": {
+"amenity": "bar",
+"name": "Les Mauvais Garçons"
+}
+},
+{
+"type": "node",
+"id": 12311587101,
+"lat": 44.8401955,
+"lon": -0.5734767,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "fast_food",
+"name": "BAO BURGER",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 12369643316,
+"lat": 44.8355413,
+"lon": -0.5717608,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue de Guienne",
+"amenity": "restaurant",
+"name": "Peter Coffee Shop"
+}
+},
+{
+"type": "node",
+"id": 12684986401,
+"lat": 44.8393646,
+"lon": -0.5776357,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue Beaubadat",
+"amenity": "cafe",
+"name": "Sybilles"
+}
+},
+{
+"type": "node",
+"id": 12692708501,
+"lat": 44.8371559,
+"lon": -0.5774868,
+"tags": {
+"addr:housenumber": "33",
+"addr:street": "Place Pey Berland",
+"amenity": "cafe",
+"name": "Tsuki",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 12728158157,
+"lat": 44.8367896,
+"lon": -0.5663504,
+"tags": {
+"amenity": "fast_food",
+"name": "Kebab"
+}
+},
+{
+"type": "node",
+"id": 12728730801,
+"lat": 44.8398627,
+"lon": -0.5713466,
+"tags": {
+"amenity": "bar",
+"name": "L'Empire"
+}
+},
+{
+"type": "node",
+"id": 12830500901,
+"lat": 44.8432178,
+"lon": -0.5742007,
+"tags": {
+"amenity": "cafe"
+}
+},
+{
+"type": "node",
+"id": 12889289702,
+"lat": 44.841301,
+"lon": -0.572026,
+"tags": {
+"addr:housenumber": "32",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "Nom d'une crêpe"
+}
+},
+{
+"type": "node",
+"id": 12946935283,
+"lat": 44.8433341,
+"lon": -0.5742677,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Cours du XXX Juillet",
+"amenity": "cafe",
+"name": "Quatre'S Café"
+}
+},
+{
+"type": "node",
+"id": 13004244818,
+"lat": 44.8398188,
+"lon": -0.5721145,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "L'agneau à la Braise",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 13004244827,
+"lat": 44.8417536,
+"lon": -0.5743232,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue de la Maison Daurade",
+"amenity": "restaurant",
+"name": "Paus'k"
+}
+},
+{
+"type": "node",
+"id": 13004244829,
+"lat": 44.8411019,
+"lon": -0.5739787,
+"tags": {
+"amenity": "restaurant",
+"name": "Restaurant d'entreprise BNP Paribas"
+}
+},
+{
+"type": "node",
+"id": 13004244830,
+"lat": 44.8409764,
+"lon": -0.5734687,
+"tags": {
+"addr:housenumber": "20",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "restaurant",
+"name": "Krousty Sabaïdi",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 13004244831,
+"lat": 44.8409151,
+"lon": -0.5734614,
+"tags": {
+"amenity": "restaurant",
+"name": "Mada"
+}
+},
+{
+"type": "node",
+"id": 13004244841,
+"lat": 44.8405337,
+"lon": -0.572776,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue du Parlement Sainte-Catherine",
+"amenity": "restaurant",
+"name": "Monsieur Papilles"
+}
+},
+{
+"type": "node",
+"id": 13004244844,
+"lat": 44.8406321,
+"lon": -0.5726358,
+"tags": {
+"amenity": "restaurant",
+"name": "Le Bar du Boucher"
+}
+},
+{
+"type": "node",
+"id": 13004244845,
+"lat": 44.840642,
+"lon": -0.5725222,
+"tags": {
+"amenity": "bar",
+"name": "Le bistrot du fromager",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 13004244861,
+"lat": 44.8394928,
+"lon": -0.5720904,
+"tags": {
+"addr:housenumber": "23",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Osteria da Luigi"
+}
+},
+{
+"type": "node",
+"id": 13004244864,
+"lat": 44.83942,
+"lon": -0.5719302,
+"tags": {
+"addr:housenumber": "30",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Le Carreau"
+}
+},
+{
+"type": "node",
+"id": 13004244871,
+"lat": 44.8390804,
+"lon": -0.5710678,
+"tags": {
+"addr:housenumber": "6B",
+"addr:street": "Rue Maucoudinat",
+"amenity": "bar",
+"name": "Aube"
+}
+},
+{
+"type": "node",
+"id": 13004244872,
+"lat": 44.8393238,
+"lon": -0.5705379,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue des Bahutiers",
+"amenity": "restaurant",
+"name": "Ô P'tit Bahut",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 13015703124,
+"lat": 44.8380926,
+"lon": -0.5739805,
+"tags": {
+"addr:housenumber": "103",
+"addr:street": "Rue Sainte-Catherine",
+"amenity": "cafe",
+"name": "Columbus Café & Co"
+}
+},
+{
+"type": "node",
+"id": 13020683044,
+"lat": 44.8371217,
+"lon": -0.5738136,
+"tags": {
+"amenity": "cafe",
+"name": "Le 22"
+}
+},
+{
+"type": "node",
+"id": 13020683046,
+"lat": 44.8367163,
+"lon": -0.5737551,
+"tags": {
+"amenity": "fast_food",
+"name": "La petite pause nature",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 13030931729,
+"lat": 44.8421592,
+"lon": -0.5752835,
+"tags": {
+"amenity": "cafe",
+"name": "Le Boudoir de Léa",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 13062309700,
+"lat": 44.8368666,
+"lon": -0.5722634,
+"tags": {
+"addr:housenumber": "6",
+"addr:street": "Rue des Ayres",
+"amenity": "restaurant",
+"name": "230ºC"
+}
+},
+{
+"type": "node",
+"id": 13062914427,
+"lat": 44.8438694,
+"lon": -0.576542,
+"tags": {
+"amenity": "cafe",
+"name": "Rainbow",
+"wheelchair": "yes"
+}
+},
+{
+"type": "node",
+"id": 13075413949,
+"lat": 44.8424984,
+"lon": -0.575918,
+"tags": {
+"amenity": "cafe"
+}
+},
+{
+"type": "node",
+"id": 13075413961,
+"lat": 44.8434101,
+"lon": -0.5778082,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Place des Grands Hommes",
+"amenity": "bar",
+"name": "Café de Minuit",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 13075413966,
+"lat": 44.8430041,
+"lon": -0.5780876,
+"tags": {
+"amenity": "restaurant",
+"name": "Le Bistrot des Grands Hommes"
+}
+},
+{
+"type": "node",
+"id": 13087184537,
+"lat": 44.8371857,
+"lon": -0.5713891,
+"tags": {
+"addr:housenumber": "42",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "bar",
+"name": "Complan Terra"
+}
+},
+{
+"type": "node",
+"id": 13087341074,
+"lat": 44.837235,
+"lon": -0.5767377,
+"tags": {
+"amenity": "fast_food",
+"name": "Viennoiseries sandwichs"
+}
+},
+{
+"type": "node",
+"id": 13189567330,
+"lat": 44.8382903,
+"lon": -0.5677835,
+"tags": {
+"addr:housenumber": "35",
+"addr:street": "Quai Richelieu",
+"amenity": "cafe",
+"name": "Quoi Thé",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 13240612218,
+"lat": 44.8372127,
+"lon": -0.5709613,
+"tags": {
+"addr:housenumber": "30",
+"addr:street": "Rue Sainte-Colombe",
+"amenity": "bar",
+"name": "ArChie"
+}
+},
+{
+"type": "node",
+"id": 13347552910,
+"lat": 44.8357362,
+"lon": -0.5702427,
+"tags": {
+"addr:housenumber": "15",
+"addr:street": "Rue Teulère",
+"amenity": "cafe",
+"name": "Môme"
+}
+},
+{
+"type": "node",
+"id": 13394588996,
+"lat": 44.8435248,
+"lon": -0.5707301,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Quai Louis XVIII",
+"amenity": "pub",
+"name": "Belga Bar"
+}
+},
+{
+"type": "node",
+"id": 13415955401,
+"lat": 44.8404539,
+"lon": -0.5705938,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue des Faussets",
+"amenity": "restaurant",
+"name": "La Côte de Boeuf"
+}
+},
+{
+"type": "node",
+"id": 13625413650,
+"lat": 44.8364699,
+"lon": -0.5760452,
+"tags": {
+"amenity": "bar",
+"name": "Froutrou"
+}
+},
+{
+"type": "node",
+"id": 13721426716,
+"lat": 44.8361717,
+"lon": -0.5757879,
+"tags": {
+"addr:housenumber": "1",
+"addr:street": "Cours Pasteur",
+"amenity": "fast_food",
+"name": "Cheese Naan - Tacos"
+}
+},
+{
+"type": "node",
+"id": 13725307537,
+"lat": 44.8397628,
+"lon": -0.5777161,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Place Saint-Christoly",
+"amenity": "cafe",
+"name": "Mama's Kiss"
+}
+},
+{
+"type": "node",
+"id": 13725307540,
+"lat": 44.8395137,
+"lon": -0.5774188,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Place Saint-Christoly",
+"amenity": "restaurant",
+"name": "Brasserie Vinatier"
+}
+},
+{
+"type": "node",
+"id": 13734715814,
+"lat": 44.8362822,
+"lon": -0.5713986,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue Saint-James",
+"amenity": "restaurant",
+"name": "La Terre Cuisine du Monde"
+}
+},
+{
+"type": "node",
+"id": 13734715826,
+"lat": 44.8365496,
+"lon": -0.5714378,
+"tags": {
+"addr:housenumber": "10",
+"addr:street": "Rue Saint-James",
+"amenity": "restaurant",
+"name": "Bahn Cuon 33"
+}
+},
+{
+"type": "node",
+"id": 13808623333,
+"lat": 44.8405563,
+"lon": -0.5705541,
+"tags": {
+"amenity": "cafe",
+"name": "Yours Café"
+}
+},
+{
+"type": "node",
+"id": 13808712937,
+"lat": 44.8413144,
+"lon": -0.5713868,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Rue Saint-Rémi",
+"amenity": "restaurant",
+"name": "San Pietro"
+}
+},
+{
+"type": "node",
+"id": 13808722962,
+"lat": 44.8408715,
+"lon": -0.5707024,
+"tags": {
+"addr:housenumber": "4",
+"addr:street": "Rue du Puits Descujols",
+"amenity": "restaurant",
+"name": "Mazal"
+}
+},
+{
+"type": "node",
+"id": 13808722963,
+"lat": 44.8409158,
+"lon": -0.5712889,
+"tags": {
+"addr:housenumber": "16",
+"addr:street": "Rue Fernand Philippart",
+"amenity": "bar",
+"name": "Blouge"
+}
+},
+{
+"type": "node",
+"id": 13808722964,
+"lat": 44.8409469,
+"lon": -0.570805,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue du Puits Descujols",
+"amenity": "restaurant",
+"name": "Jaipur Palace"
+}
+},
+{
+"type": "node",
+"id": 13904639250,
+"lat": 44.8360265,
+"lon": -0.565866,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue de la Tour du Pin",
+"amenity": "cafe",
+"name": "La Tour du Pin"
+}
+},
+{
+"type": "node",
+"id": 13904639262,
+"lat": 44.8361454,
+"lon": -0.5660488,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Place Bir-Hakeim",
+"amenity": "cafe"
+}
+},
+{
+"type": "node",
+"id": 13914071759,
+"lat": 44.8384978,
+"lon": -0.5689458,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Place du Palais",
+"amenity": "bar",
+"name": "Avant Comptoir du Palais"
+}
+},
+{
+"type": "node",
+"id": 13926479196,
+"lat": 44.8362071,
+"lon": -0.5669664,
+"tags": {
+"addr:housenumber": "11",
+"addr:street": "Cours Victor Hugo",
+"amenity": "fast_food",
+"name": "Amigos Bus"
+}
+},
+{
+"type": "node",
+"id": 13926489007,
+"lat": 44.8360646,
+"lon": -0.5665382,
+"tags": {
+"addr:housenumber": "8",
+"addr:street": "Cours Victor Hugo",
+"amenity": "bar",
+"name": "Comptoir Jacmé"
+}
+},
+{
+"type": "node",
+"id": 13926489014,
+"lat": 44.8356827,
+"lon": -0.5687219,
+"tags": {
+"addr:housenumber": "51",
+"addr:street": "Cours Victor Hugo",
+"amenity": "bar",
+"name": "Le Victoria"
+}
+},
+{
+"type": "node",
+"id": 13980616247,
+"lat": 44.8358052,
+"lon": -0.5729993,
+"tags": {
+"addr:housenumber": "28",
+"addr:street": "Place de la Ferme de Richemont",
+"amenity": "bar",
+"name": "CaraïBeers"
+}
+},
+{
+"type": "node",
+"id": 14000571073,
+"lat": 44.8376292,
+"lon": -0.5697883,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue de la Chapelle Saint-Jean",
+"amenity": "cafe",
+"name": "Café Sonore"
+}
+},
+{
+"type": "node",
+"id": 14018233272,
+"lat": 44.8370067,
+"lon": -0.5730303,
+"tags": {
+"addr:housenumber": "27",
+"addr:street": "Rue des Ayres",
+"amenity": "cafe",
+"name": "Elma"
+}
+},
+{
+"type": "node",
+"id": 14032108618,
+"lat": 44.8414948,
+"lon": -0.573577,
+"tags": {
+"addr:housenumber": "12",
+"addr:street": "Rue des Piliers de Tutelle",
+"amenity": "restaurant",
+"name": "Le Grill Bordelais"
+}
+},
+{
+"type": "node",
+"id": 14125724700,
+"lat": 44.8363907,
+"lon": -0.5706664,
+"tags": {
+"amenity": "bar",
+"name": "Sacrebleu !"
+}
+},
+{
+"type": "node",
+"id": 14175733832,
+"lat": 44.8409482,
+"lon": -0.5744644,
+"tags": {
+"amenity": "fast_food",
+"name": "Manteigaira"
+}
+},
+{
+"type": "node",
+"id": 14185171036,
+"lat": 44.8359249,
+"lon": -0.5731524,
+"tags": {
+"addr:housenumber": "29",
+"addr:street": "Rue Gouvéa",
+"amenity": "fast_food",
+"name": "Yammi"
+}
+},
+{
+"type": "node",
+"id": 14204461501,
+"lat": 44.8409396,
+"lon": -0.5723943,
+"tags": {
+"addr:housenumber": "1",
+"addr:street": "Rue des Lauriers",
+"amenity": "restaurant",
+"name": "Tigermilk"
+}
+},
+{
+"type": "node",
+"id": 14209706502,
+"lat": 44.839219,
+"lon": -0.5720609,
+"tags": {
+"addr:housenumber": "31",
+"addr:street": "Rue du Pas Saint-Georges",
+"amenity": "restaurant",
+"name": "Le Vieux Chaudron"
+}
+},
+{
+"type": "node",
+"id": 14219024401,
+"lat": 44.8385284,
+"lon": -0.57247,
+"tags": {
+"addr:housenumber": "13",
+"addr:street": "Rue du Serpolet",
+"amenity": "restaurant",
+"name": "Yamas Ouzerie"
+}
+},
+{
+"type": "node",
+"id": 14222435900,
+"lat": 44.8390148,
+"lon": -0.5705619,
+"tags": {
+"addr:housenumber": "18",
+"addr:street": "Rue des Bahutiers",
+"amenity": "cafe",
+"name": "imagine",
+"wheelchair": "no"
+}
+},
+{
+"type": "node",
+"id": 14222447801,
+"lat": 44.8391968,
+"lon": -0.5707506,
+"tags": {
+"addr:housenumber": "1",
+"addr:street": "Rue Maucoudinat",
+"amenity": "cafe",
+"name": "GEM",
+"wheelchair": "limited"
+}
+},
+{
+"type": "node",
+"id": 14276918001,
+"lat": 44.8402925,
+"lon": -0.5697687,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue Émile Duployé",
+"amenity": "bar",
+"name": "Tchin Tchin Wine Bar"
+}
+},
+{
+"type": "node",
+"id": 14361404567,
+"lat": 44.8387185,
+"lon": -0.568111,
+"tags": {
+"amenity": "cafe",
+"name": "MG café"
+}
+},
+{
+"type": "way",
+"id": 79715654,
+"lat": 44.8433977,
+"lon": -0.5766021,
+"tags": {
+"amenity": "restaurant",
+"name": "Le Ballion"
+}
+},
+{
+"type": "way",
+"id": 79758500,
+"lat": 44.8403293,
+"lon": -0.5695215,
+"tags": {
+"addr:housenumber": "2",
+"addr:street": "Quai de la Douane",
+"amenity": "bar",
+"name": "Grand Bar Castan"
+}
+},
+{
+"type": "way",
+"id": 79758600,
+"lat": 44.8393693,
+"lon": -0.5709141,
+"tags": {
+"amenity": "restaurant",
+"name": "Toscane"
+}
+},
+{
+"type": "way",
+"id": 79979169,
+"lat": 44.8417273,
+"lon": -0.5755609,
+"tags": {
+"addr:housenumber": "3",
+"addr:street": "Rue Louis Combes",
+"amenity": "cafe",
+"name": "Cafeincup."
+}
+},
+{
+"type": "way",
+"id": 80015190,
+"lat": 44.8358716,
+"lon": -0.5781694,
+"tags": {
+"addr:housenumber": "62",
+"addr:street": "Rue du Hâ",
+"amenity": "restaurant",
+"name": "L'Appuntamento Pasta Restaurant",
+"toilets:wheelchair": "no",
+"wheelchair": "limited"
+}
+}
+],
+"acceslibre": [
+{
+"id": "58c4cf9f-0ae5-4ca1-8aba-376c97b5c2f4",
+"name": "Arcada",
+"activite": "Café, bar, brasserie",
+"latitude": 44.837612,
+"longitude": -0.569049,
+"numero": "13",
+"voie": "Rue de la Rousselle",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "a2887313-e50e-4cd6-a6ae-d539ff28241b",
+"name": "Au Nouveau Monde",
+"activite": "Café, bar, brasserie",
+"latitude": 44.835835,
+"longitude": -0.56931,
+"numero": "2",
+"voie": "Rue des Boucheries",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "a576093f-8285-43e6-b985-be26cab2c47b",
+"name": "Aux 4 Coins Du Vin",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839795,
+"longitude": -0.570913,
+"numero": "8",
+"voie": "Rue de la Devise",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "effa88e8-bc34-47f4-9275-bf209754c84b",
+"name": "ayawasca cocktail club",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839072,
+"longitude": -0.570678,
+"numero": "19",
+"voie": "Rue des Bahutiers",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "196d24ef-0327-43ae-b033-d9316406eab2",
+"name": "Bacchus Restaurant",
+"activite": "Restaurant",
+"latitude": 44.840668,
+"longitude": -0.57047,
+"numero": "5",
+"voie": "Rue des Faussets",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "be716354-6634-45cf-a303-b23ed5065cf4",
+"name": "BACK TO! Smashed Burgers",
+"activite": "Restauration rapide",
+"latitude": 44.8356,
+"longitude": -0.572929,
+"numero": "24",
+"voie": "Place de la Ferme de Richemont",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "7be5f4bc-25ff-43a3-8afb-def43821c2c9",
+"name": "Bar A Vin",
+"activite": "Café, bar, brasserie",
+"latitude": 44.843703,
+"longitude": -0.574723,
+"numero": "3",
+"voie": "Cours du XXX Juillet",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "9b79e751-d8e0-447a-847c-e7a6d912728c",
+"name": "Baston",
+"activite": "Restaurant",
+"latitude": 44.83603,
+"longitude": -0.577845,
+"numero": "50",
+"voie": "Rue du Ha",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "c16bd12e-3d39-41bc-8d2a-42725836ca15",
+"name": "BATCH",
+"activite": "Restaurant",
+"latitude": 44.836848,
+"longitude": -0.574588,
+"numero": "61",
+"voie": "Rue des Ayres",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "616245c1-2122-4362-a68c-61d2741cf79d",
+"name": "Berthus",
+"activite": "Restaurant",
+"latitude": 44.839287,
+"longitude": -0.570668,
+"numero": "15",
+"voie": "Rue des Bahutiers",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "dc371694-a61e-4262-baf4-ecf6df690aa4",
+"name": "Bibi",
+"activite": "Restaurant",
+"latitude": 44.835995,
+"longitude": -0.578212,
+"numero": "62",
+"voie": "Rue du Ha",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "03cff43c-4789-44a1-ae4c-db41a44f4b32",
+"name": "BIG Bistrot Girondin",
+"activite": "Café, bar, brasserie",
+"latitude": 44.841125,
+"longitude": -0.573945,
+"numero": "66",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "d8da5487-698a-4491-b1d6-f19a0502e840",
+"name": "Big Fernand",
+"activite": "Restaurant",
+"latitude": 44.839745151946666,
+"longitude": -0.5752263000470915,
+"numero": null,
+"voie": "Rue Sainte-Catherine",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "891e0f16-f015-46e0-b038-ec53a32ff611",
+"name": "bistro Chez Lolotte",
+"activite": "Café, bar, brasserie",
+"latitude": 44.84184,
+"longitude": -0.575425,
+"numero": "2",
+"voie": "Rue Louis Combes",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "b4fbae53-1aee-4bad-9632-892915760c55",
+"name": "Bistrot cheverus",
+"activite": "Café, bar, brasserie",
+"latitude": 44.837864,
+"longitude": -0.575449,
+"numero": "81",
+"voie": "Rue du Loup",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "129183e4-dfd5-4f59-ba6a-d769174b6ffc",
+"name": "BlackList Café",
+"activite": "Restaurant",
+"latitude": 44.837254,
+"longitude": -0.576794,
+"numero": "27",
+"voie": "Place Pey Berland",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "7267ed4b-ae83-4ae7-b76d-fd6db6468dc3",
+"name": "Bodega Bodega",
+"activite": "Restaurant",
+"latitude": 44.841762,
+"longitude": -0.573663,
+"numero": "4",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "6cc3c6f1-49e7-4a39-be18-19b84bcad0ad",
+"name": "Bodega Bodega",
+"activite": "Café, bar, brasserie",
+"latitude": 44.84180833764624,
+"longitude": -0.5736547708511354,
+"numero": "4",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "c224fd47-6830-45b8-840c-a1ae947bc5ca",
+"name": "Bogi",
+"activite": "Restauration rapide",
+"latitude": 44.83963,
+"longitude": -0.571962,
+"numero": "24",
+"voie": "Rue du Pas Saint-Georges",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "508deb47-dd74-44a0-8196-5b3121b2320e",
+"name": "book et cofee",
+"activite": "Café, bar, brasserie",
+"latitude": 44.835998,
+"longitude": -0.571465,
+"numero": "39",
+"voie": "Rue Saint-James",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "d476ee86-fa5a-4458-a88c-6a17e058afe2",
+"name": "Books",
+"activite": "Café, bar, brasserie",
+"latitude": 44.83603,
+"longitude": -0.57139,
+"numero": "26",
+"voie": "Rue Saint-James",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "a3a85280-ddf4-4abe-bdfa-c5ec298d9dc2",
+"name": "Brasserie Bordelaise",
+"activite": "Café, bar, brasserie",
+"latitude": 44.841206,
+"longitude": -0.573008,
+"numero": "50",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "7b903d88-013a-4a74-a258-1a5464859b38",
+"name": "Brasserie l'Orleans",
+"activite": "Café, bar, brasserie",
+"latitude": 44.843784,
+"longitude": -0.573528,
+"numero": "36",
+"voie": "Allée d'Orleans",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "00e17841-459a-4ebf-b23d-80f7ec2d3653",
+"name": "Brasserie Maillard",
+"activite": "Café, bar, brasserie",
+"latitude": 44.841396,
+"longitude": -0.571608,
+"numero": "17",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "f6f3ea93-084b-4e67-828b-41aa8a8bdbea",
+"name": "Brique House Bordeaux",
+"activite": "Restauration rapide",
+"latitude": 44.843697,
+"longitude": -0.573872,
+"numero": "40",
+"voie": "Allée d'Orleans",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "b3f5629a-4da2-4069-a72d-13b7a3b2c475",
+"name": "Brique House Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.843699,
+"longitude": -0.573872,
+"numero": "40",
+"voie": "Allée d'Orleans",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "66220e0a-c233-4c96-8f9f-24f4deef2859",
+"name": "Brutus Restaurant Bordeaux",
+"activite": "Café, bar, brasserie",
+"latitude": 44.838448,
+"longitude": -0.569833,
+"numero": "5",
+"voie": "Rue du Palais de l'Ombrière",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "fd9f0e46-19e4-417e-b92e-a59aedce9dd6",
+"name": "Bunami",
+"activite": "Restaurant",
+"latitude": 44.83888,
+"longitude": -0.575009,
+"numero": "13",
+"voie": "Rue des Trois Conils",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "c0278237-3521-420c-8c2f-c8fcf987ec64",
+"name": "Cafe Conil",
+"activite": "Café, bar, brasserie",
+"latitude": 44.83859,
+"longitude": -0.577103,
+"numero": "48",
+"voie": "Rue des Trois Conils",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "f8a13e90-4fa2-4f2d-bf6d-777086a93811",
+"name": "Café Français",
+"activite": "Café, bar, brasserie",
+"latitude": 44.83822,
+"longitude": -0.578233,
+"numero": "5",
+"voie": "Place Pey Berland",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "b35ff74e-7406-4398-82a9-3dd127635439",
+"name": "Cafe Joyeux",
+"activite": "Café, bar, brasserie",
+"latitude": 44.837433,
+"longitude": -0.570831,
+"numero": "31",
+"voie": "Rue Sainte Colombe",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "7b9f65f4-3a44-4329-9b1b-4a613d24b646",
+"name": "cafe l'aéro",
+"activite": "Café, bar, brasserie",
+"latitude": 44.84225336588301,
+"longitude": -0.5714097619056703,
+"numero": "10",
+"voie": "Cours du Chapeau Rouge",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "e5f22652-80b7-40fb-8130-f4c10b7c25bf",
+"name": "Café Piha",
+"activite": "Café, bar, brasserie",
+"latitude": 44.836751,
+"longitude": -0.574886,
+"numero": "69",
+"voie": "Rue des Ayres",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "732b8b93-50b4-47d7-87a6-0a038183eb5f",
+"name": "Cajou Caffé",
+"activite": "Restaurant",
+"latitude": 44.83889,
+"longitude": -0.572376,
+"numero": null,
+"voie": "Place Camille Jullian",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "8cd80659-cf65-46c3-b72b-10383863ffe8",
+"name": "Canard Street Bordeaux",
+"activite": "Restauration rapide",
+"latitude": 44.84117,
+"longitude": -0.57341,
+"numero": "58",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "96e7e2d9-3da7-4908-ae76-dd2d2c645789",
+"name": "Cappadoce",
+"activite": "Restauration rapide",
+"latitude": 44.839593,
+"longitude": -0.570576,
+"numero": "5",
+"voie": "Rue des Bahutiers",
+"entree_plain_pied": null,
+"sanitaires_adaptes": true
+},
+{
+"id": "a440f866-661d-4df7-bcf0-2fb4ab16c35c",
+"name": "Carmel",
+"activite": "Restaurant",
+"latitude": 44.837061,
+"longitude": -0.572628,
+"numero": "14",
+"voie": "Rue Ravez",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "96bc196d-ac35-4ccd-a831-4d520dcee5fd",
+"name": "Carnaval Café",
+"activite": "Café, bar, brasserie",
+"latitude": 44.836514,
+"longitude": -0.575661,
+"numero": "14b",
+"voie": "Rue Duffour Dubergier",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "c1d82074-13b1-4730-b416-cd1d0e3e2dc2",
+"name": "cassonade",
+"activite": "Restaurant",
+"latitude": 44.8356,
+"longitude": -0.571419,
+"numero": "51",
+"voie": "Rue Saint-James",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "910d59e0-8576-4776-9455-cfd4b2e095e5",
+"name": "Caviar de Neuvic - Boutique - Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.842346,
+"longitude": -0.576267,
+"numero": "14",
+"voie": "Passage Sarget",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "ce938404-e040-47db-851c-0de8aaafd507",
+"name": "Central Hostel",
+"activite": "Restaurant",
+"latitude": 44.838493,
+"longitude": -0.574273,
+"numero": "2",
+"voie": "Place Saint-Projet",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "1d9c5ebc-2736-419c-91de-def6f3831faf",
+"name": "Chez Coluche",
+"activite": "Restauration rapide",
+"latitude": 44.839164,
+"longitude": -0.571933,
+"numero": "40",
+"voie": "Rue du Pas Saint-Georges",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "2abd72cd-d1d7-48cf-a59c-5d35e00027ed",
+"name": "Chez Memo",
+"activite": "Restauration rapide",
+"latitude": 44.836,
+"longitude": -0.567363,
+"numero": "21",
+"voie": "Cours Victor Hugo",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "312d8654-2d3f-4c91-a2e9-c3358147df9a",
+"name": "CHIOCCHIO",
+"activite": "Restaurant",
+"latitude": 44.838414,
+"longitude": -0.569327,
+"numero": "20",
+"voie": "Place du Palais",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "9995f555-8179-49dc-a4aa-0c4a04abffd9",
+"name": "Cock And Bull",
+"activite": "Café, bar, brasserie",
+"latitude": 44.836384,
+"longitude": -0.575876,
+"numero": "23",
+"voie": "Rue Duffour Dubergier",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "94d29e7a-0820-45ef-98c8-3381a2c1109e",
+"name": "Code 23",
+"activite": "Restaurant",
+"latitude": 44.83881,
+"longitude": -0.573235,
+"numero": "27",
+"voie": "Rue Arnaud Miqueu",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "9b3b5b72-edf0-4e22-88d1-8ef0c3d4c7bb",
+"name": "Comptoir Christoly",
+"activite": "Restaurant",
+"latitude": 44.839662,
+"longitude": -0.577458,
+"numero": null,
+"voie": "Place Saint-Christoly",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "72a15ade-675c-48b1-a8a3-f1c8020dedb5",
+"name": "coté sushi",
+"activite": "Restauration rapide",
+"latitude": 44.837044,
+"longitude": -0.571563,
+"numero": "2",
+"voie": "Place Fernand Lafargue",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "ae5fae7e-6fad-48db-8cec-9bd9fced1ae4",
+"name": "Côté Sushi Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.837044,
+"longitude": -0.571563,
+"numero": "2",
+"voie": "Place Fernand Lafargue",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "a7e1757b-41a0-4e76-9d08-a89413d213b5",
+"name": "Crêperie La Belle Suzette | Cidrerie - Salon de Thé - Restaurant crêpes gaufres Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.841676,
+"longitude": -0.575399,
+"numero": "6",
+"voie": "Rue Louis Combes",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "0d621fd5-9367-4e0e-ba48-a5647a73d5be",
+"name": "ECHO",
+"activite": "Restaurant",
+"latitude": 44.839535,
+"longitude": -0.570094,
+"numero": "18",
+"voie": "Rue de la Cour des Aides",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "beb84f11-2350-44ad-a6fa-07fafde08d9b",
+"name": "ÉDOUARD VINS ET COMESTIBLES",
+"activite": "Café, bar, brasserie",
+"latitude": 44.840689,
+"longitude": -0.572039,
+"numero": null,
+"voie": "Place du Parlement",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "4c9a690f-d9bb-42c9-bfa6-8314b90606cc",
+"name": "Elysée Doner Kebab St Projet",
+"activite": "Restauration rapide",
+"latitude": 44.83889,
+"longitude": -0.573822,
+"numero": "14",
+"voie": "Rue de la Merci",
+"entree_plain_pied": null,
+"sanitaires_adaptes": true
+},
+{
+"id": "95644633-2b9c-49ca-ac84-118c3f3387cc",
+"name": "Epicentre",
+"activite": "Restaurant",
+"latitude": 44.841406,
+"longitude": -0.573682,
+"numero": "15",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "3cca9594-b2c3-44c6-957f-12bc75d1ce5f",
+"name": "Fortiche Club",
+"activite": "Restauration rapide",
+"latitude": 44.839371,
+"longitude": -0.570546,
+"numero": "8",
+"voie": "Rue des Bahutiers",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "78e328c3-1edb-4dd7-9a33-1747d4ab63ad",
+"name": "French House",
+"activite": "Restaurant",
+"latitude": 44.841229,
+"longitude": -0.575921,
+"numero": "7",
+"voie": "Place Puy Paulin",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "43a8dde1-a6e7-4c3c-8e62-b1093c79dbf5",
+"name": "Frida",
+"activite": "Restaurant",
+"latitude": 44.835832,
+"longitude": -0.570488,
+"numero": "29",
+"voie": "Rue Buhan",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "4d3b046b-8619-44be-b3b5-04223b4f9fa6",
+"name": "Funky Burger",
+"activite": "Restauration rapide",
+"latitude": 44.837994,
+"longitude": -0.572096,
+"numero": "5",
+"voie": "Rue du Loup",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "a51d1bcf-0030-438b-8670-07f5aefd9e78",
+"name": "Fuxia Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.843699,
+"longitude": -0.573872,
+"numero": "40",
+"voie": "Allée d'Orleans",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "c8010c39-e793-43ab-837f-54c14f494f0b",
+"name": "GRUPPOMIMO - Bordeaux",
+"activite": "Restauration rapide",
+"latitude": 44.841312,
+"longitude": -0.57173,
+"numero": "24",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "ec7dfbb1-75ab-4645-9d3a-f938a500c019",
+"name": "Guy&Sons Bordeaux",
+"activite": "Restauration rapide",
+"latitude": 44.841187,
+"longitude": -0.573226,
+"numero": "54",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "8b08beb7-3fb4-47ea-bdd7-79a7f02f8630",
+"name": "Heiko - Poké bowl & sushi burrito",
+"activite": "Restauration rapide",
+"latitude": 44.836963,
+"longitude": -0.574142,
+"numero": "49",
+"voie": "Rue des Ayres",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "5a7efc33-61ee-4c87-a8dc-6e4cf2d43489",
+"name": "Homie's Kitchen",
+"activite": "Restaurant",
+"latitude": 44.836917,
+"longitude": -0.573872,
+"numero": "36",
+"voie": "Rue des Ayres",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "bd117349-7fd7-49b3-97f2-50a20a9a8fd2",
+"name": "Influence Wok",
+"activite": "Restaurant",
+"latitude": 44.842288,
+"longitude": -0.576009,
+"numero": "3",
+"voie": "Rue Martignac",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "a5840d10-4699-4391-a844-6954a2269f80",
+"name": "Ishikawa",
+"activite": "Restaurant",
+"latitude": 44.836154,
+"longitude": -0.576619,
+"numero": "22",
+"voie": "Rue du Ha",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "9064048a-bde6-44e6-b411-22dd1e52dcaf",
+"name": "IT - Italian Trattoria Bordeaux St Rémi",
+"activite": "Restauration rapide",
+"latitude": 44.841192,
+"longitude": -0.574055,
+"numero": "69",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "c0371fb4-936a-42c3-8ace-a32b4e3615ee",
+"name": "Kapital Kebab",
+"activite": "Restauration rapide",
+"latitude": 44.840462,
+"longitude": -0.573366,
+"numero": "32",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "12fb79bd-4688-45b5-926f-db616db9bb31",
+"name": "Kokomo",
+"activite": "Restauration rapide",
+"latitude": 44.836903,
+"longitude": -0.571831,
+"numero": "9",
+"voie": "Place Fernand Lafargue",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "e6143e32-2e23-44d3-90b6-9d9767c4655e",
+"name": "kusmi tea",
+"activite": "Salon de thé",
+"latitude": 44.840887,
+"longitude": -0.577652,
+"numero": "63",
+"voie": "Rue de la Porte Dijeaux",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "d933bec3-5324-473d-b510-07b1f3742cb4",
+"name": "la belle epoque",
+"activite": "Café, bar, brasserie",
+"latitude": 44.844026,
+"longitude": -0.571017,
+"numero": "2",
+"voie": "Allée d'Orleans",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "1e49d324-100b-4032-b88b-88233f9438d3",
+"name": "L'Adiu !",
+"activite": "Restaurant",
+"latitude": 44.836013,
+"longitude": -0.566642,
+"numero": "10",
+"voie": "Cours Victor Hugo",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "d136fa7c-3d0a-44df-9c98-2e5d565ccfa6",
+"name": "L' Aéro",
+"activite": "Café, bar, brasserie",
+"latitude": 44.842247,
+"longitude": -0.571506,
+"numero": "12",
+"voie": "Cours du Chapeau Rouge",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "8543f95a-be84-4ccc-a912-dcd1a424abc9",
+"name": "La Fine Bouche",
+"activite": "Restaurant",
+"latitude": 44.836116,
+"longitude": -0.576952,
+"numero": "30",
+"voie": "Rue du Ha",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "c24bab86-f24a-45d1-bc56-b306f05c69f1",
+"name": "L'Alchimiste",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839358,
+"longitude": -0.571948,
+"numero": "32",
+"voie": "Rue du Pas Saint-Georges",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "d49a7026-c6b3-44c0-8a54-2a7ca6d2fdf4",
+"name": "La Mie Caline",
+"activite": "Restauration rapide",
+"latitude": 44.83765077105101,
+"longitude": -0.5738666593527598,
+"numero": "107",
+"voie": "Rue Sainte-Catherine",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "bef0b9d1-4312-4b82-aeb5-e8043b3fd4ce",
+"name": "L Apollo",
+"activite": "Restaurant",
+"latitude": 44.837252,
+"longitude": -0.571658,
+"numero": "19",
+"voie": "Place Fernand Lafargue",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "8d6212c8-7cde-4ea0-adbf-733c9632549c",
+"name": "L’autre petit bois",
+"activite": "Restaurant",
+"latitude": 44.840851,
+"longitude": -0.572339,
+"numero": "12",
+"voie": "Place du Parlement",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "69df7b37-b8f4-4d99-b1fd-54032d09de5d",
+"name": "La Villa Tourny",
+"activite": "Café, bar, brasserie",
+"latitude": 44.843483,
+"longitude": -0.575916,
+"numero": "20",
+"voie": "Allée de Tourny",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "6df3d302-d162-42dd-9420-ceb0c0ea2967",
+"name": "Le 1544 du Gabriel • Bistrot Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.841364,
+"longitude": -0.570714,
+"numero": "10",
+"voie": "Place de la Bourse",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "6651bc34-8285-48b4-86ce-d8abc68583f3",
+"name": "Le Beau Jeu - Bar et jeux de société",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839174,
+"longitude": -0.568989,
+"numero": "22",
+"voie": "Rue du Chai des Farines",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "215b1e19-8749-44ce-8545-f26bc861071b",
+"name": "Le Bistrot Des Grands Hommes",
+"activite": "Café, bar, brasserie",
+"latitude": 44.84296,
+"longitude": -0.578052,
+"numero": "10",
+"voie": "Place des Grands Hommes",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "6174d3ac-f6bc-485f-9535-007977a36327",
+"name": "Le Bordeaux",
+"activite": "Restauration rapide",
+"latitude": 44.84255,
+"longitude": -0.574773,
+"numero": "5",
+"voie": "Place de la Comedie",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "2417b77a-9491-4bd6-ba63-7c022e0f3b24",
+"name": "Le Bouchon Bordelais",
+"activite": "Restauration rapide",
+"latitude": 44.841824,
+"longitude": -0.573011,
+"numero": "2",
+"voie": "Rue Courbin",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "ac6b6ecb-0ade-4aa0-8c8a-f62ac089a579",
+"name": "Le Brixton",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839138,
+"longitude": -0.568415,
+"numero": "17",
+"voie": "Quai Richelieu",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "bc4c72cb-64db-4da5-87c7-14defe4a6f88",
+"name": "Le Cabanon Marin",
+"activite": "Restaurant",
+"latitude": 44.838194,
+"longitude": -0.567683,
+"numero": "24",
+"voie": "Quai Richelieu",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "441cf3bb-2f07-43f9-8fe9-c7f9b32bcc1b",
+"name": "Le Carreau",
+"activite": "Café, bar, brasserie",
+"latitude": 44.83942,
+"longitude": -0.571952,
+"numero": "30",
+"voie": "Rue du Pas Saint-Georges",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "17275c62-4d21-4977-b560-ecd1dee48a7c",
+"name": "Le Comptoir D'Etienne",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839108,
+"longitude": -0.571783,
+"numero": "21",
+"voie": "Rue Maucoudinat",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "6332a58c-c650-4961-b8d8-4fe4b223fa2d",
+"name": "le comptoire irlandais",
+"activite": "Café, bar, brasserie",
+"latitude": 44.841167,
+"longitude": -0.57793,
+"numero": "14",
+"voie": "Rue du Temple",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "4e8b63a4-5cd3-4da8-b421-6c0d1ad3eee3",
+"name": "LE LOUP",
+"activite": "Café, bar, brasserie",
+"latitude": 44.837906,
+"longitude": -0.574535,
+"numero": "66",
+"voie": "Rue du Loup",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "2530f695-53c2-40cc-82c5-e7d16cd7d600",
+"name": "Le Michel's",
+"activite": "Restauration rapide",
+"latitude": 44.839684,
+"longitude": -0.572066,
+"numero": "15",
+"voie": "Rue du Pas Saint-Georges",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "0c0fbcb7-c0b2-48cb-b0eb-caffc00d709c",
+"name": "L'Empire Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.839901,
+"longitude": -0.571344,
+"numero": "14",
+"voie": "Rue de la Devise",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "c23a8b38-b7d8-48c1-a0d1-7ca7b9b0ce97",
+"name": "Le Murano",
+"activite": "Restauration rapide",
+"latitude": 44.842177,
+"longitude": -0.572574,
+"numero": "32",
+"voie": "Cours du Chapeau Rouge",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "478630c1-3d04-443f-ad4a-acb79cae79e2",
+"name": "Le Noailles",
+"activite": "Café, bar, brasserie",
+"latitude": 44.843258,
+"longitude": -0.575599,
+"numero": "12",
+"voie": "Allée de Tourny",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "e19d6e41-6a8c-4475-9441-5b5e286cac29",
+"name": "L'Entrecôte",
+"activite": "Café, bar, brasserie",
+"latitude": 44.84326,
+"longitude": -0.574288,
+"numero": "4",
+"voie": "Cours du XXX Juillet",
+"entree_plain_pied": null,
+"sanitaires_adaptes": true
+},
+{
+"id": "19cf541a-42be-4448-809f-701ccfb9b454",
+"name": "Le Parlement des Graves",
+"activite": "Café, bar, brasserie",
+"latitude": 44.8406,
+"longitude": -0.572887,
+"numero": "9",
+"voie": "Rue du Parlement Sainte-Catherine",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "6382c7a2-6b89-4354-a407-8201aaac47cb",
+"name": "Le Puy Paulin",
+"activite": "Café, bar, brasserie",
+"latitude": 44.841269,
+"longitude": -0.575842,
+"numero": null,
+"voie": "Place Puy Paulin",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "8f80dee5-0aba-4a59-bfb9-a6a5e22013d3",
+"name": "le saint christophe",
+"activite": "Restaurant",
+"latitude": 44.836781,
+"longitude": -0.571609,
+"numero": "5",
+"voie": "Rue Saint-James",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "0f8e977c-136c-47a1-b7f0-3a1b57f96f9e",
+"name": "Le Saint Georges",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839078,
+"longitude": -0.572168,
+"numero": "2",
+"voie": "Place Camille Jullian",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "229c333e-4023-4a87-b419-92b974f9d803",
+"name": "Les Burgers de Colette - Grand Théâtre",
+"activite": "Restauration rapide",
+"latitude": 44.84158,
+"longitude": -0.573627,
+"numero": "10",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "22d42e74-30c3-4909-bc33-2e6b8adda278",
+"name": "les burgers de colettes",
+"activite": "Café, bar, brasserie",
+"latitude": 44.841766497207864,
+"longitude": -0.5742636623502763,
+"numero": "4",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "4efd1726-31cf-45dd-a167-2ba440766e8c",
+"name": "Les Fils à Maman Bordeaux",
+"activite": "Restauration rapide",
+"latitude": 44.84027,
+"longitude": -0.570646,
+"numero": "19",
+"voie": "Rue des Faussets",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "4e4f1625-ef8c-4d49-9d72-58865b863e67",
+"name": "Les Mauvais Garçons",
+"activite": "Restaurant",
+"latitude": 44.836752,
+"longitude": -0.569384,
+"numero": null,
+"voie": "Rue Neuve",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "fe0ced3d-a0e9-49ed-874d-1c37b9b299c5",
+"name": "Les Mille et Une Nuits",
+"activite": "Restauration rapide",
+"latitude": 44.838336,
+"longitude": -0.570755,
+"numero": "42",
+"voie": "Rue des Bahutiers",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "21643e3a-9d02-4a7f-94c8-442217f34f52",
+"name": "Les Moules du Cabanon",
+"activite": "Restaurant",
+"latitude": 44.839374,
+"longitude": -0.5686,
+"numero": "12",
+"voie": "Quai Richelieu",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "fae3551c-970f-4908-996c-fddd6ca9eadc",
+"name": "Les Négociants",
+"activite": "Restaurant",
+"latitude": 44.835526,
+"longitude": -0.571717,
+"numero": "3",
+"voie": "Rue de Guienne",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "4ce15366-f439-4f97-ab36-4833fa06e564",
+"name": "Les Récoltants",
+"activite": "Restaurant",
+"latitude": 44.837377,
+"longitude": -0.57045,
+"numero": "18",
+"voie": "Rue Sainte Colombe",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "539863cd-91de-48d2-8b70-2df9d3edd5e2",
+"name": "le tequila",
+"activite": "Café, bar, brasserie",
+"latitude": 44.836195,
+"longitude": -0.566163,
+"numero": "2",
+"voie": "Cours Victor Hugo",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "1653ed6b-94ae-4ed1-ad04-27ef98ee9604",
+"name": "L'étoile",
+"activite": "Café, bar, brasserie",
+"latitude": 44.835964,
+"longitude": -0.569467,
+"numero": "64",
+"voie": "Rue Bouquière",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "60f61964-9fab-4d06-8796-eaf7301ae658",
+"name": "Levain Le Vin",
+"activite": "Restaurant",
+"latitude": 44.836384,
+"longitude": -0.566958,
+"numero": "75",
+"voie": "Rue de la Rousselle",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "fb257561-7a05-4623-b925-81717fbba96d",
+"name": "L'INTENDANCE 33",
+"activite": "Restaurant",
+"latitude": 44.84191299999999,
+"longitude": -0.577187999999999,
+"numero": "68",
+"voie": "Cours de l'Intendance",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "5564cfce-2073-43ae-b007-c1a6b4b2f772",
+"name": "Little Italy Restaurant",
+"activite": "Restauration rapide",
+"latitude": 44.84044,
+"longitude": -0.570569,
+"numero": "13",
+"voie": "Rue des Faussets",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "40b82ef5-3b24-4a9f-83b7-cd5a0838f76c",
+"name": "L'Originel",
+"activite": "Restaurant",
+"latitude": 44.837986,
+"longitude": -0.573152,
+"numero": "35",
+"voie": "Rue du Loup",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "bca9b475-e73b-4745-b73e-f558a693bf91",
+"name": "Lunchi",
+"activite": "Restaurant",
+"latitude": 44.83941,
+"longitude": -0.577611,
+"numero": "1",
+"voie": "Rue Beaubadat",
+"entree_plain_pied": true,
+"sanitaires_adaptes": false
+},
+{
+"id": "2f3c09a6-0f8b-45bd-bb56-a97956feacfb",
+"name": "Madame Pang",
+"activite": "Restaurant",
+"latitude": 44.83995,
+"longitude": -0.571504,
+"numero": "16",
+"voie": "Rue de la Devise",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "f9ab111f-b3d9-47cf-8e52-b56f4c8e1d6a",
+"name": "Madonnina Street Pizza",
+"activite": "Restauration rapide",
+"latitude": 44.836508,
+"longitude": -0.575302,
+"numero": "70",
+"voie": "Rue des Ayres",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "a625be4a-d7ed-4708-8fff-a5023e0cf236",
+"name": "Mama Restaurant Bordeaux",
+"activite": "Café, bar, brasserie",
+"latitude": 44.839873,
+"longitude": -0.57746,
+"numero": null,
+"voie": "Rue Poquelin Molière",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "76d02872-fede-4277-9f7d-dd2f16488025",
+"name": "Mampuku",
+"activite": "Restaurant",
+"latitude": 44.838331,
+"longitude": -0.56857,
+"numero": "9",
+"voie": "Rue Ausone",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "5f739bde-4ce7-46a5-99f1-77311ab3d28f",
+"name": "Masaniello - Pizzeria e Cucina",
+"activite": "Restauration rapide",
+"latitude": 44.839068,
+"longitude": -0.571362,
+"numero": "10",
+"voie": "Rue Maucoudinat",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "bc9d7b45-6fab-4cef-835c-02fd640749b5",
+"name": "McDonald's",
+"activite": "Restauration rapide",
+"latitude": 44.839879842230005,
+"longitude": -0.5752346310294953,
+"numero": "9",
+"voie": "Rue du Parlement Sainte-Catherine",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "46064a5f-70ac-44eb-968a-97b97d852458",
+"name": "McDonald's",
+"activite": "Restauration rapide",
+"latitude": 44.840955,
+"longitude": -0.574413,
+"numero": "23",
+"voie": "Rue Sainte-Catherine",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "5640b7f3-f3db-42c4-995d-630d63610b57",
+"name": "mistuba",
+"activite": "Café, bar, brasserie",
+"latitude": 44.841599135150545,
+"longitude": -0.5736950520707752,
+"numero": "12",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "5de44e47-25e3-4858-9801-b63bd0c7a505",
+"name": "MO, Le bistro de Molière",
+"activite": "Café, bar, brasserie",
+"latitude": 44.840031,
+"longitude": -0.577727,
+"numero": "33",
+"voie": "Rue du Temple",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "f4a40758-4f76-4b8d-ba4b-144e57e42aaa",
+"name": "MONSIEUR PAPILLES",
+"activite": "Restaurant",
+"latitude": 44.840557,
+"longitude": -0.572773,
+"numero": "10",
+"voie": "Rue du Parlement Sainte-Catherine",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "77ec2e9a-67c6-4b00-85dd-ac1afc9a24a0",
+"name": "Monzù Grands Hommes",
+"activite": "Restauration rapide",
+"latitude": 44.843399,
+"longitude": -0.577808,
+"numero": "12",
+"voie": "Place des Grands Hommes",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "870e903e-99ad-498f-81fd-97d04f8658d0",
+"name": "Monzù Promenade Sainte Catherine",
+"activite": "Restauration rapide",
+"latitude": 44.839554,
+"longitude": -0.574805,
+"numero": "14",
+"voie": "Rue Guiraude",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "4a442a08-240e-4428-9a58-3dac4c632870",
+"name": "New York New York",
+"activite": "Café, bar, brasserie",
+"latitude": 44.836292,
+"longitude": -0.575387,
+"numero": "4",
+"voie": "Cours Pasteur",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "f691b069-aa48-436f-a6ca-9dbe45dbceb9",
+"name": "Nomad",
+"activite": "Café, bar, brasserie",
+"latitude": 44.837331,
+"longitude": -0.57119,
+"numero": "43",
+"voie": "Rue Sainte Colombe",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "c8b96a12-f32b-4210-9807-7277ec77349b",
+"name": "Nomad Bordeaux",
+"activite": "Restaurant",
+"latitude": 44.83733,
+"longitude": -0.57119,
+"numero": "43",
+"voie": "Rue Sainte Colombe",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "f5b12f01-42ea-4344-8b43-e3530e5c6bfe",
+"name": "Nom d'Une Crêpe",
+"activite": "Restaurant",
+"latitude": 44.841295,
+"longitude": -0.572027,
+"numero": "32",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "3b493ca6-c054-4729-92c0-e60eb3f59e47",
+"name": "o cake",
+"activite": "Café, bar, brasserie",
+"latitude": 44.83766,
+"longitude": -0.57348,
+"numero": "91",
+"voie": "Cours d'Alsace Et Lorraine",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "c5091712-6517-4675-a36b-ac98f1f83b31",
+"name": "ORTO",
+"activite": "Restauration rapide",
+"latitude": 44.835514,
+"longitude": -0.571874,
+"numero": "5",
+"voie": "Rue de Guienne",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "e67c3f06-ec14-476e-827b-bbbda3675051",
+"name": "Oshi Sushi",
+"activite": "Restauration rapide",
+"latitude": 44.837276,
+"longitude": -0.576545,
+"numero": "23",
+"voie": "Place Pey Berland",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "76b10912-3438-443c-9f7b-01c514627f3d",
+"name": "Osteria Da Luigi",
+"activite": "Restauration rapide",
+"latitude": 44.839485,
+"longitude": -0.572057,
+"numero": "23",
+"voie": "Rue du Pas Saint-Georges",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "4f921c38-d963-4473-804e-bf41f98e8e47",
+"name": "Osteria Pizzeria da Bartolo",
+"activite": "Restauration rapide",
+"latitude": 44.840383,
+"longitude": -0.570594,
+"numero": "15",
+"voie": "Rue des Faussets",
+"entree_plain_pied": null,
+"sanitaires_adaptes": true
+},
+{
+"id": "ee441cd6-683c-48f4-ab14-877509aace8d",
+"name": "pausk",
+"activite": "Café, bar, brasserie",
+"latitude": 44.84137091337977,
+"longitude": -0.573587715625763,
+"numero": "14",
+"voie": "Rue des Piliers de Tutelle",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "35c2cf32-19a1-4d1e-b470-a3e2633e6d9f",
+"name": "Peter Coffee Shop Bordeaux",
+"activite": "Restauration rapide",
+"latitude": 44.835524,
+"longitude": -0.571717,
+"numero": "3",
+"voie": "Rue de Guienne",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "6b8160a2-27b7-4ad8-b0c1-09d988f5b866",
+"name": "Petite Brasserie",
+"activite": "Café, bar, brasserie",
+"latitude": 44.840027,
+"longitude": -0.570751,
+"numero": "5",
+"voie": "Place Saint Pierre",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "d69d0734-0bbb-430e-b689-c2fc4141f59b",
+"name": "Petit Mignon",
+"activite": "Restauration rapide",
+"latitude": 44.841343,
+"longitude": -0.572252,
+"numero": "33",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "a5cb1358-15c4-497d-8577-81158ba52662",
+"name": "PMR",
+"activite": "Toilettes publiques",
+"latitude": 44.842192,
+"longitude": -0.572373,
+"numero": "28",
+"voie": "Cours du Chapeau Rouge",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "6d57965f-b3f7-478d-acd4-f54445902dac",
+"name": "PNP - Personne n'est Parfait",
+"activite": "Restauration rapide",
+"latitude": 44.83689,
+"longitude": -0.574449,
+"numero": "57",
+"voie": "Rue des Ayres",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "6e33ddb9-e250-45ee-8ea0-f4a99834c185",
+"name": "PRIMI",
+"activite": "Restaurant",
+"latitude": 44.836902,
+"longitude": -0.572047,
+"numero": "12",
+"voie": "Place Fernand Lafargue",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "1471c56b-bb21-4c7c-bd92-088182b1603a",
+"name": "QuatrèS Café Bordeaux",
+"activite": "Café, bar, brasserie",
+"latitude": 44.843334,
+"longitude": -0.574303,
+"numero": "6",
+"voie": "Cours du XXX Juillet",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "e41683f5-e7ec-41de-8d22-a7264e8ff6a3",
+"name": "Ragazzi Da Peppone",
+"activite": "Restaurant",
+"latitude": 44.839491,
+"longitude": -0.568691,
+"numero": "9",
+"voie": "Quai Richelieu",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "007b0cc8-d5a0-41e0-9eb0-7b15d3a5a30d",
+"name": "Restaurant le Loup",
+"activite": "Restaurant",
+"latitude": 44.837908,
+"longitude": -0.574535,
+"numero": "66",
+"voie": "Rue du Loup",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "dbfe3ea7-13ac-4eca-acdd-32601c6d011c",
+"name": "Restaurant L'Entrecôte",
+"activite": "Restaurant",
+"latitude": 44.843262,
+"longitude": -0.574288,
+"numero": "4",
+"voie": "Cours du XXX Juillet",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "a54603f5-80e7-4712-9bd9-5cbe2b704454",
+"name": "Restaurant Pizzeria - Comptoir Christoly",
+"activite": "Restaurant",
+"latitude": 44.839508,
+"longitude": -0.577628,
+"numero": "7",
+"voie": "Place Saint-Christoly",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "158145f8-f51c-42e0-b5a5-5f13e662abe0",
+"name": "Restaurant Vivants",
+"activite": "Restaurant",
+"latitude": 44.839355,
+"longitude": -0.570649,
+"numero": "13",
+"voie": "Rue des Bahutiers",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "a39324ac-6ac8-45a6-b771-db90ac41a6b4",
+"name": "San Pietro",
+"activite": "Restauration rapide",
+"latitude": 44.841335,
+"longitude": -0.571469,
+"numero": "18",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "a4b0eafe-bf9c-4f5d-a353-9bc036e5aba6",
+"name": "Simeone Dell'Arte Brasserie Italienne",
+"activite": "Restauration rapide",
+"latitude": 44.8387,
+"longitude": -0.572493,
+"numero": "10",
+"voie": "Place Camille Jullian",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "d6b1db12-70a1-4046-b6a7-933c838bee9d",
+"name": "Space Factory - craft beer",
+"activite": "Café, bar, brasserie",
+"latitude": 44.83931,
+"longitude": -0.577594,
+"numero": "5",
+"voie": "Rue Beaubadat",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "180b23e7-9cb7-4f5a-98b0-d299fe7ccf4b",
+"name": "SPA Les Bains de Léa - Grand Hôtel de Bordeaux",
+"activite": "Hôtel restaurant",
+"latitude": 44.842547,
+"longitude": -0.574773,
+"numero": "5",
+"voie": "Place de la Comedie",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "2abe3434-56c4-4fcd-bc69-696048155eba",
+"name": "Subway",
+"activite": "Restauration rapide",
+"latitude": 44.837056,
+"longitude": -0.575937,
+"numero": "6",
+"voie": "Rue Duffour Dubergier",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "b8e6c8ab-1bc7-43f7-a2fe-6ab054aa9b3b",
+"name": "Sushi Express 33",
+"activite": "Restauration rapide",
+"latitude": 44.836525,
+"longitude": -0.575459,
+"numero": "83",
+"voie": "Rue des Ayres",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "be95c97f-5a1d-4194-b94d-f0349c057b39",
+"name": "suzzi",
+"activite": "Restaurant",
+"latitude": 44.838613,
+"longitude": -0.576964,
+"numero": "46",
+"voie": "Rue des Trois Conils",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "64a40b33-0275-4041-9d3d-89433079e496",
+"name": "Sweeney Todd's",
+"activite": "Restauration rapide",
+"latitude": 44.83796,
+"longitude": -0.567576,
+"numero": "2",
+"voie": "Cours d'Alsace Et Lorraine",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "09ca1435-0432-4f36-9844-8c62a8852ee0",
+"name": "The Breakfast Club",
+"activite": "Restaurant",
+"latitude": 44.83698,
+"longitude": -0.573027,
+"numero": "27",
+"voie": "Rue des Ayres",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "916bfda0-5314-4ca8-a363-b0c4aafc7b3f",
+"name": "The Dock and Duck",
+"activite": "Café, bar, brasserie",
+"latitude": 44.84378,
+"longitude": -0.570762,
+"numero": "5",
+"voie": "Quai Louis XVIII",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+},
+{
+"id": "0c000d25-b53e-445e-8aa4-bb0fcac9b696",
+"name": "The Frog & Rosbif",
+"activite": "Restauration rapide",
+"latitude": 44.8378,
+"longitude": -0.568056,
+"numero": "23",
+"voie": "Rue Ausone",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "56510be9-0605-40cd-902e-5174f3f12a7e",
+"name": "The Starfish",
+"activite": "Café, bar, brasserie",
+"latitude": 44.837261,
+"longitude": -0.57082,
+"numero": "26",
+"voie": "Rue Sainte Colombe",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "676220fb-8589-4360-95db-ffc3d44f6f11",
+"name": "TLALI",
+"activite": "Restaurant",
+"latitude": 44.839485,
+"longitude": -0.570954,
+"numero": "6",
+"voie": "Rue du Cancera",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "59afbafb-fd4c-48cc-8724-af640d29556c",
+"name": "TLALI - Cuisine créative et Éclectique",
+"activite": "Restauration rapide",
+"latitude": 44.839485,
+"longitude": -0.570954,
+"numero": "6",
+"voie": "Rue du Cancera",
+"entree_plain_pied": null,
+"sanitaires_adaptes": null
+},
+{
+"id": "5711721e-0453-48f0-b424-afc5f188a607",
+"name": "Toilette",
+"activite": "Toilettes publiques",
+"latitude": 44.843719,
+"longitude": -0.574231,
+"numero": "42",
+"voie": "Allée d'Orleans",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "e4561a89-fb80-4983-9ab3-9d7cba36e3b4",
+"name": "Toilette publique",
+"activite": "Toilettes publiques",
+"latitude": 44.838194,
+"longitude": -0.567683,
+"numero": null,
+"voie": "Quai Richelieu",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "b5b84a7f-352f-4997-bf56-c923bd0aac96",
+"name": "Totto",
+"activite": "Restauration rapide",
+"latitude": 44.840696,
+"longitude": -0.572328,
+"numero": "10",
+"voie": "Place du Parlement",
+"entree_plain_pied": true,
+"sanitaires_adaptes": true
+},
+{
+"id": "0d25bf12-8c66-4592-b7b9-b6ac813e68bb",
+"name": "Tupaq",
+"activite": "Restaurant",
+"latitude": 44.835648,
+"longitude": -0.572066,
+"numero": "8",
+"voie": "Place de la Ferme de Richemont",
+"entree_plain_pied": false,
+"sanitaires_adaptes": false
+},
+{
+"id": "4c4885a0-24e5-480b-bf6d-6982ece7e316",
+"name": "un soir à Shibuya",
+"activite": "Restauration rapide",
+"latitude": 44.84123,
+"longitude": -0.572702,
+"numero": "44",
+"voie": "Rue Saint Rémi",
+"entree_plain_pied": true,
+"sanitaires_adaptes": null
+},
+{
+"id": "d21bfd68-7eb0-4fe8-ad21-509ea9ffe9c4",
+"name": "Villa oriana",
+"activite": "Restaurant",
+"latitude": 44.843086,
+"longitude": -0.573548,
+"numero": "27",
+"voie": "Rue Esprit-Des-Lois",
+"entree_plain_pied": false,
+"sanitaires_adaptes": true
+},
+{
+"id": "f04eead8-e83a-418f-90f8-9e8b05c8a08c",
+"name": "zidane",
+"activite": "Café, bar, brasserie",
+"latitude": 44.83591994812023,
+"longitude": -0.566801741844465,
+"numero": "12",
+"voie": "Cours Victor Hugo",
+"entree_plain_pied": false,
+"sanitaires_adaptes": null
+}
+]
+}
