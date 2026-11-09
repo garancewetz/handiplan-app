@@ -8,7 +8,7 @@ const DEFAULT_POSITION: Point = { lat: 48.8566, lon: 2.3522 }
 
 /**
  * Suit la position en continu (docs/decisions/carte, D3).
- * `ici` bouge à chaque relevé, pour le point sur la carte. `position` ne bouge qu'après un vrai
+ * `here` bouge à chaque relevé, pour le point sur la carte. `position` ne bouge qu'après un vrai
  * déplacement : c'est elle qui recharge les lieux, recadre la carte et mesure les distances, sinon
  * la liste se réordonnerait et la carte sauterait à chaque pas.
  */

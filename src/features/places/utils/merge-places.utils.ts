@@ -23,25 +23,25 @@ const knows = (p: Place, aspect: Aspect) => !!p.access && p.access[aspect] !== U
  * et « marche haute »), la plus prudente ; le désaccord seulement quand l'une dit « sans marche » (ou
  * « toilettes adaptées ») et l'autre le contraire (docs/decisions/donnees, D12).
  */
-function choose(aspect: Aspect, p: Place, s: Place): { from: Place; disagreement: boolean } {
-  if (!knows(s, aspect)) return { from: knows(p, aspect) ? p : s, disagreement: false }
-  if (!knows(p, aspect)) return { from: s, disagreement: false }
-  const pAnswer = p.access![aspect]
-  const sAnswer = s.access![aspect]
-  if (pAnswer === sAnswer) return { from: s, disagreement: false }
-  if (aspect === 'toilets' || (pAnswer !== 'partial' && sAnswer !== 'partial')) return { from: s, disagreement: true }
-  return { from: CAUTION[pAnswer] > CAUTION[sAnswer] ? p : s, disagreement: false }
+function choose(aspect: Aspect, other: Place, base: Place): { from: Place; disagreement: boolean } {
+  if (!knows(base, aspect)) return { from: knows(other, aspect) ? other : base, disagreement: false }
+  if (!knows(other, aspect)) return { from: base, disagreement: false }
+  const otherAnswer = other.access![aspect]
+  const baseAnswer = base.access![aspect]
+  if (otherAnswer === baseAnswer) return { from: base, disagreement: false }
+  if (aspect === 'toilets' || (otherAnswer !== 'partial' && baseAnswer !== 'partial')) return { from: base, disagreement: true }
+  return { from: CAUTION[otherAnswer] > CAUTION[baseAnswer] ? other : base, disagreement: false }
 }
 
 const DISAGREEMENT_ADVICE = 'Les infos ne sont pas d’accord : à vérifier sur place.'
 
 /**
- * Deux descriptions du même lieu réunies en une : `s` (la plus détaillée) pour tout, sauf l'entrée et les
+ * Deux descriptions du même lieu réunies en une : `base` (la plus détaillée) pour tout, sauf l'entrée et les
  * toilettes, choisies une à une (voir `choose`). Les détails de l'autre (largeur de porte, sonnette…)
  * restent, et un vrai désaccord est dit en clair, avec ce que dit chacune (`names`).
  */
-function combine(p: Place, s: Place, names: [string, string]): Pick<Place, 'lines' | 'access' | 'state' | 'advice' | 'disagreement'> {
-  const choice = { entrance: choose('entrance', p, s), toilets: choose('toilets', p, s) }
+function combine(other: Place, base: Place, names: [string, string]): Pick<Place, 'lines' | 'access' | 'state' | 'advice' | 'disagreement'> {
+  const choice = { entrance: choose('entrance', other, base), toilets: choose('toilets', other, base) }
   const says = (place: Place, theme: string, name: string) => {
     const line = place.lines.find(x => x.theme === theme) ?? place.lines[0]
     return line ? `${name} : ${lowercaseFirst(line.text)}` : null
@@ -51,46 +51,46 @@ function combine(p: Place, s: Place, names: [string, string]): Pick<Place, 'line
     const from = (place: Place) => place.lines.filter(x => x.theme === theme)
     const { from: chosen, disagreement } = choice[aspect]
     const head: Line[] = disagreement
-      ? [{ theme, answer: 'warning', text: `${theme} : les infos ne sont pas d’accord`, detail: [says(p, theme, names[0]), says(s, theme, names[1])].filter(Boolean).join(' · ') }]
+      ? [{ theme, answer: 'warning', text: `${theme} : les infos ne sont pas d’accord`, detail: [says(other, theme, names[0]), says(base, theme, names[1])].filter(Boolean).join(' · ') }]
       : from(chosen).slice(0, 1)
     // puis les détails des deux (sans leur réponse principale), une fois chacun
-    const details = [...from(chosen).slice(1), ...from(chosen === s ? p : s).slice(1)]
+    const details = [...from(chosen).slice(1), ...from(chosen === base ? other : base).slice(1)]
     return [...head, ...details.filter((line, i) => details.findIndex(x => x.text === line.text) === i)]
   }
-  // Les autres thèmes : `s`, et `p` pour ceux que `s` ne renseigne pas (un étage, une précision…).
-  const themesS = new Set(s.lines.map(line => line.theme))
+  // Les autres thèmes : `base`, et `other` pour ceux que `base` ne renseigne pas (un étage, une précision…).
+  const baseThemes = new Set(base.lines.map(line => line.theme))
   const others = (line: Line) => line.theme !== 'Entrée' && line.theme !== 'Toilettes'
   const lines = [
     ...essentials('entrance'), ...essentials('toilets'),
-    ...s.lines.filter(others), ...p.lines.filter(line => others(line) && !themesS.has(line.theme)),
+    ...base.lines.filter(others), ...other.lines.filter(line => others(line) && !baseThemes.has(line.theme)),
   ]
   // Un vrai désaccord compte comme « en partie » pour l'entrée, « on ne sait pas » pour les toilettes :
   // orange, jamais vert.
-  const access = s.access && p.access
+  const access = base.access && other.access
     ? {
       entrance: choice.entrance.disagreement ? 'partial' as const : choice.entrance.from.access!.entrance,
       toilets: choice.toilets.disagreement ? 'unknown' as const : choice.toilets.from.access!.toilets,
     }
-    : s.access ?? p.access
-  const state = access ? color(access.entrance, access.toilets) : s.state
+    : base.access ?? other.access
+  const state = access ? color(access.entrance, access.toilets) : base.state
   // (un désaccord peut venir d'avant : deux fiches Acceslibre qui se contredisaient déjà)
-  const disagreement = choice.entrance.disagreement || choice.toilets.disagreement || !!p.disagreement || !!s.disagreement
+  const disagreement = choice.entrance.disagreement || choice.toilets.disagreement || !!other.disagreement || !!base.disagreement
   const advice = disagreement ? DISAGREEMENT_ADVICE
-    : state === 'ok' && (s.type === 'cafe' || s.type === 'restaurant') ? 'Toilettes pour les clients : demandez au comptoir.'
-    : state === 'unknown' ? s.advice ?? p.advice : undefined
+    : state === 'ok' && (base.type === 'cafe' || base.type === 'restaurant') ? 'Toilettes pour les clients : demandez au comptoir.'
+    : state === 'unknown' ? base.advice ?? other.advice : undefined
   return { lines, access, state, advice, ...(disagreement ? { disagreement } : {}) }
 }
 
 /**
  * Le lieu des deux bases réunies : d'OpenStreetMap, le nom, le type et la position (plus précis) ;
- * d'Acceslibre, le détail. Pour l'entrée et les toilettes, voir `choisir`.
+ * d'Acceslibre, le détail. Pour l'entrée et les toilettes, voir `choose`.
  */
-function merge(o: Place, a: Place): Place {
+function merge(osm: Place, acceslibre: Place): Place {
   return {
-    ...a,
-    ...combine(o, a, ['OpenStreetMap', 'Acceslibre']),
-    id: o.id, name: o.name, type: o.type, label: o.label, lat: o.lat, lon: o.lon, meters: o.meters,
-    address: o.address ?? a.address,
+    ...acceslibre,
+    ...combine(osm, acceslibre, ['OpenStreetMap', 'Acceslibre']),
+    id: osm.id, name: osm.name, type: osm.type, label: osm.label, lat: osm.lat, lon: osm.lon, meters: osm.meters,
+    address: osm.address ?? acceslibre.address,
     sources: ['OpenStreetMap', 'Acceslibre'],
   }
 }
@@ -118,10 +118,10 @@ export function mergePlaces(osm: Place[], records: Place[]): Place[] {
   const acceslibre = onePerPlace(records)
   const places = osm.filter(p => p.type !== 'parking')
   const pairs = pair(places.map(candidate), acceslibre.map(candidate))
-  const mergedOnes = new Map(pairs.map(([i, j]) => [i, merge(places[i], acceslibre[j])]))
+  const merged = new Map(pairs.map(([i, j]) => [i, merge(places[i], acceslibre[j])]))
   const taken = new Set(pairs.map(([, j]) => j))
   return [
-    ...places.map((p, i) => mergedOnes.get(i) ?? p),
+    ...places.map((p, i) => merged.get(i) ?? p),
     ...osm.filter(p => p.type === 'parking'),
     ...acceslibre.filter((_, j) => !taken.has(j)),
   ]

@@ -18,12 +18,15 @@ export function usePlaces(center: Point | null, reference: Point | null) {
     shown.current = loading.places
   }, [loading.places])
 
+  // Suivre lat/lon plutôt que l'objet : un nouvel objet au même endroit ne doit pas tout recharger.
+  const lat = center?.lat
+  const lon = center?.lon
   useEffect(() => {
-    if (!center) return
+    if (lat === undefined || lon === undefined) return
+    const point = { lat, lon }
     const stale = shown.current
-    return loadProgressively(center, next => setLoading({ ...next, places: keepNeighbors(stale, next.places, center) }))
-    // Suivre lat/lon plutôt que l'objet : un nouvel objet au même endroit ne doit pas tout recharger.
-  }, [center?.lat, center?.lon, attempt]) // eslint-disable-line react-hooks/exhaustive-deps
+    return loadProgressively(point, next => setLoading({ ...next, places: keepNeighbors(stale, next.places, point) }))
+  }, [lat, lon, attempt])
 
   const since = reference ?? center
   return {

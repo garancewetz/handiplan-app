@@ -13,7 +13,7 @@ export type Candidate = {
   address?: { number: string; street: string }
   /** des toilettes publiques : jamais le même lieu qu'un café ou un restaurant */
   toilets?: boolean
-  /** les noms des autres fiches du même lieu (voir `regrouper`) : chacun peut servir à le reconnaître */
+  /** les noms des autres fiches du même lieu (voir `groupDuplicates`) : chacun peut servir à le reconnaître */
   otherNames?: string[]
 }
 
@@ -260,7 +260,7 @@ export function groupDuplicates(places: Candidate[]): number[][] {
   return groups
 }
 
-/** Une fiche par lieu : la première de chaque groupe (voir `regrouper`), avec les noms des autres. */
+/** Une fiche par lieu : la première de chaque groupe (voir `groupDuplicates`), avec les noms des autres. */
 export function oneRecordPerPlace<T extends Candidate>(places: T[]): T[] {
   return groupDuplicates(places).map(([first, ...others]) =>
     others.length === 0 ? places[first] : { ...places[first], otherNames: others.map(i => places[i].name) })

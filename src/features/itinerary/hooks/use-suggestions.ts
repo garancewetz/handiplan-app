@@ -13,20 +13,22 @@ export function useSuggestions(text: string, near: Point | null) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [loading, setLoading] = useState(false)
   const searchText = text.trim()
+  // Suivre lat/lon plutôt que l'objet : un nouvel objet au même endroit ne doit pas relancer la recherche.
+  const lat = near?.lat
+  const lon = near?.lon
 
   useEffect(() => {
     if (searchText.length < MIN_LETTERS) { setSuggestions([]); return }
     const abort = new AbortController()
     const timer = setTimeout(() => {
       setLoading(true)
-      suggest(searchText, near, abort.signal)
+      suggest(searchText, lat !== undefined && lon !== undefined ? { lat, lon } : null, abort.signal)
         .then(setSuggestions)
         .catch(() => { if (!abort.signal.aborted) setSuggestions([]) })
         .finally(() => { if (!abort.signal.aborted) setLoading(false) })
     }, DEBOUNCE_MS)
     return () => { clearTimeout(timer); abort.abort() }
-    // Suivre lat/lon plutôt que l'objet : un nouvel objet au même endroit ne doit pas relancer la recherche.
-  }, [searchText, near?.lat, near?.lon]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchText, lat, lon])
 
   return { suggestions, loading }
 }

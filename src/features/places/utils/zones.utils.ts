@@ -18,7 +18,7 @@ export function areasRectangle(keys: string[]): [number, number, number, number]
   return [round(Math.min(...lats) * GRID), round(Math.min(...lons) * GRID), round((Math.max(...lats) + 1) * GRID), round((Math.max(...lons) + 1) * GRID)]
 }
 
-/** Zones qui couvrent un cercle de `rayon` mètres autour d'un point (1 à 4 zones, rarement plus). */
+/** Zones qui couvrent un cercle de `radius` mètres autour d'un point (1 à 4 zones, rarement plus). */
 export function areasAround({ lat, lon }: Point, radius: number): string[] {
   const dLat = radius / 111320
   const dLon = radius / (111320 * Math.cos((lat * Math.PI) / 180))

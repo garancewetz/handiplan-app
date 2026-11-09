@@ -19,14 +19,7 @@ export function FollowMoves({ onGesture, onMoved, chosenZoom }: Props) {
   const gesture = useRef(false)
   const zoomIn = useRef<number | null>(null)
   const waiting = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const begin = () => {
-    if (!gesture.current) zoomIn.current = map.getZoom()
-    gesture.current = true
-    clearTimeout(waiting.current)
-    onGesture()
-  }
   const map = useMapEvents({
-    dragstart: begin,
     moveend: () => {
       if (!gesture.current) return
       gesture.current = false
@@ -41,6 +34,13 @@ export function FollowMoves({ onGesture, onMoved, chosenZoom }: Props) {
   })
 
   useEffect(() => {
+    const begin = () => {
+      if (!gesture.current) zoomIn.current = map.getZoom()
+      gesture.current = true
+      clearTimeout(waiting.current)
+      onGesture()
+    }
+    map.on('dragstart', begin)
     // En capture : Leaflet peut zoomer dans son propre gestionnaire, avant que l'événement ne remonte.
     const container = map.getContainer()
     const onTouch = (e: TouchEvent) => { if (e.touches.length > 1) begin() }
@@ -53,14 +53,17 @@ export function FollowMoves({ onGesture, onMoved, chosenZoom }: Props) {
     container.addEventListener('keydown', begin, options)
     container.addEventListener('touchstart', onTouch, options)
     return () => {
+      map.off('dragstart', begin)
       container.removeEventListener('click', onPinClick, options)
       container.removeEventListener('wheel', begin, options)
       container.removeEventListener('dblclick', begin, options)
       container.removeEventListener('keydown', begin, options)
       container.removeEventListener('touchstart', onTouch, options)
-      clearTimeout(waiting.current)
     }
-  }, [map]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [map, onGesture])
+
+  // Seulement en quittant la carte : un déplacement en attente n'a plus personne à prévenir.
+  useEffect(() => () => clearTimeout(waiting.current), [])
 
   return null
 }

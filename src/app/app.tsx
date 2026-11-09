@@ -48,22 +48,27 @@ export function App() {
   const visiblePlaces = places.filter(p => matches(p.type, filter))
   const inList = view.loadAround ? inArea(visiblePlaces, view.loadAround) : visiblePlaces
 
-  /** Revenir autour de soi. Pendant un trajet, on garde le chemin : la carte le recadre. */
-  function backHere() {
+  /**
+   * Montrer les lieux autour d'une arrivée, ou autour de soi (null) : la carte suit de nouveau, aucune
+   * place n'est choisie, et la liste repart du début.
+   */
+  function showAround(next: Arrival | null) {
     view.forget()
-    if (route.toward) return
-    setArrival(null)
+    setArrival(next)
     setChosenSpot(null)
     setShownCount(PER_PAGE)
   }
 
+  /** Revenir autour de soi. Pendant un trajet, on garde le chemin : la carte le recadre. */
+  function backHere() {
+    if (route.toward) view.forget()
+    else showAround(null)
+  }
+
   function chooseArrival(destination: Arrival) {
     setError(null)
-    setChosenSpot(null)
-    view.forget()
-    setShownCount(PER_PAGE)
     route.close()
-    setArrival(destination)
+    showAround(destination)
     destinations.remember(destination)
   }
 
@@ -79,11 +84,8 @@ export function App() {
   }
 
   function cancelRoute() {
-    view.forget()
-    setArrival(null)
-    setChosenSpot(null)
-    setShownCount(PER_PAGE)
     route.close()
+    showAround(null)
   }
 
   function openSearchedPlace(place: Place) {
