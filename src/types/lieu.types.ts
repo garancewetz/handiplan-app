@@ -41,6 +41,8 @@ export type Lieu = Point & {
   adresse?: Adresse
   /** les deux sources se contredisent sur l'entrée ou les toilettes (docs/decisions/donnees, D12) */
   desaccord?: boolean
+  /** les noms des autres fiches Acceslibre du même lieu, pour le reconnaître dans OSM */
+  autresNoms?: string[]
 }
 
 export type Arrivee = Point & { adresse: string }

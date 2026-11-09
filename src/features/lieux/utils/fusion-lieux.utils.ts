@@ -5,7 +5,7 @@ import type { Lieu, Ligne } from '~/types/lieu.types'
 // Reconnaître le même lieu : rapprochement.utils.ts (indépendant de l'affichage). Ici, réunir ce que
 // disent les deux descriptions en une seule fiche.
 
-const candidat = (l: Lieu): Candidat => ({ id: l.id, nom: l.nom, lat: l.lat, lon: l.lon, adresse: l.adresse, toilettes: l.type === 'wc' })
+const candidat = (l: Lieu): Candidat => ({ id: l.id, nom: l.nom, lat: l.lat, lon: l.lon, adresse: l.adresse, toilettes: l.type === 'wc', autresNoms: l.autresNoms })
 
 const minuscule = (texte: string) => texte.charAt(0).toLowerCase() + texte.slice(1)
 
@@ -104,7 +104,10 @@ export function unParLieu(lieux: Lieu[]): Lieu[] {
   const savoir = (l: Lieu) => (sait(l, 'entree') ? 1 : 0) + (sait(l, 'toilettes') ? 1 : 0)
   const tries = [...lieux].sort((x, y) => savoir(y) - savoir(x) || y.lignes.length - x.lignes.length)
   return regrouper(tries.map(candidat)).map(([premier, ...autres]) =>
-    autres.reduce((g, i) => ({ ...g, ...combiner(tries[i], g, ['Une fiche Acceslibre', 'une autre']) }), tries[premier]))
+    autres.reduce((g, i) => ({
+      ...g, ...combiner(tries[i], g, ['Une fiche Acceslibre', 'une autre']),
+      autresNoms: [...(g.autresNoms ?? []), tries[i].nom],
+    }), tries[premier]))
 }
 
 /**

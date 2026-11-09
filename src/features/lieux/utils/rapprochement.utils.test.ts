@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { apparier, depuisAcceslibre, depuisOsm, memeAdresse, memeLieu, motsCourants, regrouper, ressemblance, type Candidat } from '~/features/lieux/utils/rapprochement.utils'
+import { apparier, depuisAcceslibre, depuisOsm, memeAdresse, memeLieu, motsCourants, motsDesRues, regrouper, ressemblance, type Candidat } from '~/features/lieux/utils/rapprochement.utils'
 
 const ICI = { lat: 48.8566, lon: 2.3522 }
 // ≈ 11 m, ≈ 55 m, ≈ 78 m et ≈ 110 m vers le nord
@@ -30,6 +30,12 @@ describe('ressemblance', () => {
     expect(ressemblance('Café du marais', 'Kyo marais', courants)).toBe(0)
   })
 
+  it('un mot courant n’est pas une preuve, mais il reste dans le nom', () => {
+    expect(ressemblance('Eataly', 'EATALY PARIS MARAIS', new Set(['paris', 'marais']))).toBe(1)
+    expect(ressemblance('Kyo Lyon Opéra', 'Kyo', new Set(['lyon', 'opera']))).toBe(1)
+    expect(ressemblance('Le Petit Léon', 'Léon de Lyon', new Set(['leon', 'lyon']))).toBe(0)
+  })
+
   it('un nom de métier seul ne ressemble à rien : il ne dit pas quel lieu c’est', () => {
     expect(ressemblance('Restaurant', 'Restaurant')).toBe(0)
     expect(ressemblance('Toilettes publiques', 'Toilettes publiques')).toBe(0)
@@ -37,8 +43,20 @@ describe('ressemblance', () => {
 })
 
 describe('motsCourants', () => {
-  it('les mots d’au moins trois noms', () => {
-    expect(motsCourants(['Kyo Marais', 'Café du Marais', 'Pizzou Marais', 'Eataly', 'Eataly Paris'])).toEqual(new Set(['marais']))
+  it('les mots d’au moins trois endroits', () => {
+    expect(motsCourants([lieu('Kyo Marais'), lieu('Café du Marais', { lat: A_78_M }), lieu('Pizzou Marais', { lat: 48.8590 }), lieu('Eataly')]))
+      .toEqual(new Set(['marais']))
+  })
+
+  it('trois fiches du même bar ne font qu’un endroit', () => {
+    // « 405 bar », « 405 Bar à Bières », « Bar 405 » : le même bar à Lyon, pas un mot du quartier
+    expect(motsCourants([lieu('405 bar'), lieu('405 Bar à Bières', { lat: A_11_M }), lieu('Bar 405', { lat: A_11_M })])).toEqual(new Set())
+  })
+})
+
+describe('motsDesRues', () => {
+  it('les mots des rues de l’endroit', () => {
+    expect(motsDesRues([lieu('Confort Kebab', { adresse: { numero: '12', rue: 'Rue Confort' } })])).toEqual(new Set(['rue', 'confort']))
   })
 })
 
@@ -78,7 +96,27 @@ describe('memeLieu', () => {
     expect(memeLieu(lieu('Filippo'), lieu('Restaurant Filippo', { lat: A_78_M }))).toBe(true)
     expect(memeLieu(lieu('Eat Day'), lieu('EatDay', { lat: A_78_M }))).toBe(true)
     // un mot courant de l’endroit ne suffit pas, même collé à un mot de métier
-    expect(memeLieu(lieu('Bistrot Beaubourg'), lieu('Café Beaubourg', { lat: A_11_M }), new Set(['beaubourg']))).toBe(false)
+    expect(memeLieu(lieu('Bistrot Beaubourg'), lieu('Café Beaubourg', { lat: 48.8568 }), new Set(['beaubourg']))).toBe(false) // ≈ 22 m
+  })
+
+  it('à la même adresse, même un mot de la rue suffit', () => {
+    const adresse = { numero: '6', rue: 'Rue du Renard' }
+    expect(memeLieu(lieu('Le Renard', { adresse }), lieu('Le Renard Bistrot', { lat: A_11_M, adresse }), new Set(['renard']))).toBe(true)
+    // mais pas à un autre numéro : « Confort Kebab » (12) et « Re Confort Café » (5), rue Confort
+    expect(memeLieu(lieu('Confort Kebab', { adresse: { numero: '12', rue: 'Rue Confort' } }), lieu('Re Confort Café', { lat: A_11_M, adresse: { numero: '5', rue: 'Rue Confort' } }), new Set(['confort']))).toBe(false)
+  })
+
+  it('deux spécialités différentes sont deux lieux ; un genre de lieu, non', () => {
+    expect(memeLieu(lieu('Boston tavern'), lieu('Boston trattoria', { lat: A_11_M }))).toBe(false)
+    expect(memeLieu(lieu('Café Leffe'), lieu('Brasserie Leffe', { lat: A_11_M }))).toBe(true)
+    expect(memeLieu(lieu('Bouillon Maurice'), lieu('Bouillon de Lyon', { lat: A_11_M }), new Set(['lyon']))).toBe(false)
+  })
+
+  it('les mêmes mots à une faute près, mot à mot', () => {
+    expect(memeLieu(lieu('Paris Kebab'), lieu('PARIS KEBAP', { lat: A_11_M }), new Set(['paris']))).toBe(true)
+    expect(memeLieu(lieu('Le Bistrot 31'), lieu('Le Bistrot 32', { lat: A_11_M }))).toBe(false)
+    // « Beer » simplifié devient « ber » : collé, il n’aurait qu’une lettre d’écart avec « bar »
+    expect(memeLieu(lieu('Le Bar de la Plaine'), lieu('Beer De La Plaine', { lat: A_78_M }))).toBe(false)
   })
 
   it('ne réunit jamais deux lieux sans vrai nom', () => {

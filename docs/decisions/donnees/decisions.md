@@ -278,7 +278,35 @@ intéresse : il faut qu'il puisse servir ailleurs, et qu'il soit éprouvé.
 - Un nom fait seulement de mots de métier (« Restaurant ») ne ressemble à rien.
 - Chaque nom n'est découpé qu'une fois : 41 ms pour 594 lieux OSM × 372 fiches (122 ms avant).
 
-**Écarté, à dessein** : retrouver « Buon Gusto » / « Bon Gusto » ou « Le Bistrot » / « Le bistrot
-Sarlat ». Il faudrait tolérer davantage, au risque de réunir deux lieux différents : on préfère rater
+**Mis à l'épreuve, règles figées** (lots d'endroits neufs, jamais utilisés pour régler) :
+
+| Lot | Endroits | Paires | Paires fausses | Groupes faux |
+|---|---|---|---|---|
+| 2 | Lyon, Lille, Marseille, Dinan, Riquewihr | 359 | 2 (+ 1 douteuse) | 2 sur 50 |
+| 3 | Toulouse, Strasbourg, Bordeaux, Saint-Denis, Honfleur | 422 | 2 (+ 5 douteuses) | 2 sur 28 (+ 1 douteux) |
+
+Le lot 2 a révélé des défauts, corrigés avant le lot 3 :
+- les mots courants comptés une fois par endroit (trois fiches du même bar ne font pas un mot du
+  quartier : « Le 405 », « BHV ») ;
+- les mots des noms de rue sont des mots de l'endroit (« Canebière », « Confort ») ;
+- les mots de métier en deux familles : les genres (café, bar, brasserie…) sont interchangeables, les
+  spécialités (trattoria, taverne, bouillon, pizza…) distinguent deux lieux (« Boston Tavern » n'est pas
+  « Boston Trattoria ») ;
+- un seul mot commun, quand chacun a d'autres mots, ne suffit qu'à 15 m ou à la même adresse ;
+- les fautes de frappe mot à mot, plus sur le nom collé (« Bar de la Plaine » et « Beer de la Plaine »,
+  « beer » simplifié en « ber ») ;
+- un groupe de fiches garde tous ses noms (`uneFicheParLieu`).
+
+Ce qui reste, vu au lot 3, sans le corriger (chaque correction déplace l'erreur ; il faudrait d'autres
+indices, comme le site web ou le téléphone, ou des paires vérifiées sur place) :
+- un nom d'un seul mot contenu dans un autre (« Mama's Kiss » et « Mama Restaurant », « Sushi Bowl » et
+  « Wok & Bowl ») ;
+- à la même adresse, un mot de l'endroit en commun (« Brique House Bordeaux » et « Fuxia Bordeaux ») ;
+- un café et un hôtel du même nom (« Café Rohan » et « Hôtel Rohan »).
+
+Les cinq endroits du lot 3 ne sont pas dans les tests : ils restent pour mesurer la prochaine version.
+
+**Écarté, à dessein** : retrouver « Buon Gusto » / « Bon Gusto », « Le Bistrot » / « Le bistrot
+Sarlat », « O'Tacos » / « O'Tacos Montreuil » (une chaîne et une ville), « Le Corneille », rue Corneille. Il faudrait tolérer davantage, au risque de réunir deux lieux différents : on préfère rater
 une paire que d'afficher l'accessibilité d'un autre lieu. La comparaison du site web n'est pas faite.
 

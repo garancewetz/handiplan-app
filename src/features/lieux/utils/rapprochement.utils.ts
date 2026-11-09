@@ -13,6 +13,8 @@ export type Candidat = {
   adresse?: { numero: string; rue: string }
   /** des toilettes publiques : jamais le même lieu qu'un café ou un restaurant */
   toilettes?: boolean
+  /** les noms des autres fiches du même lieu (voir `regrouper`) : chacun peut servir à le reconnaître */
+  autresNoms?: string[]
 }
 
 // Sans accents ni ponctuation, et sans lettres doublées : « L'As du Fallafel » et « As du Falafel » se
@@ -25,12 +27,19 @@ const simplifier = (s: string) =>
 // « Le » ou « Café » ne sont pas pour autant le même lieu.
 // Simplifiés comme les noms (« brasserie » devient « braserie ») : sinon ils ne seraient jamais reconnus.
 const PETITS_MOTS = new Set(['le', 'la', 'les', 'l', 'de', 'du', 'des', 'd', 'au', 'aux', 'a', 'et', 'en', 'chez', 'the', 'and'])
-const MOTS_VIDES = new Set([
-  ...PETITS_MOTS,
-  'café', 'bar', 'restaurant', 'resto', 'brasserie', 'bistrot', 'bistro', 'pub', 'pizzeria', 'crêperie', 'snack',
-  'salon', 'tabac', 'hôtel',
+// Le genre de lieu (café, bar, restaurant…) : interchangeable, « Café Leffe » est « Brasserie Leffe ».
+const GENRES = [
+  'café', 'bar', 'restaurant', 'resto', 'brasserie', 'bistrot', 'bistro', 'pub', 'snack', 'salon', 'tabac', 'hôtel',
   'toilettes', 'publiques', 'wc', 'sanisette',
+].map(simplifier)
+// La spécialité : elle ne prouve rien (« Bouillon Maurice » n'est pas « Bouillon de Lyon »), mais deux
+// spécialités différentes sont deux lieux (« Boston Tavern » n'est pas « Boston Trattoria »).
+const SPECIALITES = new Set([
+  'bouillon', 'taverne', 'tavern', 'trattoria', 'estaminet', 'grill', 'coffee', 'pizzeria', 'crêperie', 'pizza',
+  'pizzas', 'sushi', 'burger', 'burgers', 'tacos', 'kebab', 'ramen', 'poke', 'tapas', 'crêpe', 'crêpes',
 ].map(simplifier))
+const MOTS_VIDES = new Set([...PETITS_MOTS, ...GENRES, ...SPECIALITES])
+
 // Les abréviations courantes : « St » et « Saint », « Bd » et « Boulevard » sont le même mot.
 const MEMES_MOTS: Record<string, string> = { st: 'saint', ste: 'sainte', bd: 'boulevard', av: 'avenue', pl: 'place' }
 // Chaque nom est comparé des milliers de fois dans un quartier dense : on ne le découpe qu'une fois.
@@ -46,14 +55,30 @@ function motsDe(nom: string): string[] {
 
 const AUCUN = new Set<string>()
 
+// Plusieurs points à moins de 50 m sont le même lieu (Acceslibre a souvent trois fiches pour un bar) :
+// son nom ne doit compter qu'une fois.
+const MEME_ENDROIT_M = 50
+
 /**
  * Les mots que beaucoup de lieux d'un même endroit partagent (« marais », « beaubourg », « halles ») : ils
  * disent où est le lieu, pas lequel c'est. « Café du Marais » et « Kyo Marais » ne sont pas le même lieu.
+ * Un mot compte une fois par endroit, pas une fois par fiche.
  */
-export function motsCourants(noms: string[], seuil = 3): Set<string> {
-  const compte = new Map<string, number>()
-  for (const nom of noms) for (const m of motsDe(nom)) compte.set(m, (compte.get(m) ?? 0) + 1)
-  return new Set([...compte].filter(([, n]) => n >= seuil).map(([m]) => m))
+export function motsCourants(lieux: Candidat[], seuil = 3): Set<string> {
+  const endroits = new Map<string, Candidat[]>()
+  for (const l of lieux) {
+    for (const m of motsDe(l.nom)) {
+      const vus = endroits.get(m) ?? []
+      if (!vus.some(v => distanceMetres(v, l) <= MEME_ENDROIT_M)) vus.push(l)
+      endroits.set(m, vus)
+    }
+  }
+  return new Set([...endroits].filter(([, vus]) => vus.length >= seuil).map(([m]) => m))
+}
+
+/** Les mots des rues de l'endroit (« Canebière », « Confort », « Mercière ») : ils aussi disent où. */
+export function motsDesRues(lieux: Candidat[]): Set<string> {
+  return new Set(lieux.flatMap(l => (l.adresse ? motsDe(l.adresse.rue) : [])))
 }
 
 // Une faute de frappe par mot : « Coupe » et « Coup », « Kebab » et « Kebap ». Pas sur les mots de moins
@@ -66,18 +91,47 @@ function memeMot(a: string, b: string) {
   return a.slice(i + 1) === b.slice(i + 1) || a.slice(i + 1) === b.slice(i) || a.slice(i) === b.slice(i + 1)
 }
 
-/**
- * À quel point deux noms se ressemblent, de 0 à 1 : la part de mots communs (1 si les mots de l'un sont
- * tous dans l'autre), sans les mots courants de l'endroit. Un nom sans mot propre (« Restaurant »,
- * « Café ») ne ressemble à rien : il ne dit pas quel lieu c'est.
- */
-export function ressemblance(a: string, b: string, courants = AUCUN): number {
+/** Les mots communs de deux noms, sans les mots courants de l'endroit, et la taille du plus court. */
+function communs(a: string, b: string, courants: Set<string>) {
   const ma = motsDe(a).filter(m => !courants.has(m))
   const mb = motsDe(b).filter(m => !courants.has(m))
-  if (ma.length === 0 || mb.length === 0) return 0
-  const communs = ma.filter(m => mb.some(n => memeMot(m, n))).length
-  if (communs >= Math.min(ma.length, mb.length)) return 1
-  return communs / (ma.length + mb.length - communs)
+  const n = ma.filter(m => mb.some(x => memeMot(m, x))).length
+  return { n, ma: ma.length, mb: mb.length }
+}
+
+/**
+ * À quel point deux noms se ressemblent, de 0 à 1 : la part de mots communs (1 si les mots de l'un sont
+ * tous dans l'autre), sans les mots courants de l'endroit. Un nom sans mot propre (« Restaurant », « Café »)
+ * ne ressemble à rien : il ne dit pas quel lieu c'est.
+ */
+export function ressemblance(a: string, b: string, courants = AUCUN): number {
+  const c = communs(a, b, courants)
+  if (c.n === 0) return 0
+  if (c.n >= Math.min(c.ma, c.mb)) return 1
+  return c.n / (c.ma + c.mb - c.n)
+}
+
+// Une même spécialité écrite autrement : au singulier (« Crêpes » et « Crêpe »), et « pizzeria » est
+// « pizza », « taverne » est « tavern ».
+const MEME_SPECIALITE: Record<string, string> = Object.fromEntries(
+  [['pizzeria', 'pizza'], ['crêperie', 'crêpe'], ['taverne', 'tavern']].map(([a, b]) => [simplifier(a), simplifier(b)]),
+)
+const specialites = (nom: string) =>
+  simplifier(nom).split(' ').filter(m => SPECIALITES.has(m)).map(m => (MEME_SPECIALITE[m] ?? m).replace(/s$/, ''))
+/** Deux spécialités différentes : deux lieux. Sans spécialité d'un côté, rien ne s'oppose. */
+function specialitesCompatibles(a: string, b: string) {
+  const sa = specialites(a)
+  const sb = specialites(b)
+  return sa.every(m => sb.includes(m)) || sb.every(m => sa.includes(m))
+}
+
+// Les mêmes mots dans le même ordre, à une faute de frappe près (voir `memeMot`) : « Paris Kebab » et
+// « Paris Kebap ». Mot à mot et pas sur le nom collé : collés, « Bar de la Plaine » et « Beer de la Plaine »
+// n'auraient qu'une lettre d'écart.
+function presqueMemesMots(a: string, b: string) {
+  const wa = simplifier(a).split(' ').filter(m => m && !PETITS_MOTS.has(m))
+  const wb = simplifier(b).split(' ').filter(m => m && !PETITS_MOTS.has(m))
+  return wa.length > 0 && wa.length === wb.length && wa.every((m, i) => memeMot(m, wb[i]))
 }
 
 const colles = new Map<string, string>()
@@ -90,19 +144,22 @@ function colle(nom: string): string {
   return resultat
 }
 
+// Un nom fait seulement de petits mots et de genres de lieu (« Le Café ») ne dit pas quel lieu c'est.
+const sansNom = (nom: string) => simplifier(nom).split(' ').every(m => !m || PETITS_MOTS.has(m) || GENRES.includes(m))
+
 /**
- * Le même nom : les mêmes mots qui comptent (« Filippo » et « Restaurant Filippo »), ou les mêmes lettres
- * une fois collées (« Eat Day » et « EatDay »). Un nom fait seulement de mots courants de l'endroit ne
- * compte que s'il est identique.
+ * Le même nom : les mêmes lettres une fois collées (« Eat Day » et « EatDay », « Grill Burger »), les mêmes
+ * mots à une faute près (« Paris Kebab » et « Paris Kebap »), ou les mêmes mots qui comptent (« Filippo » et « Restaurant Filippo »). Si ces mots ne sont que
+ * des mots de l'endroit (« Bistrot Beaubourg », « Café Beaubourg »), il faut être tout près.
  */
-function memeNom(a: string, b: string, courants: Set<string>) {
-  const ma = motsDe(a)
-  const mb = motsDe(b)
-  if (ma.length === 0 || mb.length === 0) return false
-  // les lettres collées, mots de métier compris : sinon « Bistrot Beaubourg » serait « Café Beaubourg »
-  if (colle(a) === colle(b)) return true
-  const propres = (m: string[]) => m.filter(x => !courants.has(x)).sort().join(' ')
-  return propres(ma) !== '' && propres(ma) === propres(mb)
+function memeNom(a: string, b: string, courants: Set<string>, metres: number) {
+  if (sansNom(a) || sansNom(b)) return false
+  if (colle(a) === colle(b) || presqueMemesMots(a, b)) return true
+  const egaux = (x: string[], y: string[]) => x.length > 0 && x.length === y.length && x.every(m => y.includes(m))
+  // « Funky Monky » et « Funky Monky Lyon » : les mêmes mots, une fois retirés ceux de l'endroit
+  const propres = (m: string[]) => m.filter(x => !courants.has(x))
+  if (egaux(propres(motsDe(a)), propres(motsDe(b)))) return true
+  return egaux(motsDe(a), motsDe(b)) && metres <= TOUT_PRES_M
 }
 
 // « 11 bis » et « 11B » sont le même numéro ; « 31-35 » contient « 35 » ; OSM note parfois plusieurs
@@ -123,8 +180,11 @@ export function memeAdresse(a?: Candidat['adresse'], b?: Candidat['adresse']): b
 }
 
 // Des noms qui se ressemblent assez, à moins de 40 m ; à la même adresse, un mot commun suffit ; le même
-// nom exactement, jusqu'à 100 m (les points d'Acceslibre sont parfois placés au milieu de l'immeuble ou de
-// la rue, et les deux bases ne notent pas toujours le même numéro).
+// nom, jusqu'à 100 m (les points d'Acceslibre sont parfois placés au milieu de l'immeuble ou de la rue, et
+// les deux bases ne notent pas toujours le même numéro). Un seul mot commun, quand chacun a d'autres mots
+// (« Little Boston » et « Boston », « Café du Marais » et « Kyo Marais »), est une preuve faible : à 15 m au
+// plus, ou à la même adresse.
+export const TOUT_PRES_M = 15
 export const PROCHE_M = 40
 export const MEME_ADRESSE_M = 80
 export const MEME_NOM_M = 100
@@ -139,20 +199,31 @@ export function score(a: Candidat, b: Candidat, courants = AUCUN): number {
   const metres = distanceMetres(a, b)
   // Le plus souvent, les deux lieux sont loin : inutile de comparer les noms (des centaines de paires).
   if (metres > MEME_NOM_M) return 0
-  const noms = ressemblance(a.nom, b.nom, courants)
-  const nom = memeNom(a.nom, b.nom, courants)
-  if (noms === 0 && !nom) return 0
   const adresse = memeAdresse(a.adresse, b.adresse)
-  const reconnu = (metres <= PROCHE_M && noms >= 0.5) || (adresse && metres <= MEME_ADRESSE_M && noms > 0) || nom
+  const nomsDe = (c: Candidat) => [c.nom, ...(c.autresNoms ?? [])]
+  return Math.max(...nomsDe(a).flatMap(na => nomsDe(b).map(nb => scoreNoms(na, nb, metres, adresse, courants))))
+}
+
+function scoreNoms(a: string, b: string, metres: number, adresse: boolean, courants: Set<string>): number {
+  if (!specialitesCompatibles(a, b)) return 0
+  const noms = ressemblance(a, b, courants)
+  const nom = memeNom(a, b, courants, metres)
+  // À la même adresse, un mot commun suffit, même un mot courant : « Le Renard » et « Le Renard Bistrot »,
+  // rue du Renard.
+  const auMemeNumero = adresse && metres <= MEME_ADRESSE_M && ressemblance(a, b) > 0
+  const c = communs(a, b, courants)
+  const faible = c.n === 1 && c.ma > 1 && c.mb > 1
+  const proche = metres <= (faible ? TOUT_PRES_M : PROCHE_M)
+  const reconnu = (proche && noms >= 0.5) || auMemeNumero || nom
   return reconnu ? Math.max(noms, nom ? 1 : 0) + (adresse ? 1 : 0) + (1 - metres / MEME_NOM_M) : 0
 }
 
 export const memeLieu = (a: Candidat, b: Candidat, courants = AUCUN) => score(a, b, courants) > 0
 
-// Un mot est courant s'il l'est dans l'une des deux listes : compter les deux ensemble compterait deux fois
-// chaque lieu présent des deux côtés.
+// Un mot est courant s'il l'est dans l'une des deux listes (compter les deux ensemble compterait deux fois
+// chaque lieu présent des deux côtés), ou s'il est dans le nom d'une rue.
 const courantsDe = (...listes: Candidat[][]) =>
-  new Set(listes.flatMap(l => [...motsCourants(l.map(c => c.nom))]))
+  new Set(listes.flatMap(l => [...motsCourants(l), ...motsDesRues(l)]))
 
 /**
  * Les paires [i, j] du même lieu entre deux listes : chaque lieu n'est apparié qu'une fois, au plus
@@ -187,6 +258,12 @@ export function regrouper(lieux: Candidat[]): number[][] {
     else groupes.push([i])
   })
   return groupes
+}
+
+/** Une fiche par lieu : la première de chaque groupe (voir `regrouper`), avec les noms des autres. */
+export function uneFicheParLieu<T extends Candidat>(lieux: T[]): T[] {
+  return regrouper(lieux).map(([premier, ...autres]) =>
+    autres.length === 0 ? lieux[premier] : { ...lieux[premier], autresNoms: autres.map(i => lieux[i].nom) })
 }
 
 // ——— Depuis les données brutes ———
