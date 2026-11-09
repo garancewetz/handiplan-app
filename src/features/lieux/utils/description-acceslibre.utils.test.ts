@@ -27,6 +27,15 @@ describe('typeAcceslibre', () => {
     expect(typeAcceslibre('Dentiste, chirurgien dentiste')).toBeNull()
     expect(typeAcceslibre(null)).toBeNull()
   })
+
+  it('ne prend pas un barbier pour un bar, ni une cantine pour un restaurant', () => {
+    expect(typeAcceslibre('Barbier')).toBeNull()
+    expect(typeAcceslibre('Vente de cafés et thés')).toBeNull()
+    expect(typeAcceslibre('Restaurant scolaire')).toBeNull()
+    expect(typeAcceslibre('Personnes âgées : foyer restaurant')).toBeNull()
+    expect(typeAcceslibre('Bar tabac')).toBe('cafe')
+    expect(typeAcceslibre('Toilettes publiques')).toBe('wc')
+  })
 })
 
 describe('nomPropre', () => {

@@ -12,7 +12,7 @@ export const zoneKey = (lat, lon) => `${Math.floor(lat / GRID)}_${Math.floor(lon
 export const KEPT_TAGS = [
   'name', 'amenity', 'parking_space', 'capacity:disabled', 'wheelchair', 'toilets:wheelchair',
   'wheelchair:description', 'wheelchair:description:fr', 'step_count', 'ramp:wheelchair', 'automatic_door',
-  'door:width', 'level', 'hearing_loop',
+  'door:width', 'level', 'hearing_loop', 'addr:housenumber', 'addr:street',
 ]
 const FOOD_AND_DRINK = new Set(['cafe', 'restaurant', 'fast_food', 'bar', 'pub'])
 
@@ -69,7 +69,7 @@ export function featureToElement(feature) {
 
 /** Acceslibre columns the app reads. Must match COLONNES_ACCESLIBRE in description-acceslibre.utils.ts. */
 export const REQUIRED_COLUMNS = [
-  'id', 'web_url', 'name', 'activite', 'latitude', 'longitude',
+  'id', 'web_url', 'name', 'activite', 'latitude', 'longitude', 'numero', 'voie',
   'entree_plain_pied', 'entree_marches', 'entree_marches_rampe', 'entree_ascenseur',
   'accueil_cheminement_plain_pied', 'accueil_cheminement_ascenseur', 'sanitaires_adaptes',
   'stationnement_pmr', 'stationnement_ext_pmr',
@@ -89,7 +89,7 @@ const NUMBER_COLUMNS = new Set([
 ])
 // Yes/no columns are the ones that are neither numbers nor free text.
 const TEXT_COLUMNS = new Set([
-  'id', 'web_url', 'name', 'activite', 'entree_marches_rampe', 'cheminement_ext_rampe',
+  'id', 'web_url', 'name', 'activite', 'numero', 'voie', 'entree_marches_rampe', 'cheminement_ext_rampe',
   'cheminement_ext_pente_degre_difficulte', 'cheminement_ext_devers', 'entree_porte_type', 'entree_porte_manoeuvre',
   'accueil_cheminement_rampe', 'accueil_personnels', 'labels',
 ])

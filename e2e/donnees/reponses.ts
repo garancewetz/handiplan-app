@@ -3,7 +3,7 @@
 /** Deux lieux Acceslibre près de l'Hôtel de Ville : l'un facile, l'autre avec des marches. */
 export const ACCESLIBRE = [
   {
-    id: 'e2e-1', web_url: 'https://acceslibre.beta.gouv.fr/app/e2e-1', name: 'Le Café des essais', activite: 'Café',
+    id: 'e2e-1', web_url: 'https://acceslibre.beta.gouv.fr/app/e2e-1', name: 'Le Café des essais', activite: 'Café, bar, brasserie',
     latitude: 48.8558, longitude: 2.3508, entree_plain_pied: true, sanitaires_adaptes: true,
   },
   {

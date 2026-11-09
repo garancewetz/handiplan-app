@@ -16,10 +16,10 @@ export async function simulerReseau(page: Page) {
   await page.route(/overpass|maps\.mail\.ru/, r => r.fulfill({ status: 504, body: 'Gateway Time-out' }))
   // Acceslibre.
   await page.route('https://tabular-api.data.gouv.fr/**', r => {
-    const filtre = new URL(r.request().url()).searchParams
-    const lignes = ACCESLIBRE.filter(l =>
-      filtre.has('sanitaires_adaptes__exact') ? l.sanitaires_adaptes : l.entree_plain_pied === false)
-    return r.fulfill(json({ data: lignes, links: { next: null } }))
+    // Comme l'API tabulaire : seulement les activités demandées (« activite__in », entre guillemets).
+    const activites = new URL(r.request().url()).searchParams.get('activite__in') ?? ''
+    const lignes = ACCESLIBRE.filter(l => activites.includes(`"${l.activite}"`))
+    return r.fulfill(json({ data: lignes, meta: { total: lignes.length }, links: { next: null } }))
   })
   // Recherche d'adresses (IGN) et de lieux par nom (Photon).
   await page.route('https://data.geopf.fr/geocodage/search**', r => {

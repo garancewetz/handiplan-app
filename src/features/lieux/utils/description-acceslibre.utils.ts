@@ -1,5 +1,5 @@
 import { couleur, type Entree, type Toilettes } from '~/features/lieux/utils/couleur.utils'
-import type { Etat, Ligne, Reponse, Theme, TypeLieu } from '~/types/lieu.types'
+import type { Etat, Lieu, Ligne, Reponse, Theme, TypeLieu } from '~/types/lieu.types'
 
 type Oui = boolean | null
 
@@ -10,6 +10,8 @@ export type LigneAcceslibre = {
   activite: string | null
   latitude: number | null
   longitude: number | null
+  numero?: string | null
+  voie?: string | null
   entree_plain_pied: Oui
   entree_marches: number | null
   entree_marches_rampe: string | null
@@ -54,7 +56,7 @@ export type LigneAcceslibre = {
 
 /** Colonnes lues par l'appli : le script de préparation n'écrit que celles-ci (scripts/lib/prepare.mjs). */
 export const COLONNES_ACCESLIBRE = [
-  'id', 'web_url', 'name', 'activite', 'latitude', 'longitude',
+  'id', 'web_url', 'name', 'activite', 'latitude', 'longitude', 'numero', 'voie',
   'entree_plain_pied', 'entree_marches', 'entree_marches_rampe', 'entree_ascenseur',
   'accueil_cheminement_plain_pied', 'accueil_cheminement_ascenseur', 'sanitaires_adaptes',
   'stationnement_pmr', 'stationnement_ext_pmr',
@@ -70,16 +72,21 @@ export const COLONNES_ACCESLIBRE = [
 ] as const satisfies readonly (keyof LigneAcceslibre)[]
 
 // On ne garde que les cafés, restaurants et toilettes publiques : où l'on entre librement, et qui
-// servent à sortir (docs/decisions/interface, D23).
-const ACTIVITES: [RegExp, TypeLieu][] = [
-  [/restaura/i, 'resto'],
-  [/caf[ée]|bar|brasserie|salon de th[ée]/i, 'cafe'],
-  [/toilettes/i, 'wc'],
-]
+// servent à sortir (docs/decisions/interface, D23). Les noms exacts de la liste d'Acceslibre : un motif
+// attrapait aussi « Barbier », « Restaurant scolaire » ou « Personnes âgées : foyer restaurant »
+// (docs/decisions/donnees, D11).
+export const ACTIVITES: Record<string, TypeLieu> = {
+  'Restaurant': 'resto',
+  'Restauration rapide': 'resto',
+  'Hôtel restaurant': 'resto',
+  'Café, bar, brasserie': 'cafe',
+  'Bar tabac': 'cafe',
+  'Salon de thé': 'cafe',
+  'Toilettes publiques': 'wc',
+}
 
 export function typeAcceslibre(activite: string | null): TypeLieu | null {
-  if (!activite) return null
-  return ACTIVITES.find(([motif]) => motif.test(activite))?.[1] ?? null
+  return (activite && ACTIVITES[activite]) || null
 }
 
 export function nomPropre(nom: string | null) {
@@ -133,7 +140,7 @@ function entree(r: LigneAcceslibre, ligne: (reponse: Reponse, texte: string, det
 }
 
 /** Toutes les informations renseignées sur Acceslibre, rangées par thème. Ce qui n'est pas renseigné n'apparaît pas. */
-export function decrireAcceslibre(r: LigneAcceslibre): { etat: Exclude<Etat, 'parking'>; lignes: Ligne[] } {
+export function decrireAcceslibre(r: LigneAcceslibre): { etat: Exclude<Etat, 'parking'>; lignes: Ligne[]; acces: NonNullable<Lieu['acces']> } {
   const lignes: Ligne[] = []
   const dans = (theme: Theme) => (reponse: Reponse, texte: string, detail?: string) =>
     lignes.push({ theme, reponse, texte, ...(detail ? { detail } : {}) })
@@ -200,5 +207,5 @@ export function decrireAcceslibre(r: LigneAcceslibre): { etat: Exclude<Etat, 'pa
   if (r.entree_balise_sonore) accueil('oui', 'Balise sonore à l’entrée')
   for (const label of labelsConnus(r.labels)) accueil('oui', `Label ${label}`)
 
-  return { etat: couleur(etatEntree, toilettes), lignes }
+  return { etat: couleur(etatEntree, toilettes), lignes, acces: { entree: etatEntree, toilettes } }
 }

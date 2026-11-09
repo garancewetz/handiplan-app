@@ -16,6 +16,13 @@ export type Theme = (typeof THEMES)[number]
 
 export type Ligne = { theme: Theme; reponse: Reponse; texte: string; detail?: string }
 
+/** Ce qu'une source dit de l'entrée et des toilettes : de quoi choisir la meilleure en fusionnant. */
+export type Entree = 'ok' | 'partielle' | 'non' | 'inconnue'
+export type Toilettes = 'oui' | 'non' | 'inconnues'
+
+/** Le numéro et la rue, pour reconnaître un même lieu dans OSM et dans Acceslibre. */
+export type Adresse = { numero: string; rue: string }
+
 export type Lieu = Point & {
   id: string
   type: TypeLieu
@@ -29,6 +36,9 @@ export type Lieu = Point & {
   sources: Source[]
   /** page Acceslibre du lieu, où l'on peut corriger sa fiche */
   lienAcceslibre?: string
+  /** ce que la source dit de l'entrée et des toilettes (pas pour une place) */
+  acces?: { entree: Entree; toilettes: Toilettes }
+  adresse?: Adresse
 }
 
 export type Arrivee = Point & { adresse: string }

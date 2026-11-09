@@ -1,5 +1,5 @@
 import { couleur, type Entree, type Toilettes } from '~/features/lieux/utils/couleur.utils'
-import type { Etat, Ligne, Reponse, Theme, TypeLieu } from '~/types/lieu.types'
+import type { Etat, Lieu, Ligne, Reponse, Theme, TypeLieu } from '~/types/lieu.types'
 
 export function typeOsm(t: Record<string, string>): TypeLieu | null {
   if (t.parking_space === 'disabled' || t.amenity === 'parking') return 'parking'
@@ -28,6 +28,8 @@ export const ETIQUETTES_OSM = [
   'name', 'amenity', 'parking_space', 'capacity:disabled', 'wheelchair', 'toilets:wheelchair',
   'wheelchair:description', 'wheelchair:description:fr', 'step_count', 'ramp:wheelchair', 'automatic_door',
   'door:width', 'level', 'hearing_loop',
+  // pour reconnaître le même lieu dans Acceslibre (docs/decisions/donnees, D11)
+  'addr:housenumber', 'addr:street',
 ] as const
 
 const INCONNU: Ligne = { theme: 'Entrée', reponse: 'attention', texte: 'Accessibilité inconnue', detail: 'Personne ne l’a encore renseignée' }
@@ -83,7 +85,7 @@ function details(t: Record<string, string>, lignes: Ligne[]) {
 }
 
 /** Transforme les étiquettes OSM en lignes simples « oui / attention / non / info ». */
-export function decrireOsm(type: TypeLieu, t: Record<string, string>): { etat: Etat; lignes: Ligne[]; conseil?: string } {
+export function decrireOsm(type: TypeLieu, t: Record<string, string>): { etat: Etat; lignes: Ligne[]; conseil?: string; acces?: Lieu['acces'] } {
   const lignes: Ligne[] = []
 
   if (type === 'parking') {
@@ -94,7 +96,7 @@ export function decrireOsm(type: TypeLieu, t: Record<string, string>): { etat: E
 
   if (t.wheelchair === undefined && t['toilets:wheelchair'] === undefined) {
     details(t, lignes)
-    return { etat: 'inconnu', lignes: [INCONNU, ...lignes], conseil: CONSEIL_INCONNU }
+    return { etat: 'inconnu', lignes: [INCONNU, ...lignes], conseil: CONSEIL_INCONNU, acces: { entree: 'inconnue', toilettes: 'inconnues' } }
   }
 
   if (type === 'wc') {
@@ -104,12 +106,13 @@ export function decrireOsm(type: TypeLieu, t: Record<string, string>): { etat: E
     const entree: Entree = valeur === 'no' ? 'non' : valeur === 'limited' ? 'partielle' : oui(valeur) ? 'ok' : 'inconnue'
     if (entree === 'inconnue') {
       details(t, lignes)
-      return { etat: 'inconnu', lignes: [{ ...INCONNU, theme: 'Toilettes' }, ...lignes], conseil: CONSEIL_INCONNU }
+      return { etat: 'inconnu', lignes: [{ ...INCONNU, theme: 'Toilettes' }, ...lignes], conseil: CONSEIL_INCONNU, acces: { entree: 'inconnue', toilettes: 'inconnues' } }
     }
-    const etat = entree === 'non' ? couleur('non', 'non') : entree === 'partielle' ? couleur('partielle', 'inconnues') : couleur('ok', 'oui')
+    // Des toilettes publiques : leur accès dit à la fois l'entrée et les toilettes.
+    const acces = entree === 'non' ? { entree, toilettes: 'non' as const } : entree === 'partielle' ? { entree, toilettes: 'inconnues' as const } : { entree, toilettes: 'oui' as const }
     lignes.push(LIGNE_WC[entree])
     details(t, lignes)
-    return { etat, lignes }
+    return { etat: couleur(acces.entree, acces.toilettes), lignes, acces }
   }
 
   const entree: Entree = oui(t.wheelchair) ? 'ok'
@@ -127,5 +130,5 @@ export function decrireOsm(type: TypeLieu, t: Record<string, string>): { etat: E
   const conseil = etat === 'ok' && (type === 'cafe' || type === 'resto')
     ? 'Toilettes pour les clients : demandez au comptoir.'
     : undefined
-  return { etat, lignes, conseil }
+  return { etat, lignes, conseil, acces: { entree, toilettes } }
 }

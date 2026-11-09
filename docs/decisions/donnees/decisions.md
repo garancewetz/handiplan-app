@@ -26,7 +26,8 @@ partout avec une seule requête.
 - L'API tabulaire de data.gouv.fr sur ce même fichier.
 
 **Choisi** : l'API tabulaire, filtrée par zone (`latitude__greater`…) et par
-`sanitaires_adaptes__exact=true`. Elle répond en environ 3 s, sans clé.
+`sanitaires_adaptes__exact=true`. Elle répond en environ 3 s, sans clé. (Mis à jour en D11 : toutes les
+activités retenues, filtrées par `activite__in`.)
 
 **Écarté**
 - API officielle : demande un compte et une clé obtenue via un formulaire.
@@ -37,7 +38,8 @@ partout avec une seule requête.
 **Options** : tous les établissements, ou seulement ceux où l'on peut entrer librement.
 
 **Choisi** : liste blanche d'activités (restaurants, cafés, boulangeries, supermarchés, musées,
-bibliothèques, cinémas, hôtels, mairies…), dans `description-acceslibre.utils.ts`.
+bibliothèques, cinémas, hôtels, mairies…), dans `description-acceslibre.utils.ts`. (Mis à jour en D11 :
+seulement cafés, restaurants et toilettes publiques, par leur nom exact.)
 
 **Écarté** : tous les établissements. Avocats, dentistes ou coiffeurs ont des toilettes adaptées,
 mais on y vient sur rendez-vous : y envoyer quelqu'un qui cherche des toilettes serait un piège.
@@ -47,7 +49,8 @@ mais on y vient sur rendez-vous : y envoyer quelqu'un qui cherche des toilettes 
 **Options** : l'afficher deux fois, garder OSM, garder Acceslibre, ou fusionner.
 
 **Choisi** : fusionner (même lieu à moins de 40 m, nom ressemblant). On garde la description
-Acceslibre, plus détaillée sur l'entrée et les toilettes, et le nom OSM, plus soigné.
+Acceslibre, plus détaillée sur l'entrée et les toilettes, et le nom OSM, plus soigné. (Mis à jour en D11 pour
+reconnaître le même lieu, et en D12 quand les deux bases se contredisent.)
 
 **Écarté** : afficher deux fois (déroutant), ou garder une seule source (on perdrait soit le
 détail, soit la qualité du nom). Les places ne sont jamais fusionnées : deux places voisines
@@ -164,3 +167,84 @@ avec facturation, clé restreinte aux adresses de l'appli, et budget plafonné.
 
 **Écarté** : passer sur Google Maps (coût à chaque affichage, perte du plan IGN, fin des données
 préparées).
+
+## D11 — Tout Acceslibre, et reconnaître un même lieu sans se tromper (novembre 2026)
+
+**Contexte** : mesuré autour de l'Hôtel de Ville de Paris, le 9 novembre 2026.
+- On ne récupérait que les lieux Acceslibre avec toilettes adaptées ou marches à l'entrée : 210 sur
+  452 cafés, restos et toilettes. 196 autres disaient « entrée sans marche » et n'arrivaient jamais,
+  alors que c'est l'information la plus utile quand on marche avec difficulté.
+- Les activités étaient reconnues par des motifs : « bar » attrapait « Barbier », « restaura »
+  attrapait « Restaurant scolaire » et « Personnes âgées : foyer restaurant ».
+- Deux lieux étaient « le même » si leur nom commençait par le même mot : « Le Bistrot » et « Le Marais
+  Café » à 30 m étaient fusionnés, et l'un prenait l'accessibilité de l'autre (« La Table des
+  Gourmets » s'affichait « Difficile » à cause d'un voisin).
+- Acceslibre a souvent deux fiches pour un même lieu, au même endroit (« Eataly » en Restaurant,
+  « EATALY PARIS MARAIS » en Restauration rapide).
+
+**Options pour reconnaître un même lieu**
+- Le SIRET (`ref:FR:SIRET` dans OSM) : le fichier public d'Acceslibre n'en a aucun (0 sur 200).
+- L'identifiant des bâtiments (`rnb_id`, rempli à 77 %) : il faudrait savoir dans quel bâtiment est
+  chaque lieu d'OSM, trop lourd pour un téléphone.
+- Le nom, la distance et l'adresse (numéro et rue remplis à 98 % dans Acceslibre, `addr:*` dans OSM).
+
+**Choisi**
+- Tous les cafés, restaurants et toilettes publiques d'Acceslibre, filtrés par le serveur
+  (`activite__in`, les noms entre guillemets car ils contiennent des virgules), par leur nom exact :
+  Restaurant, Restauration rapide, Hôtel restaurant ; Café, bar, brasserie, Bar tabac, Salon de thé ;
+  Toilettes publiques. Les pages arrivent ensemble, après la première qui dit combien il y en a.
+- Même lieu : des noms qui se ressemblent (mots communs, sans les petits mots ni les mots du métier,
+  sans accents ni lettres doublées) à moins de 40 m ; ou la même adresse et un mot commun à moins de
+  80 m ; ou exactement le même nom à moins de 100 m. Chaque lieu n'est apparié qu'une fois, au plus
+  ressemblant. Les fiches Acceslibre en double n'en font qu'une, la plus complète.
+- En fusionnant, pour l'entrée et pour les toilettes, la source qui sait l'emporte sur celle qui ne
+  sait pas.
+
+**Résultat** au même endroit : 691 lieux au lieu de 669, 23 « Pas d'info » de moins, aucun barbier,
+aucune fiche Acceslibre en double.
+
+**Reste ouvert**
+- Quand OSM et Acceslibre se contredisent : voir D12.
+- OSM a parfois deux points pour le même lieu (« Le Bûcheron », « La Dame de Paris ») : on ne les
+  fusionne pas, pour ne pas cacher un vrai second établissement. À corriger dans OSM.
+
+## D12 — Quand OSM et Acceslibre se contredisent (novembre 2026)
+
+**Contexte** : en reconnaissant mieux les mêmes lieux (D11), des contradictions sont apparues. Restaurant
+Bayan : OSM « marche haute » (`wheelchair=no`), Acceslibre « entrée sans marche ». Le Dernier Bar avant
+la Fin du Monde : OSM « toilettes non adaptées », Acceslibre « toilettes adaptées ». Acceslibre
+l'emportait toujours, et le lieu pouvait s'afficher « Facile ».
+
+**Options**
+- Acceslibre l'emporte : il est détaillé, mais souvent rempli par l'établissement lui-même.
+- OSM l'emporte : rempli par des bénévoles, parfois sans être venus, parfois ancien ; `wheelchair=no`
+  veut seulement dire « marche de plus de 7 cm ».
+- La plus récente : le fichier public d'Acceslibre n'a pas de date.
+- Ne donner raison à personne, et le dire.
+
+**Choisi** : ne donner raison à personne. Si les deux bases disent quelque chose de différent sur
+l'entrée ou sur les toilettes :
+- le lieu est « Attention » (orange), jamais « Facile » ;
+- la fiche le dit : « Entrée : les infos ne sont pas d'accord », puis « OpenStreetMap : marche haute
+  ou escalier à l'entrée · Acceslibre : entrée sans marche » ; les autres détails restent (une porte,
+  une rampe) ;
+- le conseil : « Les infos ne sont pas d'accord : à vérifier sur place. »
+
+Fidèle à « ne rien inventer », et le plus sûr : mieux vaut vérifier que trouver une marche devant un
+lieu annoncé « Facile ». Quand une seule base sait, elle l'emporte toujours (D11).
+
+**Mis à jour le 9 novembre 2026, après une revue critique** (mesurée sur les vraies données autour de
+l'Hôtel de Ville) : 35 lieux réunis sur 80 affichaient « pas d'accord », dont 5 vrais désaccords
+seulement ; et deux réponses « une marche » faisaient passer un lieu de « Difficile » à « Attention ».
+- **Seuls les vrais contraires sont des désaccords** : « sans marche » (ou rampe, ascenseur) contre
+  « marches » ; « toilettes adaptées » contre « non adaptées ». « Petite marche » contre « sans
+  marche » ou contre « marche haute » : pas de bandeau, on garde la réponse la plus prudente.
+  Résultat : 4 désaccords sur 80 au lieu de 35.
+- **Des toilettes publiques ne sont jamais réunies avec un café ou un resto**, même à la même adresse
+  (une Sanisette disparaissait, avalée par le café voisin).
+- **Deux fiches Acceslibre du même lieu sont réunies comme OSM et Acceslibre** : celle qui sait
+  l'emporte, un vrai désaccord est dit (« Une fiche Acceslibre : … · une autre : … »). Avant, on gardait
+  celle qui avait le plus de lignes, même si elle ne savait rien de l'entrée.
+- **Le lieu réuni garde la position et le type d'OSM** (plus précis), et les détails d'entrée des deux
+  sources (largeur de porte, sonnette…).
+

@@ -77,7 +77,8 @@ async function chargerElements(centre: Point): Promise<ElementOsm[]> {
   if (MODE_DEMO) return versElementsOsm((await import('~/features/lieux/mocks/exemple-paris.mock.json')).default)
 
   return chargerParQuartiers({
-    jeu: 'osm-q1',
+    // q2 : avec l'adresse (addr:*), pour reconnaître le même lieu dans Acceslibre.
+    jeu: 'osm-q2',
     centre,
     rayon: RAYON_RECHERCHE,
     charger: interrogerOverpass,
@@ -118,6 +119,7 @@ export async function chargerLieux(centre: Point): Promise<Lieu[]> {
       metres,
       ...decrireOsm(type, el.tags),
       sources: ['OpenStreetMap'],
+      ...(el.tags['addr:housenumber'] && el.tags['addr:street'] ? { adresse: { numero: el.tags['addr:housenumber'], rue: el.tags['addr:street'] } } : {}),
     })
   }
   return lieux

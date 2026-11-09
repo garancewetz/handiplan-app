@@ -1,7 +1,6 @@
-import type { Etat } from '~/types/lieu.types'
+import type { Entree, Etat, Toilettes } from '~/types/lieu.types'
 
-export type Entree = 'ok' | 'partielle' | 'non' | 'inconnue'
-export type Toilettes = 'oui' | 'non' | 'inconnues'
+export type { Entree, Toilettes }
 
 /**
  * La règle des couleurs, unique pour toutes les sources :
