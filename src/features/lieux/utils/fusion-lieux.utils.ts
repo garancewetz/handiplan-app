@@ -1,59 +1,11 @@
 import { couleur } from '~/features/lieux/utils/couleur.utils'
-import type { Adresse, Lieu, Ligne } from '~/types/lieu.types'
-import { distanceMetres } from '~/utils/distance.utils'
+import { apparier, regrouper, type Candidat } from '~/features/lieux/utils/rapprochement.utils'
+import type { Lieu, Ligne } from '~/types/lieu.types'
 
-// Sans accents ni ponctuation, et sans lettres doublées : « L'As du Fallafel » et « As du Falafel » se
-// ressemblent.
-const simplifier = (s: string) =>
-  s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').replace(/([a-z])\1+/g, '$1').trim()
+// Reconnaître le même lieu : rapprochement.utils.ts (indépendant de l'affichage). Ici, réunir ce que
+// disent les deux descriptions en une seule fiche.
 
-// Les petits mots et les mots du métier ne disent pas quel lieu c'est : deux noms qui commencent par
-// « Le » ou « Café » ne sont pas pour autant le même lieu (docs/decisions/donnees, D11).
-const MOTS_VIDES = new Set([
-  'le', 'la', 'les', 'l', 'de', 'du', 'des', 'd', 'au', 'aux', 'a', 'et', 'en', 'chez', 'the', 'and',
-  // déjà simplifiés : « pizzeria » devient « pizeria »
-  'cafe', 'bar', 'restaurant', 'resto', 'brasserie', 'pizeria', 'creperie', 'snack', 'salon', 'tabac', 'hotel',
-])
-const mots = (nom: string) => new Set(simplifier(nom).split(' ').filter(m => m && !MOTS_VIDES.has(m)))
-
-/** À quel point deux noms se ressemblent, de 0 à 1 : la part de mots communs (1 si l'un contient l'autre). */
-export function ressemblance(a: string, b: string): number {
-  const ma = mots(a)
-  const mb = mots(b)
-  if (ma.size === 0 || mb.size === 0) return simplifier(a) === simplifier(b) ? 1 : 0
-  const communs = [...ma].filter(m => mb.has(m)).length
-  if (communs === Math.min(ma.size, mb.size)) return 1
-  return communs / new Set([...ma, ...mb]).size
-}
-
-const memeAdresse = (a?: Adresse, b?: Adresse) =>
-  !!a && !!b && simplifier(a.numero) === simplifier(b.numero) && simplifier(a.rue) === simplifier(b.rue)
-
-// Deux noms qui se ressemblent assez, à moins de 40 m ; à la même adresse, un mot commun suffit ; le même
-// nom exactement, jusqu'à 100 m (les points d'Acceslibre sont parfois placés au milieu de l'immeuble ou de
-// la rue, et les deux bases ne notent pas toujours le même numéro).
-const PROCHE_M = 40
-const MEME_ADRESSE_M = 80
-const MEME_NOM_M = 100
-
-/** Ce qui fait croire que c'est le même lieu, ou 0 si ce n'en est pas un : plus c'est grand, plus c'est sûr. */
-export function score(a: Lieu, b: Lieu): number {
-  if (a.type === 'parking' || b.type === 'parking') return 0
-  // Des toilettes publiques ne sont jamais le café d'à côté, même à la même adresse.
-  if ((a.type === 'wc') !== (b.type === 'wc')) return 0
-  const metres = distanceMetres(a, b)
-  // Le plus souvent, les deux lieux sont loin : inutile de comparer les noms (des centaines de paires).
-  if (metres > MEME_NOM_M) return 0
-  const noms = ressemblance(a.nom, b.nom)
-  const adresse = memeAdresse(a.adresse, b.adresse)
-  const memeLieu = (metres <= PROCHE_M && noms >= 0.5)
-    || (adresse && metres <= MEME_ADRESSE_M && noms > 0)
-    || (simplifier(a.nom) === simplifier(b.nom) && mots(a.nom).size > 0)
-  return memeLieu ? noms + (adresse ? 1 : 0) + (1 - metres / MEME_NOM_M) : 0
-}
-
-/** Même lieu dans les deux bases. */
-export const memeLieu = (a: Lieu, b: Lieu) => score(a, b) > 0
+const candidat = (l: Lieu): Candidat => ({ id: l.id, nom: l.nom, lat: l.lat, lon: l.lon, adresse: l.adresse, toilettes: l.type === 'wc' })
 
 const minuscule = (texte: string) => texte.charAt(0).toLowerCase() + texte.slice(1)
 
@@ -81,7 +33,6 @@ function choisir(aspect: Aspect, p: Lieu, s: Lieu): { de: Lieu; desaccord: boole
   return { de: PRUDENCE[vp] > PRUDENCE[vs] ? p : s, desaccord: false }
 }
 
-const PAS_D_ACCORD = 'les infos ne sont pas d’accord'
 const CONSEIL_DESACCORD = 'Les infos ne sont pas d’accord : à vérifier sur place.'
 
 /**
@@ -89,7 +40,7 @@ const CONSEIL_DESACCORD = 'Les infos ne sont pas d’accord : à vérifier sur p
  * toilettes, choisies une à une (voir `choisir`). Les détails de l'autre (largeur de porte, sonnette…)
  * restent, et un vrai désaccord est dit en clair, avec ce que dit chacune (`noms`).
  */
-function combiner(p: Lieu, s: Lieu, noms: [string, string]): Pick<Lieu, 'lignes' | 'acces' | 'etat' | 'conseil'> {
+function combiner(p: Lieu, s: Lieu, noms: [string, string]): Pick<Lieu, 'lignes' | 'acces' | 'etat' | 'conseil' | 'desaccord'> {
   const choix = { entree: choisir('entree', p, s), toilettes: choisir('toilettes', p, s) }
   const dit = (l: Lieu, theme: string, nom: string) => {
     const ligne = l.lignes.find(x => x.theme === theme) ?? l.lignes[0]
@@ -100,7 +51,7 @@ function combiner(p: Lieu, s: Lieu, noms: [string, string]): Pick<Lieu, 'lignes'
     const de = (l: Lieu) => l.lignes.filter(x => x.theme === theme)
     const { de: choisie, desaccord } = choix[aspect]
     const tete: Ligne[] = desaccord
-      ? [{ theme, reponse: 'attention', texte: `${theme} : ${PAS_D_ACCORD}`, detail: [dit(p, theme, noms[0]), dit(s, theme, noms[1])].filter(Boolean).join(' · ') }]
+      ? [{ theme, reponse: 'attention', texte: `${theme} : les infos ne sont pas d’accord`, detail: [dit(p, theme, noms[0]), dit(s, theme, noms[1])].filter(Boolean).join(' · ') }]
       : de(choisie).slice(0, 1)
     // puis les détails des deux (sans leur réponse principale), une fois chacun
     const details = [...de(choisie).slice(1), ...de(choisie === s ? p : s).slice(1)]
@@ -123,10 +74,11 @@ function combiner(p: Lieu, s: Lieu, noms: [string, string]): Pick<Lieu, 'lignes'
     : s.acces ?? p.acces
   const etat = acces ? couleur(acces.entree, acces.toilettes) : s.etat
   // (un désaccord peut venir d'avant : deux fiches Acceslibre qui se contredisaient déjà)
-  const conseil = lignes.some(l => l.texte.endsWith(PAS_D_ACCORD)) ? CONSEIL_DESACCORD
+  const desaccord = choix.entree.desaccord || choix.toilettes.desaccord || !!p.desaccord || !!s.desaccord
+  const conseil = desaccord ? CONSEIL_DESACCORD
     : etat === 'ok' && (s.type === 'cafe' || s.type === 'resto') ? 'Toilettes pour les clients : demandez au comptoir.'
     : etat === 'inconnu' ? s.conseil ?? p.conseil : undefined
-  return { lignes, acces, etat, conseil }
+  return { lignes, acces, etat, conseil, ...(desaccord ? { desaccord } : {}) }
 }
 
 /**
@@ -150,33 +102,26 @@ function reunir(o: Lieu, a: Lieu): Lieu {
  */
 export function unParLieu(lieux: Lieu[]): Lieu[] {
   const savoir = (l: Lieu) => (sait(l, 'entree') ? 1 : 0) + (sait(l, 'toilettes') ? 1 : 0)
-  const gardes: Lieu[] = []
-  for (const l of [...lieux].sort((x, y) => savoir(y) - savoir(x) || y.lignes.length - x.lignes.length)) {
-    const i = gardes.findIndex(g => memeLieu(g, l))
-    if (i === -1) gardes.push(l)
-    else gardes[i] = { ...gardes[i], ...combiner(l, gardes[i], ['Une fiche Acceslibre', 'une autre']) }
-  }
-  return gardes
+  const tries = [...lieux].sort((x, y) => savoir(y) - savoir(x) || y.lignes.length - x.lignes.length)
+  return regrouper(tries.map(candidat)).map(([premier, ...autres]) =>
+    autres.reduce((g, i) => ({ ...g, ...combiner(tries[i], g, ['Une fiche Acceslibre', 'une autre']) }), tries[premier]))
 }
 
 /**
- * Un lieu présent des deux côtés n'apparaît qu'une fois. Chaque lieu n'est apparié qu'une fois, au plus
- * ressemblant : deux fiches Acceslibre proches ne se disputent plus le même lieu OSM.
+ * Un lieu présent des deux côtés n'apparaît qu'une fois. Les places handicapées ne sont jamais réunies :
+ * deux places voisines sont bien deux places.
  */
 export function fusionner(osm: Lieu[], fiches: Lieu[]): Lieu[] {
   const acceslibre = unParLieu(fiches)
-  const paires = acceslibre.flatMap((a, j) => osm.map((o, i) => ({ i, j, s: score(o, a) }))).filter(p => p.s > 0)
-  paires.sort((x, y) => y.s - x.s)
-  const lieux = [...osm]
-  const prisOsm = new Set<number>()
-  const prisAcceslibre = new Set<number>()
-  for (const { i, j } of paires) {
-    if (prisOsm.has(i) || prisAcceslibre.has(j)) continue
-    prisOsm.add(i)
-    prisAcceslibre.add(j)
-    lieux[i] = reunir(osm[i], acceslibre[j])
-  }
-  return [...lieux, ...acceslibre.filter((_, j) => !prisAcceslibre.has(j))]
+  const lieux = osm.filter(l => l.type !== 'parking')
+  const paires = apparier(lieux.map(candidat), acceslibre.map(candidat))
+  const reunis = new Map(paires.map(([i, j]) => [i, reunir(lieux[i], acceslibre[j])]))
+  const pris = new Set(paires.map(([, j]) => j))
+  return [
+    ...lieux.map((l, i) => reunis.get(i) ?? l),
+    ...osm.filter(l => l.type === 'parking'),
+    ...acceslibre.filter((_, j) => !pris.has(j)),
+  ]
 }
 
 /**

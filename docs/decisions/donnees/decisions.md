@@ -248,3 +248,37 @@ seulement ; et deux réponses « une marche » faisaient passer un lieu de « Di
 - **Le lieu réuni garde la position et le type d'OSM** (plus précis), et les détails d'entrée des deux
   sources (largeur de porte, sonnette…).
 
+## D13 — Un module de rapprochement à part, rodé sur quatre endroits (novembre 2026)
+
+**Contexte** : le rapprochement OSM / Acceslibre travaillait sur les lieux de Handiplan déjà mis en
+phrases, et n'avait été mesuré que sur un quartier de Paris. Une autre appli (cartes.app) s'y
+intéresse : il faut qu'il puisse servir ailleurs, et qu'il soit éprouvé.
+
+**Choisi**
+- `src/features/lieux/utils/rapprochement.utils.ts` ne prend que des données brutes (un élément OSM,
+  une fiche Acceslibre, via `depuisOsm` et `depuisAcceslibre`) et rend des paires (`apparier`) ou des
+  groupes (`regrouper`). Rien n'y dépend de l'affichage. `fusion-lieux.utils.ts` s'en sert, et ne
+  fait plus que réunir ce que disent les deux descriptions.
+- Un désaccord est un champ (`desaccord`) et plus une phrase cherchée dans les lignes.
+- Rodé sur de vraies données de quatre endroits (`mocks/rapprochement`) : l'Hôtel de Ville de Paris,
+  le centre de Tours, le centre de Montreuil, Sarlat. Toutes les paires aux noms différents (92) et
+  tous les regroupements ont été relus à la main ; les cas difficiles et le nombre de paires de
+  chaque endroit sont des tests (`rapprochement.reel.test.ts`).
+
+**Ce que le rodage a changé**
+- Les **mots courants de l'endroit** (présents dans au moins 3 noms : « marais », « beaubourg »,
+  « halles », « tours ») sont ignorés : « Café du Marais » n'est plus « Kyo Marais ».
+- **Une faute de frappe par mot** est tolérée (« Coupe Gorge » / « Coup Gorge », « Kebab » /
+  « Kebap »), seulement sur les mots d'au moins 4 lettres : « Dong » n'est pas « Dog ».
+- **Le même nom** : les mêmes mots qui comptent (« Filippo » / « Restaurant Filippo »), ou les mêmes
+  lettres collées sans les petits mots (« Eat Day » / « EatDay »).
+- Les mots vides étaient comparés sans être simplifiés comme les noms : « brasserie », « toilettes »
+  n'étaient jamais ignorés. Corrigé ; « bistrot » et « pub » s'y ajoutent.
+- Adresses : « 11 bis » / « 11B », « 31-35 » / « 35 », plusieurs numéros (« 35;39bis »).
+- Un nom fait seulement de mots de métier (« Restaurant ») ne ressemble à rien.
+- Chaque nom n'est découpé qu'une fois : 41 ms pour 594 lieux OSM × 372 fiches (122 ms avant).
+
+**Écarté, à dessein** : retrouver « Buon Gusto » / « Bon Gusto » ou « Le Bistrot » / « Le bistrot
+Sarlat ». Il faudrait tolérer davantage, au risque de réunir deux lieux différents : on préfère rater
+une paire que d'afficher l'accessibilité d'un autre lieu. La comparaison du site web n'est pas faite.
+

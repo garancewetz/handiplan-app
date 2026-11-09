@@ -39,6 +39,8 @@ export type Lieu = Point & {
   /** ce que la source dit de l'entrée et des toilettes (pas pour une place) */
   acces?: { entree: Entree; toilettes: Toilettes }
   adresse?: Adresse
+  /** les deux sources se contredisent sur l'entrée ou les toilettes (docs/decisions/donnees, D12) */
+  desaccord?: boolean
 }
 
 export type Arrivee = Point & { adresse: string }

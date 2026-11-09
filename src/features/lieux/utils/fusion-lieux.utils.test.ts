@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { fusionner, memeLieu, trier } from '~/features/lieux/utils/fusion-lieux.utils'
+import { fusionner, trier } from '~/features/lieux/utils/fusion-lieux.utils'
 import type { Lieu } from '~/types/lieu.types'
 
 function lieu(champs: Partial<Lieu>): Lieu {
@@ -13,48 +13,6 @@ function lieu(champs: Partial<Lieu>): Lieu {
 // ≈ 11 m vers le nord / ≈ 110 m vers le nord
 const PROCHE = 48.8567
 const LOIN = 48.8576
-
-describe('memeLieu', () => {
-  it('reconnaît le même lieu proche avec un nom ressemblant', () => {
-    expect(memeLieu(lieu({}), lieu({ nom: 'FERIA CAFE', lat: PROCHE }))).toBe(true)
-  })
-
-  it('ne confond pas deux lieux éloignés', () => {
-    expect(memeLieu(lieu({}), lieu({ lat: LOIN }))).toBe(false)
-  })
-
-  it('ne confond pas deux lieux voisins dont le nom commence pareil', () => {
-    expect(memeLieu(lieu({ nom: 'Le Bistrot' }), lieu({ nom: 'Le Marais Café', lat: PROCHE }))).toBe(false)
-    expect(memeLieu(lieu({ nom: 'Café de Flore' }), lieu({ nom: 'Café Charlot', lat: PROCHE }))).toBe(false)
-  })
-
-  it('reconnaît un nom écrit autrement (accents, lettres doublées, petits mots)', () => {
-    expect(memeLieu(lieu({ nom: 'L’As du Fallafel' }), lieu({ nom: 'AS DU FALAFEL', lat: PROCHE }))).toBe(true)
-    expect(memeLieu(lieu({ nom: 'Pizzeria Da Mario' }), lieu({ nom: 'Da Mario', lat: PROCHE }))).toBe(true)
-  })
-
-  it('à la même adresse, un mot commun suffit, même un peu plus loin', () => {
-    const adresse = { numero: '12', rue: 'Rue des Rosiers' }
-    const vers = 48.8571 // ≈ 55 m
-    expect(memeLieu(lieu({ nom: 'Chez Marcel', adresse }), lieu({ nom: 'Bistrot Marcel', lat: vers, adresse: { numero: '12', rue: 'rue des rosiers' } }))).toBe(true)
-    expect(memeLieu(lieu({ nom: 'Chez Marcel', adresse }), lieu({ nom: 'Sushi Shop', lat: vers, adresse }))).toBe(false)
-  })
-
-  it('le même nom exactement, un peu plus loin (les deux bases notent parfois un autre numéro)', () => {
-    expect(memeLieu(lieu({ nom: 'Janet by Homer' }), lieu({ nom: 'Janet by Homer', lat: 48.8573 }))).toBe(true) // ≈ 78 m
-    expect(memeLieu(lieu({ nom: 'Café' }), lieu({ nom: 'Café', lat: 48.8573 }))).toBe(false) // un nom de métier ne suffit pas
-  })
-
-  it('ne prend jamais des toilettes publiques pour le café d’à côté', () => {
-    // la Sanisette du 50 rue de Rivoli et le café « Relais de l’Hôtel de Ville », à la même adresse
-    const adresse = { numero: '50', rue: 'Rue de Rivoli' }
-    expect(memeLieu(lieu({ nom: 'Le Relais de l’Hôtel de Ville', adresse }), lieu({ type: 'wc', nom: 'Toilettes Hôtel de Ville', lat: PROCHE, adresse }))).toBe(false)
-  })
-
-  it('ne fusionne jamais les places handicapées', () => {
-    expect(memeLieu(lieu({ type: 'parking' }), lieu({ type: 'parking' }))).toBe(false)
-  })
-})
 
 describe('fusionner', () => {
   it('garde un seul lieu, avec la description Acceslibre et le nom OSM', () => {
@@ -190,6 +148,12 @@ describe('fusionner', () => {
     const courte = lieu({ id: 'acceslibre/1', nom: 'Eataly', sources: ['Acceslibre'] })
     const complete = lieu({ id: 'acceslibre/2', nom: 'EATALY PARIS MARAIS', sources: ['Acceslibre'], lignes: [{ theme: 'Entrée', reponse: 'oui', texte: 'Entrée sans marche' }] })
     expect(fusionner([], [courte, complete]).map(l => l.id)).toEqual(['acceslibre/2'])
+  })
+
+  it('ne réunit jamais une place handicapée avec un café qui s’appelle « La Place »', () => {
+    const place = lieu({ id: 'node/2', type: 'parking', nom: 'Place handicapée', etat: 'parking' })
+    const cafe = lieu({ id: 'acceslibre/9', nom: 'La Place Handicapée', lat: PROCHE, sources: ['Acceslibre'] })
+    expect(fusionner([place], [cafe]).map(l => l.id).sort()).toEqual(['acceslibre/9', 'node/2'])
   })
 
   it('ajoute les lieux qu’Acceslibre est seul à connaître', () => {

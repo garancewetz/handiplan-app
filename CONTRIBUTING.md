@@ -52,8 +52,9 @@ src/
 └── features/
     ├── carte/              # Carte Leaflet : un composant par rôle (cadrer, suivre les gestes,
     │                       # zoom, pastilles), vue de la carte (use-vue-carte)
-    ├── lieux/              # Chargement et fusion OSM + Acceslibre, quartiers gardés sur le
-    │                       # téléphone (IndexedDB), liste, fiche, filtres, légende
+    ├── lieux/              # Chargement et fusion OSM + Acceslibre (rapprochement à part, réutilisable :
+    │                       # utils/rapprochement.utils.ts), quartiers gardés sur le téléphone
+    │                       # (IndexedDB), liste, fiche, filtres, légende
     ├── itineraire/         # Barre et panneau de recherche, dictée, destinations récentes,
     │                       # trajet (IGN), guidage via Waze ou Google Maps
     ├── contribution/       # Compléter la carte : connexion OSM, questions façon StreetComplete,
