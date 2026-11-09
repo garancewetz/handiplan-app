@@ -25,7 +25,7 @@ const tagsXml = (osmTags: Record<string, string>) =>
 
 /**
  * Le groupe de modifications : commentaire clair, appli et #handiplan, pour que la communauté suive.
- * `surPlace` : la personne répond à ce qu'elle voit (`source=survey`, comme StreetComplete).
+ * `onSite` : la personne répond à ce qu'elle voit (`source=survey`, comme StreetComplete).
  */
 export function changesetXml(changesetComment: string, onSite: boolean): string {
   const osmTags = { comment: changesetComment, created_by: CREATED_BY, hashtags: '#handiplan', ...(onSite ? { source: 'survey' } : {}) }

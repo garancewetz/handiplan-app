@@ -8,7 +8,7 @@ import type { Place, Point } from '~/types/place.types'
 import { Button } from '~/components/button'
 import { buttonClass } from '~/constants/buttons.constants'
 
-/** `connues` : les places handicapées déjà sur la carte, pour prévenir d'un doublon. */
+/** `known` : les places handicapées déjà sur la carte, pour prévenir d'un doublon. */
 export type Request = { mode: 'spot'; point: Point | null; known: Point[] } | { mode: 'edit'; place: Place }
 
 type Props = {

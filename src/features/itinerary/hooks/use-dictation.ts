@@ -12,7 +12,7 @@ type WithRecognition = { SpeechRecognition?: new () => Recognition; webkitSpeech
 const browser: WithRecognition = window as Window & WithRecognition
 const SpeechRecognitionLike = browser.SpeechRecognition ?? browser.webkitSpeechRecognition
 
-/** Dicter une adresse : `ecoute` reste vrai tant que le micro écoute. */
+/** Dicter une adresse : `listening` reste vrai tant que le micro écoute. */
 export function useDictation() {
   const [listening, setListening] = useState(false)
 

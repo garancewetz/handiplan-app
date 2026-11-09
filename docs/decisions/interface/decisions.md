@@ -339,9 +339,9 @@ Cela remplace « pas d'icône seule » (D15) pour ces deux boutons seulement.
    quartier), puis ouvrir son appli de guidage (Waze, Google Maps).
 
 **Choisi** :
-- **On ne montre que les cafés, restaurants, toilettes publiques et places handicapées**
-  (`TYPES_UTILES`). Les magasins, hôtels, musées, mairies… ne servent à aucun des deux usages ; la
-  requête OSM ne demande plus les magasins.
+- **On ne montre que les cafés, restaurants, toilettes publiques et places handicapées**.
+  Les magasins, hôtels, musées, mairies… ne servent à aucun des deux usages ; la requête OSM ne
+  demande plus les magasins.
 - **Après une adresse, on voit tout** : les places pour se garer, et les cafés et restaurants du
   quartier (« sortons dans le Marais »). « Se garer » trie les places par distance : « Les plus
   proches de l'arrivée ». (Essayé puis écarté : passer tout seul sur « Se garer », qui cachait les

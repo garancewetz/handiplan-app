@@ -2,7 +2,7 @@ import { color } from '~/features/places/utils/color.utils'
 import { pair, groupDuplicates, type Candidate } from '~/features/places/utils/matching.utils'
 import type { Entrance, Line, Place, Toilets } from '~/types/place.types'
 
-// Reconnaître le même lieu : rapprochement.utils.ts (indépendant de l'affichage). Ici, réunir ce que
+// Reconnaître le même lieu : matching.utils.ts (indépendant de l'affichage). Ici, réunir ce que
 // disent les deux descriptions en une seule fiche.
 
 const candidate = (p: Place): Candidate => ({ id: p.id, name: p.name, lat: p.lat, lon: p.lon, address: p.address, toilets: p.type === 'wc', otherNames: p.otherNames })
@@ -26,19 +26,19 @@ const knows = (p: Place, aspect: Aspect) => !!p.access && p.access[aspect] !== U
 function choose(aspect: Aspect, p: Place, s: Place): { from: Place; disagreement: boolean } {
   if (!knows(s, aspect)) return { from: knows(p, aspect) ? p : s, disagreement: false }
   if (!knows(p, aspect)) return { from: s, disagreement: false }
-  const vp = p.access![aspect]
-  const vs = s.access![aspect]
-  if (vp === vs) return { from: s, disagreement: false }
-  if (aspect === 'toilets' || (vp !== 'partial' && vs !== 'partial')) return { from: s, disagreement: true }
-  return { from: CAUTION[vp] > CAUTION[vs] ? p : s, disagreement: false }
+  const pAnswer = p.access![aspect]
+  const sAnswer = s.access![aspect]
+  if (pAnswer === sAnswer) return { from: s, disagreement: false }
+  if (aspect === 'toilets' || (pAnswer !== 'partial' && sAnswer !== 'partial')) return { from: s, disagreement: true }
+  return { from: CAUTION[pAnswer] > CAUTION[sAnswer] ? p : s, disagreement: false }
 }
 
 const DISAGREEMENT_ADVICE = 'Les infos ne sont pas d’accord : à vérifier sur place.'
 
 /**
  * Deux descriptions du même lieu réunies en une : `s` (la plus détaillée) pour tout, sauf l'entrée et les
- * toilettes, choisies une à une (voir `choisir`). Les détails de l'autre (largeur de porte, sonnette…)
- * restent, et un vrai désaccord est dit en clair, avec ce que dit chacune (`noms`).
+ * toilettes, choisies une à une (voir `choose`). Les détails de l'autre (largeur de porte, sonnette…)
+ * restent, et un vrai désaccord est dit en clair, avec ce que dit chacune (`names`).
  */
 function combine(p: Place, s: Place, names: [string, string]): Pick<Place, 'lines' | 'access' | 'state' | 'advice' | 'disagreement'> {
   const choice = { entrance: choose('entrance', p, s), toilets: choose('toilets', p, s) }

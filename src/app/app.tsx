@@ -188,7 +188,7 @@ export function App() {
         onClose={() => setOpenPlace(null)}
         onGoThere={goTo}
         onParkHere={parkHere}
-        onRedo={p => { setOpenPlace(null); setRequest({ mode: 'edit', place: p }) }}
+        onEdit={p => { setOpenPlace(null); setRequest({ mode: 'edit', place: p }) }}
       />
     </div>
   )

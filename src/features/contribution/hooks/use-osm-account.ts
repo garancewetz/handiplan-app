@@ -4,7 +4,7 @@ import { OSM_CLIENT_ID } from '~/features/contribution/constants/osm.constants'
 
 /**
  * Le compte OpenStreetMap de la personne : termine la connexion au retour de la page d'OSM, puis
- * retrouve son pseudo. `disponible` est faux tant que l'appli n'est pas enregistrée sur OSM.
+ * retrouve son pseudo. `available` est faux tant que l'appli n'est pas enregistrée sur OSM.
  */
 export function useOsmAccount() {
   const [name, setName] = useState<string | null>(null)

@@ -45,7 +45,7 @@ export function FollowMoves({ onGesture, onMoved, chosenZoom }: Props) {
     const container = map.getContainer()
     const onTouch = (e: TouchEvent) => { if (e.touches.length > 1) begin() }
     // Les boutons + et − de la carte comptent comme un geste fait à la main.
-    const onPinClick = (e: MouseEvent) => { if ((e.target as Element).closest('[data-geste]')) begin() }
+    const onPinClick = (e: MouseEvent) => { if ((e.target as Element).closest('[data-gesture]')) begin() }
     const options = { capture: true, passive: true }
     container.addEventListener('click', onPinClick, options)
     container.addEventListener('wheel', begin, options)

@@ -47,8 +47,8 @@ describe('toSuggest', () => {
 
 describe('fromStored', () => {
   it('relit une destination gardée sous l’ancienne forme, en français', () => {
-    const ancienne = { lat: 48.85, lon: 2.35, adresse: '20 Rue des Rosiers 75004 Paris', fois: 3, lieu: { id: 'node/1', type: 'resto', libelle: 'Restaurant' } }
-    expect(fromStored(ancienne)).toEqual({
+    const old = { lat: 48.85, lon: 2.35, adresse: '20 Rue des Rosiers 75004 Paris', fois: 3, lieu: { id: 'node/1', type: 'resto', libelle: 'Restaurant' } }
+    expect(fromStored(old)).toEqual({
       lat: 48.85, lon: 2.35, address: '20 Rue des Rosiers 75004 Paris', count: 3,
       place: { id: 'node/1', type: 'restaurant', label: 'Restaurant' },
     })

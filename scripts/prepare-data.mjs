@@ -19,16 +19,16 @@ import { GRID, REQUIRED_COLUMNS, acceslibrePlace, csvRows, featureToElement, zon
 
 const ACCESLIBRE_CSV = 'https://www.data.gouv.fr/api/1/datasets/r/93ae96a7-1db7-4cb4-a9f1-6d778370b640'
 
-const LICENCES = {
+const LICENSES = {
   osm: '© OpenStreetMap contributors, Open Database License (ODbL) 1.0 — https://www.openstreetmap.org/copyright',
   acceslibre: 'Acceslibre (data.gouv.fr), Licence Ouverte / Open Licence 2.0 — https://www.data.gouv.fr/fr/datasets/acceslibre/',
 }
 const README = `Handiplan — prepared data
 Accessible places and disabled parking spaces in France, split into zones, for the Handiplan app.
 
-osm/        ${LICENCES.osm}
+osm/        ${LICENSES.osm}
             This is a derivative database of OpenStreetMap, made available under the same licence.
-acceslibre/ ${LICENCES.acceslibre}
+acceslibre/ ${LICENSES.acceslibre}
 
 Generated on ${new Date().toISOString().slice(0, 10)} by scripts/prepare-data.mjs.
 `
@@ -102,7 +102,7 @@ await writeFile(join(OUT_DIR, 'index.json'), JSON.stringify({
   bbox: BBOX ?? null,
   osm: { zones: [...osm.keys()], total: count(osm) },
   acceslibre: { zones: [...acceslibre.keys()], total: count(acceslibre) },
-  licences: LICENCES,
+  licenses: LICENSES,
 }))
 // These files are a public derivative of OpenStreetMap: the ODbL requires saying so, with credit.
 await writeFile(join(OUT_DIR, 'README.txt'), README)

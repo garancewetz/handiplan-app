@@ -90,10 +90,10 @@ type Props = {
   onClose: () => void
   onGoThere: (p: Place) => void
   onParkHere: (p: Place) => void
-  onRedo: (p: Place) => void
+  onEdit: (p: Place) => void
 }
 
-export function PlaceCard({ place, towardArrival, onClose, onGoThere, onParkHere, onRedo }: Props) {
+export function PlaceCard({ place, towardArrival, onClose, onGoThere, onParkHere, onEdit }: Props) {
   const opened = place !== null
   const park = place?.type === 'parking' && towardArrival
   const { offset, swipe, gestures } = useSwipeToClose(onClose)
@@ -137,11 +137,11 @@ export function PlaceCard({ place, towardArrival, onClose, onGoThere, onParkHere
             {place.advice && <p className="px-1 text-lg leading-6">{place.advice}</p>}
             <Details key={place.id} place={place} />
             {place.state === 'unknown' ? (
-              <Button variant="outline" onClick={() => onRedo(place)}>
+              <Button variant="outline" onClick={() => onEdit(place)}>
                 Dire si c’est accessible
               </Button>
             ) : (
-              <button onClick={() => onRedo(place)} className="self-center py-1 text-lg font-semibold text-moss underline underline-offset-4">
+              <button onClick={() => onEdit(place)} className="self-center py-1 text-lg font-semibold text-moss underline underline-offset-4">
                 Modifier ou compléter
               </button>
             )}

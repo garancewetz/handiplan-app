@@ -47,7 +47,7 @@ const splitCache = new Map<string, string[]>()
 function wordsOf(name: string): string[] {
   let result = splitCache.get(name)
   if (!result) {
-    result = [...new Set(simplify(name).split(' ').map(m => SAME_WORDS[m] ?? m).filter(m => m && !STOP_WORDS.has(m)))]
+    result = [...new Set(simplify(name).split(' ').map(w => SAME_WORDS[w] ?? w).filter(w => w && !STOP_WORDS.has(w)))]
     splitCache.set(name, result)
   }
   return result
@@ -67,13 +67,13 @@ const SAME_SPOT_M = 50
 export function frequentWords(places: Candidate[], threshold = 3): Set<string> {
   const spots = new Map<string, Candidate[]>()
   for (const c of places) {
-    for (const m of wordsOf(c.name)) {
-      const nearby = spots.get(m) ?? []
+    for (const w of wordsOf(c.name)) {
+      const nearby = spots.get(w) ?? []
       if (!nearby.some(v => distanceMeters(v, c) <= SAME_SPOT_M)) nearby.push(c)
-      spots.set(m, nearby)
+      spots.set(w, nearby)
     }
   }
-  return new Set([...spots].filter(([, nearby]) => nearby.length >= threshold).map(([m]) => m))
+  return new Set([...spots].filter(([, nearby]) => nearby.length >= threshold).map(([w]) => w))
 }
 
 /** Les mots des rues de l'endroit (« Canebière », « Confort », « Mercière ») : ils aussi disent où. */
@@ -93,10 +93,10 @@ function sameWord(a: string, b: string) {
 
 /** Les mots communs de deux noms, sans les mots courants de l'endroit, et la taille du plus court. */
 function sharedWords(a: string, b: string, frequent: Set<string>) {
-  const ma = wordsOf(a).filter(m => !frequent.has(m))
-  const mb = wordsOf(b).filter(m => !frequent.has(m))
-  const n = ma.filter(m => mb.some(x => sameWord(m, x))).length
-  return { n, ma: ma.length, mb: mb.length }
+  const wordsA = wordsOf(a).filter(w => !frequent.has(w))
+  const wordsB = wordsOf(b).filter(w => !frequent.has(w))
+  const shared = wordsA.filter(w => wordsB.some(x => sameWord(w, x))).length
+  return { shared, inA: wordsA.length, inB: wordsB.length }
 }
 
 /**
@@ -106,9 +106,9 @@ function sharedWords(a: string, b: string, frequent: Set<string>) {
  */
 export function similarity(a: string, b: string, frequent = NONE): number {
   const c = sharedWords(a, b, frequent)
-  if (c.n === 0) return 0
-  if (c.n >= Math.min(c.ma, c.mb)) return 1
-  return c.n / (c.ma + c.mb - c.n)
+  if (c.shared === 0) return 0
+  if (c.shared >= Math.min(c.inA, c.inB)) return 1
+  return c.shared / (c.inA + c.inB - c.shared)
 }
 
 // Une même spécialité écrite autrement : au singulier (« Crêpes » et « Crêpe »), et « pizzeria » est
@@ -117,35 +117,35 @@ const SAME_SPECIALTY: Record<string, string> = Object.fromEntries(
   [['pizzeria', 'pizza'], ['crêperie', 'crêpe'], ['taverne', 'tavern']].map(([a, b]) => [simplify(a), simplify(b)]),
 )
 const specialtiesOf = (name: string) =>
-  simplify(name).split(' ').filter(m => SPECIALTIES.has(m)).map(m => (SAME_SPECIALTY[m] ?? m).replace(/s$/, ''))
+  simplify(name).split(' ').filter(w => SPECIALTIES.has(w)).map(w => (SAME_SPECIALTY[w] ?? w).replace(/s$/, ''))
 /** Deux spécialités différentes : deux lieux. Sans spécialité d'un côté, rien ne s'oppose. */
 function compatibleSpecialties(a: string, b: string) {
-  const sa = specialtiesOf(a)
-  const sb = specialtiesOf(b)
-  return sa.every(m => sb.includes(m)) || sb.every(m => sa.includes(m))
+  const specialtiesA = specialtiesOf(a)
+  const specialtiesB = specialtiesOf(b)
+  return specialtiesA.every(w => specialtiesB.includes(w)) || specialtiesB.every(w => specialtiesA.includes(w))
 }
 
-// Les mêmes mots dans le même ordre, à une faute de frappe près (voir `memeMot`) : « Paris Kebab » et
+// Les mêmes mots dans le même ordre, à une faute de frappe près (voir `sameWord`) : « Paris Kebab » et
 // « Paris Kebap ». Mot à mot et pas sur le nom collé : collés, « Bar de la Plaine » et « Beer de la Plaine »
 // n'auraient qu'une lettre d'écart.
 function nearlySameWords(a: string, b: string) {
-  const wa = simplify(a).split(' ').filter(m => m && !SMALL_WORDS.has(m))
-  const wb = simplify(b).split(' ').filter(m => m && !SMALL_WORDS.has(m))
-  return wa.length > 0 && wa.length === wb.length && wa.every((m, i) => sameWord(m, wb[i]))
+  const wa = simplify(a).split(' ').filter(w => w && !SMALL_WORDS.has(w))
+  const wb = simplify(b).split(' ').filter(w => w && !SMALL_WORDS.has(w))
+  return wa.length > 0 && wa.length === wb.length && wa.every((w, i) => sameWord(w, wb[i]))
 }
 
 const gluedCache = new Map<string, string>()
 function glued(name: string): string {
   let result = gluedCache.get(name)
   if (result === undefined) {
-    result = simplify(name).split(' ').filter(m => !SMALL_WORDS.has(m)).join('')
+    result = simplify(name).split(' ').filter(w => !SMALL_WORDS.has(w)).join('')
     gluedCache.set(name, result)
   }
   return result
 }
 
 // Un nom fait seulement de petits mots et de genres de lieu (« Le Café ») ne dit pas quel lieu c'est.
-const nameless = (name: string) => simplify(name).split(' ').every(m => !m || SMALL_WORDS.has(m) || KINDS.includes(m))
+const nameless = (name: string) => simplify(name).split(' ').every(w => !w || SMALL_WORDS.has(w) || KINDS.includes(w))
 
 /**
  * Le même nom : les mêmes lettres une fois collées (« Eat Day » et « EatDay », « Grill Burger »), les mêmes
@@ -155,9 +155,9 @@ const nameless = (name: string) => simplify(name).split(' ').every(m => !m || SM
 function sameName(a: string, b: string, frequent: Set<string>, meters: number) {
   if (nameless(a) || nameless(b)) return false
   if (glued(a) === glued(b) || nearlySameWords(a, b)) return true
-  const equalWords = (x: string[], y: string[]) => x.length > 0 && x.length === y.length && x.every(m => y.includes(m))
+  const equalWords = (x: string[], y: string[]) => x.length > 0 && x.length === y.length && x.every(w => y.includes(w))
   // « Funky Monky » et « Funky Monky Lyon » : les mêmes mots, une fois retirés ceux de l'endroit
-  const ownWords = (m: string[]) => m.filter(x => !frequent.has(x))
+  const ownWords = (w: string[]) => w.filter(x => !frequent.has(x))
   if (equalWords(ownWords(wordsOf(a)), ownWords(wordsOf(b)))) return true
   return equalWords(wordsOf(a), wordsOf(b)) && meters <= VERY_NEAR_M
 }
@@ -167,7 +167,7 @@ function sameName(a: string, b: string, frequent: Set<string>, meters: number) {
 function numbers(houseNumber: string): string[] {
   return houseNumber.toLowerCase().replace(/\s+/g, '').split(/[;,]/).flatMap(n => {
     const range = n.match(/^(\d+)-(\d+)$/)
-    return range ? [range[1], range[2]] : [n.replace(/(bis|ter|quater)$/, m => m[0])]
+    return range ? [range[1], range[2]] : [n.replace(/(bis|ter|quater)$/, suffix => suffix[0])]
   })
 }
 const street = (r: string) => wordsOf(r).join(' ')
@@ -191,7 +191,7 @@ const SAME_NAME_M = 100
 
 /**
  * Ce qui fait croire que c'est le même lieu, ou 0 si ce n'en est pas un : plus c'est grand, plus c'est sûr.
- * `courants` : les mots courants de l'endroit (voir `motsCourants`) ; `apparier` et `regrouper` les
+ * `frequent` : les mots courants de l'endroit (voir `frequentWords`) ; `pair` et `groupDuplicates` les
  * trouvent seuls.
  */
 export function score(a: Candidate, b: Candidate, frequent = NONE): number {
@@ -212,7 +212,7 @@ function scoreNames(a: string, b: string, meters: number, address: boolean, freq
   // rue du Renard.
   const sameNumber = address && meters <= SAME_ADDRESS_M && similarity(a, b) > 0
   const c = sharedWords(a, b, frequent)
-  const weak = c.n === 1 && c.ma > 1 && c.mb > 1
+  const weak = c.shared === 1 && c.inA > 1 && c.inB > 1
   const near = meters <= (weak ? VERY_NEAR_M : NEAR_M)
   const matched = (near && names >= 0.5) || sameNumber || name
   return matched ? Math.max(names, name ? 1 : 0) + (address ? 1 : 0) + (1 - meters / SAME_NAME_M) : 0

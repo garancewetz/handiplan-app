@@ -14,8 +14,8 @@ export function ZoomButtons() {
   const style = 'flex size-13 items-center justify-center rounded-2xl bg-white text-3xl leading-none font-bold text-ink shadow-md'
   return (
     <div ref={buttons} className="absolute right-3 bottom-8 z-[500] flex flex-col gap-2">
-      <button type="button" data-geste aria-label="Rapprocher" onClick={() => map.zoomIn()} className={style}>+</button>
-      <button type="button" data-geste aria-label="Éloigner" onClick={() => map.zoomOut()} className={style}>−</button>
+      <button type="button" data-gesture aria-label="Rapprocher" onClick={() => map.zoomIn()} className={style}>+</button>
+      <button type="button" data-gesture aria-label="Éloigner" onClick={() => map.zoomOut()} className={style}>−</button>
     </div>
   )
 }

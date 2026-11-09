@@ -89,7 +89,7 @@ Pages lues le 7 novembre 2026 :
 |---|---|---|
 | « © OpenStreetMap » sur la carte, avec lien | ✅ (corrigé) | En premier dans le coin de la carte, lien vers /copyright. Sur téléphone, la mention « Leaflet » la repoussait hors de l'écran : retirée. |
 | Source de chaque lieu | ✅ | « Source : Acceslibre et OpenStreetMap » en bas de la fiche. |
-| **Données préparées** (script désactivé) | ✅ | Si on les republie un jour, le script écrit un `README.txt` et un champ `licences` dans `index.json` : « © OpenStreetMap contributors, ODbL », « Acceslibre, Licence Ouverte 2.0 ». |
+| **Données préparées** (script désactivé) | ✅ | Si on les republie un jour, le script écrit un `README.txt` et un champ `licenses` dans `index.json` : « © OpenStreetMap contributors, ODbL », « Acceslibre, Licence Ouverte 2.0 ». |
 | Page « D'où viennent les infos » | ✅ | Cite OpenStreetMap (ODbL), Acceslibre (Licence Ouverte), la Base Adresse Nationale, l'IGN et Photon. |
 
 ### Contribuer

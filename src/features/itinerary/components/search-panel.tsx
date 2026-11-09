@@ -51,8 +51,8 @@ export function SearchPanel({ places, recent, near, onChoose, onChoosePlace, onS
   // Un lieu déjà chargé (qui ouvre sa fiche) et le même trouvé par la recherche : on ne le montre qu'une fois.
   const otherSuggestions = suggestions.filter(s => !suggestedPlaces.some(p => distanceMeters(p, s) < 50))
   // Champ vide : comme Waze, on propose d'abord ce qu'on demande souvent, puis les dernières destinations.
-  const { often, recent: dernieres } = empty ? toSuggest(recent) : { often: [], recent: [] }
-  const number = often.length + dernieres.length + suggestedPlaces.length + otherSuggestions.length
+  const { often, recent: latest } = empty ? toSuggest(recent) : { often: [], recent: [] }
+  const count = often.length + latest.length + suggestedPlaces.length + otherSuggestions.length
 
   // Le clavier s'ouvre tout de suite : on vient pour taper.
   useEffect(() => { field.current?.focus() }, [])
@@ -99,7 +99,7 @@ export function SearchPanel({ places, recent, near, onChoose, onChoosePlace, onS
       >
         {/* Pour un lecteur d'écran : combien de propositions sont apparues, et quand le micro écoute. */}
         <p role="status" className="sr-only">
-          {dictation.listening ? 'Je vous écoute.' : number > 0 ? `${number} propositions` : ''}
+          {dictation.listening ? 'Je vous écoute.' : count > 0 ? `${count} propositions` : ''}
         </p>
 
         {/* Les propositions s'empilent au-dessus du champ, au plus près du pouce. */}
@@ -107,8 +107,8 @@ export function SearchPanel({ places, recent, near, onChoose, onChoosePlace, onS
           {often.length > 0 && (
             <SuggestionGroup id="often-group" title="Souvent">{often.map(d => destinationRow(d, 'star'))}</SuggestionGroup>
           )}
-          {dernieres.length > 0 && (
-            <SuggestionGroup id="recent-group" title="Récemment">{dernieres.map(d => destinationRow(d, 'clock'))}</SuggestionGroup>
+          {latest.length > 0 && (
+            <SuggestionGroup id="recent-group" title="Récemment">{latest.map(d => destinationRow(d, 'clock'))}</SuggestionGroup>
           )}
           {(suggestedPlaces.length > 0 || otherSuggestions.length > 0) && (
             <ul aria-label="Propositions" className="flex flex-col gap-2">

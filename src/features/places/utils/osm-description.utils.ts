@@ -89,8 +89,8 @@ export function describeOsm(type: PlaceType, tags: Record<string, string>): { st
   const lines: Line[] = []
 
   if (type === 'parking') {
-    const nb = Number(tags['capacity:disabled'])
-    lines.push({ theme: 'Se garer', answer: 'yes', text: nb > 1 ? `${nb} places handicapées` : 'Place handicapée' })
+    const count = Number(tags['capacity:disabled'])
+    lines.push({ theme: 'Se garer', answer: 'yes', text: count > 1 ? `${count} places handicapées` : 'Place handicapée' })
     return { state: 'parking', lines }
   }
 
