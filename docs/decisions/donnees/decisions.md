@@ -38,7 +38,7 @@ activités retenues, filtrées par `activite__in`.)
 **Options** : tous les établissements, ou seulement ceux où l'on peut entrer librement.
 
 **Choisi** : liste blanche d'activités (restaurants, cafés, boulangeries, supermarchés, musées,
-bibliothèques, cinémas, hôtels, mairies…), dans `description-acceslibre.utils.ts`. (Mis à jour en D11 :
+bibliothèques, cinémas, hôtels, mairies…), dans `acceslibre-description.utils.ts`. (Mis à jour en D11 :
 seulement cafés, restaurants et toilettes publiques, par leur nom exact.)
 
 **Écarté** : tous les établissements. Avocats, dentistes ou coiffeurs ont des toilettes adaptées,
@@ -255,15 +255,15 @@ phrases, et n'avait été mesuré que sur un quartier de Paris. Une autre appli 
 intéresse : il faut qu'il puisse servir ailleurs, et qu'il soit éprouvé.
 
 **Choisi**
-- `src/features/lieux/utils/rapprochement.utils.ts` ne prend que des données brutes (un élément OSM,
-  une fiche Acceslibre, via `depuisOsm` et `depuisAcceslibre`) et rend des paires (`apparier`) ou des
-  groupes (`regrouper`). Rien n'y dépend de l'affichage. `fusion-lieux.utils.ts` s'en sert, et ne
+- `src/features/places/utils/matching.utils.ts` ne prend que des données brutes (un élément OSM,
+  une fiche Acceslibre, via `fromOsm` et `fromAcceslibre`) et rend des paires (`pair`) ou des
+  groupes (`groupDuplicates`). Rien n'y dépend de l'affichage. `merge-places.utils.ts` s'en sert, et ne
   fait plus que réunir ce que disent les deux descriptions.
-- Un désaccord est un champ (`desaccord`) et plus une phrase cherchée dans les lignes.
-- Rodé sur de vraies données de quatre endroits (`mocks/rapprochement`) : l'Hôtel de Ville de Paris,
+- Un désaccord est un champ (`disagreement`) et plus une phrase cherchée dans les lignes.
+- Rodé sur de vraies données de quatre endroits (`mocks/matching`) : l'Hôtel de Ville de Paris,
   le centre de Tours, le centre de Montreuil, Sarlat. Toutes les paires aux noms différents (92) et
   tous les regroupements ont été relus à la main ; les cas difficiles et le nombre de paires de
-  chaque endroit sont des tests (`rapprochement.reel.test.ts`).
+  chaque endroit sont des tests (`matching.real.test.ts`).
 
 **Ce que le rodage a changé**
 - Les **mots courants de l'endroit** (présents dans au moins 3 noms : « marais », « beaubourg »,
@@ -295,7 +295,7 @@ Le lot 2 a révélé des défauts, corrigés avant le lot 3 :
 - un seul mot commun, quand chacun a d'autres mots, ne suffit qu'à 15 m ou à la même adresse ;
 - les fautes de frappe mot à mot, plus sur le nom collé (« Bar de la Plaine » et « Beer de la Plaine »,
   « beer » simplifié en « ber ») ;
-- un groupe de fiches garde tous ses noms (`uneFicheParLieu`).
+- un groupe de fiches garde tous ses noms (`oneRecordPerPlace`).
 
 Ce qui reste, vu au lot 3, sans le corriger (chaque correction déplace l'erreur ; il faudrait d'autres
 indices, comme le site web ou le téléphone, ou des paires vérifiées sur place) :
@@ -304,7 +304,7 @@ indices, comme le site web ou le téléphone, ou des paires vérifiées sur plac
 - à la même adresse, un mot de l'endroit en commun (« Brique House Bordeaux » et « Fuxia Bordeaux ») ;
 - un café et un hôtel du même nom (« Café Rohan » et « Hôtel Rohan »).
 
-Les cinq endroits du lot 3 ne sont pas dans les tests : ils sont gardés à part (`mocks/rapprochement/controle`)
+Les cinq endroits du lot 3 ne sont pas dans les tests : ils sont gardés à part (`mocks/matching/holdout`)
 pour mesurer la prochaine version.
 
 **Écarté, à dessein** : retrouver « Buon Gusto » / « Bon Gusto », « Le Bistrot » / « Le bistrot

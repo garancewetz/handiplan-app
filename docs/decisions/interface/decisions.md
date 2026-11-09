@@ -91,7 +91,7 @@ toucher et à lire ; la couleur suffit à les distinguer.
 
 ## D9 — Une seule règle des couleurs
 
-**Choisi** (2026-11-05) : `src/features/lieux/utils/couleur.utils.ts` décide la couleur à partir de
+**Choisi** (2026-11-05) : `src/features/places/utils/color.utils.ts` décide la couleur à partir de
 deux faits, l'entrée et les toilettes, pour toutes les sources : vert = tout bon ; jaune = en partie
 (une partie va, ou on ne sait pas tout) ; gris = rien d'accessible ; pointillé = on ne sait rien.
 L'étiquette de la liste dit « En partie » au lieu de « À vérifier ».
@@ -172,7 +172,7 @@ personnes sensibles au mouvement.
 - **Contrastes AA** : le gris passe de #858680 à #696A64 (5:1 sur blanc).
 - **Textes de 18 px minimum**, partout.
 - **Fenêtres** (fiche, sources, modifier, installer) : Échap ferme, le focus entre et revient,
-  Tab reste dedans (`useFenetre`). La fiche fermée est `inert`.
+  Tab reste dedans (`useDialog`). La fiche fermée est `inert`.
 - **Fermer sans glisser** : un bouton « Fermer » en haut de la fiche. Glisser reste possible.
 - **Une action principale par écran** : « Y aller » seul, en grand.
 - **Annonces** : chargement, erreurs et nombre de propositions sont lus par les lecteurs d'écran.

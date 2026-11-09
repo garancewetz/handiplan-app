@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { COLONNES_ACCESLIBRE } from '../../src/features/lieux/utils/description-acceslibre.utils'
-import { ETIQUETTES_OSM } from '../../src/features/lieux/utils/description-osm.utils'
+import { ACCESLIBRE_COLUMNS } from '../../src/features/places/utils/acceslibre-description.utils'
+import { OSM_TAGS } from '../../src/features/places/utils/osm-description.utils'
 import { KEPT_TAGS, REQUIRED_COLUMNS, acceslibrePlace, centerOf, csvRows, featureToElement, keepOsm } from './prepare.mjs'
 
 describe('kept fields', () => {
   it('match what the app reads', () => {
-    expect([...KEPT_TAGS].sort()).toEqual([...ETIQUETTES_OSM].sort())
-    expect([...REQUIRED_COLUMNS].sort()).toEqual([...COLONNES_ACCESLIBRE].sort())
+    expect([...KEPT_TAGS].sort()).toEqual([...OSM_TAGS].sort())
+    expect([...REQUIRED_COLUMNS].sort()).toEqual([...ACCESLIBRE_COLUMNS].sort())
   })
 })
 

@@ -3,31 +3,31 @@
 
 /* Thème « Jardin » : papier clair, vert mousse, encre verte. */
 @theme {
-  --color-papier: #F4F1EA;
-  --color-encre: #1F241C;
-  --color-doux: #5E6359;
-  --color-mousse: #3F6B3A;
-  --color-mousse-clair: #DCE8D3;
+  --color-paper: #F4F1EA;
+  --color-ink: #1F241C;
+  --color-muted: #5E6359;
+  --color-moss: #3F6B3A;
+  --color-moss-light: #DCE8D3;
   /* Orange franc : 3,6 pour 1 sur le plan, 4,2 pour 1 avec une icône blanche (docs/decisions/interface, D24). */
-  --color-ambre: #C2620A;
-  --color-ambre-clair: #FAE3CF;
-  --color-ambre-fonce: #6B4510;
-  --color-place: #1F5FAE;
-  --color-place-clair: #DCE7F6;
-  --color-non: #A33A3A;
-  --color-non-clair: #F5DFDC;
+  --color-amber: #C2620A;
+  --color-amber-light: #FAE3CF;
+  --color-amber-dark: #6B4510;
+  --color-parking: #1F5FAE;
+  --color-parking-light: #DCE7F6;
+  --color-difficult: #A33A3A;
+  --color-difficult-light: #F5DFDC;
   /* Lieux pas accessibles : discrets, sans être pâles : 5:1 sur blanc, lisible en texte (WCAG AA) */
-  --color-gris: #696A64;
-  --color-gris-clair: #E6E4DE;
+  --color-grey: #696A64;
+  --color-grey-light: #E6E4DE;
   --font-sans: "Lexend", system-ui, sans-serif;
 }
 
 html, body, #root { height: 100%; }
-body { @apply bg-papier text-encre font-sans antialiased; }
+body { @apply bg-paper text-ink font-sans antialiased; }
 
 /* Au clavier, on voit toujours où l'on est : un contour épais, de la couleur de l'encre. */
 @layer base {
-  :focus-visible { outline: 3px solid var(--color-encre); outline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--color-ink); outline-offset: 3px; }
   /* Une fenêtre reçoit le focus à l'ouverture pour les lecteurs d'écran : l'entourer troublerait. */
   [role="dialog"]:focus-visible { outline: none; }
 }
@@ -37,50 +37,47 @@ body { @apply bg-papier text-encre font-sans antialiased; }
   *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; scroll-behavior: auto !important; }
 }
 
-/* Visible seulement des lecteurs d'écran. */
-.pour-lecteur { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-
 /* Marqueurs de la carte (Leaflet divIcon) */
-.marqueur {
+.marker {
   position: relative; display: flex; align-items: center; justify-content: center;
   width: 50px; height: 50px; border-radius: 18px; border: 3px solid #fff;
   box-shadow: 0 3px 10px rgb(31 36 28 / .2);
 }
-.marqueur svg { width: 28px; height: 28px; }
-.marqueur.ok { background: var(--color-mousse); color: #fff; }
-.marqueur.verifier { background: var(--color-ambre); color: #fff; }
-.marqueur.non { background: var(--color-non); color: #fff; }
+.marker svg { width: 28px; height: 28px; }
+.marker.ok { background: var(--color-moss); color: #fff; }
+.marker.check { background: var(--color-amber); color: #fff; }
+.marker.no { background: var(--color-difficult); color: #fff; }
 /* Le symbole de l'état dans un coin : sur la carte non plus, jamais la couleur seule (vert et rouge
    ont la même luminosité). */
-.marqueur .etat {
+.marker .state {
   position: absolute; top: -9px; right: -9px; display: flex; align-items: center; justify-content: center;
   width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgb(31 36 28 / .3);
   font: 800 14px/1 system-ui, sans-serif;
 }
-.marqueur.ok .etat { color: var(--color-mousse); }
-.marqueur.verifier .etat { color: var(--color-ambre); }
-.marqueur.non .etat { color: var(--color-non); }
-.marqueur.inconnu .etat { color: var(--color-gris); }
-.marqueur.inconnu { border: 3px dashed var(--color-gris); background: #fff; color: var(--color-gris); }
-.marqueur.parking { background: var(--color-place); color: #fff; width: 42px; height: 42px; border-radius: 10px; }
-.marqueur.choisi { box-shadow: 0 0 0 4px #fff, 0 0 0 8px var(--color-encre); transform: scale(1.15); }
-.marqueur-moi {
-  width: 24px; height: 24px; border-radius: 50%; background: var(--color-encre);
+.marker.ok .state { color: var(--color-moss); }
+.marker.check .state { color: var(--color-amber); }
+.marker.no .state { color: var(--color-difficult); }
+.marker.unknown .state { color: var(--color-grey); }
+.marker.unknown { border: 3px dashed var(--color-grey); background: #fff; color: var(--color-grey); }
+.marker.parking { background: var(--color-parking); color: #fff; width: 42px; height: 42px; border-radius: 10px; }
+.marker.selected { box-shadow: 0 0 0 4px #fff, 0 0 0 8px var(--color-ink); transform: scale(1.15); }
+.marker-self {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--color-ink);
   border: 4px solid #fff; box-shadow: 0 0 0 8px rgb(31 36 28 / .15);
 }
 /* L'adresse cherchée : un repère en forme de goutte, pointe posée sur le lieu (le cadre Leaflet est
    centré sur le point, d'où le décalage vers le haut). */
-.marqueur-moi.arrivee {
+.marker-self.arrival {
   position: relative; width: 38px; height: 38px; border: 3px solid #fff; border-radius: 50% 50% 50% 0;
   /* Encre, pas bleu : le bleu est réservé aux places handicapées. */
-  background: var(--color-encre); box-shadow: 0 4px 10px rgb(31 36 28 / .35);
+  background: var(--color-ink); box-shadow: 0 4px 10px rgb(31 36 28 / .35);
   transform: translate(-7px, -34px) rotate(-45deg);
 }
-.marqueur-moi.arrivee::after {
+.marker-self.arrival::after {
   content: ''; position: absolute; inset: 0; margin: auto; width: 12px; height: 12px; border-radius: 50%; background: #fff;
 }
 .leaflet-container { font-family: inherit; background: #E7E3D8; }
-.fond-calme { filter: saturate(.45) sepia(.12) brightness(1.04); }
+.calm-tiles { filter: saturate(.45) sepia(.12) brightness(1.04); }
 .leaflet-div-icon { background: transparent; border: 0; }
 /* La carte a des coins arrondis : sans marge, le coin rognait la fin de l'attribution. */
 .leaflet-control-attribution.leaflet-control { margin-right: 14px; border-radius: 6px 6px 0 0; }

@@ -1,4 +1,4 @@
-import type { Point } from '~/types/lieu.types'
+import type { Point } from '~/types/place.types'
 
 /** Distance à vol d'oiseau en mètres (formule de haversine). */
 export function distanceMetres(a: Point, b: Point) {

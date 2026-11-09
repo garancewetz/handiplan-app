@@ -75,7 +75,7 @@ Pages lues le 7 novembre 2026 :
 | Point | État | Détail |
 |---|---|---|
 | Étiquette absente = « on ne sait pas » | ✅ | Les lieux sans info sont blancs en pointillé, jamais classés « accessibles ». |
-| Toilettes publiques : `wheelchair` | ✅ | `description-osm.utils.ts` lit bien `wheelchair` sur `amenity=toilets`. |
+| Toilettes publiques : `wheelchair` | ✅ | `osm-description.utils.ts` lit bien `wheelchair` sur `amenity=toilets`. |
 | Ne jamais afficher « toilettes adaptées » sans source explicite | ✅ | Règle du projet, respectée : seulement si `toilets:wheelchair` (ou Acceslibre) le dit. |
 | Texte de `wheelchair` | ✅ (corrigé) | Définitions du wiki, mot pour mot : « Accès partiel en fauteuil : marche de 7 cm au plus ». |
 | Seulement des critères handicap OSM | ✅ (corrigé) | Plus d'étiquettes sans rapport (gratuit, table à langer…), plus de seuils inventés (décision interface D12). Acceslibre garde ses propres critères. |

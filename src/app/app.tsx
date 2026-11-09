@@ -1,25 +1,25 @@
 import { useState } from 'react'
-import { BarreDuPouce } from '~/app/barre-du-pouce'
-import { ColonneLieux } from '~/app/colonne-lieux'
-import { Carte } from '~/features/carte/components/carte'
-import { useVueCarte } from '~/features/carte/hooks/use-vue-carte'
-import { Modifier, type Demande } from '~/features/contribution/components/modifier'
-import { useCompteOsm } from '~/features/contribution/hooks/use-compte-osm'
-import { chercherAdresse } from '~/features/itineraire/api/adresse.api'
-import { CarteTrajet } from '~/features/itineraire/components/carte-trajet'
-import { useDestinations } from '~/features/itineraire/hooks/use-destinations'
-import { useTrajet } from '~/features/itineraire/hooks/use-trajet'
-import { appliPreferee, ouvrirGps } from '~/features/itineraire/utils/gps.utils'
-import { Fiche } from '~/features/lieux/components/fiche-lieu'
-import { FILTRES, correspond, type Filtre } from '~/features/lieux/constants/filtres.constants'
-import { useLieux } from '~/features/lieux/hooks/use-lieux'
-import { dansLaZone } from '~/features/lieux/utils/voisinage.utils'
+import { ThumbBar } from '~/app/thumb-bar'
+import { PlacesColumn } from '~/app/places-column'
+import { PlacesMap } from '~/features/map/components/map'
+import { useMapView } from '~/features/map/hooks/use-map-view'
+import { Edit, type Request } from '~/features/contribution/components/edit'
+import { useOsmAccount } from '~/features/contribution/hooks/use-osm-account'
+import { searchAddress } from '~/features/itinerary/api/address.api'
+import { RouteCard } from '~/features/itinerary/components/route-card'
+import { useDestinations } from '~/features/itinerary/hooks/use-destinations'
+import { useRoute } from '~/features/itinerary/hooks/use-route'
+import { preferredApp, openGps } from '~/features/itinerary/utils/gps.utils'
+import { PlaceCard } from '~/features/places/components/place-card'
+import { FILTERS, matches, type Filter } from '~/features/places/constants/filters.constants'
+import { usePlaces } from '~/features/places/hooks/use-places'
+import { inArea } from '~/features/places/utils/nearby.utils'
 import { Sources } from '~/features/sources/components/sources'
 import { usePosition } from '~/hooks/use-position'
-import type { Arrivee, Lieu } from '~/types/lieu.types'
+import type { Arrival, Place } from '~/types/place.types'
 
 // Une liste trop longue fatigue : on montre les plus utiles, et le reste à la demande.
-const PAR_PAGE = 8
+const PER_PAGE = 8
 
 /**
  * L'appli : assemble les fonctionnalités et garde ce qui les relie (où l'on va, le lieu ouvert).
@@ -28,73 +28,73 @@ const PAR_PAGE = 8
  * Ordinateur : liste et barre à gauche, grande carte à droite.
  */
 export function App() {
-  const { ici, position, refusee } = usePosition()
-  const positionReelle = refusee ? null : position
-  const [arrivee, setArrivee] = useState<Arrivee | null>(null)
-  const [placeChoisie, setPlaceChoisie] = useState<Lieu | null>(null)
-  const [filtre, setFiltre] = useState<Filtre>(FILTRES[0])
-  const [nbAffiches, setNbAffiches] = useState(PAR_PAGE)
-  const [ouvert, setOuvert] = useState<Lieu | null>(null)
-  const [erreur, setErreur] = useState<string | null>(null)
-  const [infos, setInfos] = useState(false)
-  const [demande, setDemande] = useState<Demande | null>(null)
-  const compte = useCompteOsm()
+  const { here, position, refused } = usePosition()
+  const realPosition = refused ? null : position
+  const [arrival, setArrival] = useState<Arrival | null>(null)
+  const [chosenSpot, setChosenSpot] = useState<Place | null>(null)
+  const [filter, setFilter] = useState<Filter>(FILTERS[0])
+  const [shownCount, setShownCount] = useState(PER_PAGE)
+  const [isOpen, setIsOpen] = useState<Place | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [notes, setNotes] = useState(false)
+  const [request, setRequest] = useState<Request | null>(null)
+  const account = useOsmAccount()
   const destinations = useDestinations()
-  const trajet = useTrajet(positionReelle)
+  const route = useRoute(realPosition)
 
-  const centre = arrivee ?? position
-  const vue = useVueCarte(centre)
-  const { lieux, enCours, enPanne, termine, reessayer } = useLieux(vue.chargerAutour, arrivee ?? positionReelle)
-  const visibles = lieux.filter(l => correspond(l.type, filtre))
-  const dansLaListe = vue.chargerAutour ? dansLaZone(visibles, vue.chargerAutour) : visibles
+  const centre = arrival ?? position
+  const view = useMapView(centre)
+  const { places, inFlight, down, finished, retry } = usePlaces(view.loadAround, arrival ?? realPosition)
+  const visibleOnes = places.filter(l => matches(l.type, filter))
+  const inList = view.loadAround ? inArea(visibleOnes, view.loadAround) : visibleOnes
 
   /** Revenir autour de soi. Pendant un trajet, on garde le chemin : la carte le recadre. */
-  function revenirIci() {
-    vue.oublier()
-    if (trajet.vers) return
-    setArrivee(null)
-    setPlaceChoisie(null)
-    setNbAffiches(PAR_PAGE)
+  function backHere() {
+    view.forget()
+    if (route.toward) return
+    setArrival(null)
+    setChosenSpot(null)
+    setShownCount(PER_PAGE)
   }
 
-  function choisirArrivee(choisie: Arrivee) {
-    setErreur(null)
-    setPlaceChoisie(null)
-    vue.oublier()
-    setNbAffiches(PAR_PAGE)
-    trajet.fermer()
-    setArrivee(choisie)
-    destinations.retenir(choisie)
+  function chooseArrival(chosenOne: Arrival) {
+    setError(null)
+    setChosenSpot(null)
+    view.forget()
+    setShownCount(PER_PAGE)
+    route.close()
+    setArrival(chosenOne)
+    destinations.remember(chosenOne)
   }
 
-  async function chercher(texte: string) {
-    setErreur(null)
+  async function search(text: string) {
+    setError(null)
     try {
-      const trouvee = await chercherAdresse(texte, position)
-      if (trouvee) choisirArrivee(trouvee)
-      else setErreur('Je n’ai pas trouvé cette adresse.')
+      const found = await searchAddress(text, position)
+      if (found) chooseArrival(found)
+      else setError('Je n’ai pas trouvé cette adresse.')
     } catch {
-      setErreur('La recherche d’adresse ne répond pas.')
+      setError('La recherche d’adresse ne répond pas.')
     }
   }
 
-  function annulerItineraire() {
-    vue.oublier()
-    setArrivee(null)
-    setPlaceChoisie(null)
-    setNbAffiches(PAR_PAGE)
-    trajet.fermer()
+  function cancelRoute() {
+    view.forget()
+    setArrival(null)
+    setChosenSpot(null)
+    setShownCount(PER_PAGE)
+    route.close()
   }
 
-  function ouvrirLieuCherche(lieu: Lieu) {
-    destinations.retenirLieu(lieu)
-    setOuvert(lieu)
+  function openSearchedPlace(place: Place) {
+    destinations.rememberPlace(place)
+    setIsOpen(place)
   }
 
-  function allerVers(lieu: Lieu) {
-    setOuvert(null)
-    if (!destinations.vientDEtreRetenu(lieu)) destinations.retenirLieu(lieu)
-    trajet.allerVers(lieu)
+  function goTo(place: Place) {
+    setIsOpen(null)
+    if (!destinations.justRemembered(place)) destinations.rememberPlace(place)
+    route.goTo(place)
   }
 
   /**
@@ -102,93 +102,93 @@ export function App() {
    * seulement, le trajet s'affiche pour choisir l'appli (Waze, Google Maps…). La place n'entre pas
    * dans « Récemment » : la destination, c'est l'adresse (docs/decisions/interface, D23).
    */
-  function garerIci(place: Lieu) {
-    setOuvert(null)
-    setPlaceChoisie(place)
-    const appli = appliPreferee()
-    if (appli) ouvrirGps(place, 'voiture', appli)
-    else trajet.allerVers(place)
+  function parkHere(spot: Place) {
+    setIsOpen(null)
+    setChosenSpot(spot)
+    const app = preferredApp()
+    if (app) openGps(spot, 'car', app)
+    else route.goTo(spot)
   }
 
-  const texteEnCours = arrivee
-    ? placeChoisie ? `Garé à ${placeChoisie.metres} m de l’arrivée` : arrivee.adresse
+  const interimText = arrival
+    ? chosenSpot ? `Garé à ${chosenSpot.metres} m de l’arrivée` : arrival.address
     : null
 
   return (
-    <div className="relative mx-auto grid h-dvh max-w-[480px] grid-cols-[minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)_auto] overflow-clip bg-papier lg:max-w-none lg:grid-cols-[440px_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)_auto]">
-      <h1 className="pour-lecteur">Handiplan : cafés et restaurants faciles d’accès, et places handicapées</h1>
+    <div className="relative mx-auto grid h-dvh max-w-[480px] grid-cols-[minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)_auto] overflow-clip bg-paper lg:max-w-none lg:grid-cols-[440px_minmax(0,1fr)] lg:grid-rows-[minmax(0,1fr)_auto]">
+      <h1 className="sr-only">Handiplan : cafés et restaurants faciles d’accès, et places handicapées</h1>
 
       {/* La carte reste toujours visible ; seule la liste en dessous défile. */}
       <div role="region" aria-label="Carte des lieux" className="relative mx-4 mt-[max(env(safe-area-inset-top),16px)] h-[clamp(240px,40dvh,340px)] overflow-hidden rounded-[28px] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:m-0 lg:h-full lg:rounded-none">
         {centre && (
-          <Carte
+          <PlacesMap
             centre={centre}
-            versArrivee={arrivee !== null}
+            towardArrival={arrival !== null}
             // Trop dézoomée, la carte ferait un tas illisible de pastilles : elle se tait, comme la liste.
-            lieux={vue.dezoomee ? [] : visibles}
-            placeChoisie={placeChoisie}
-            trace={trajet.trajet?.trace ?? null}
-            ici={ici}
-            figee={vue.figee}
-            onChoisir={setOuvert}
-            onGeste={vue.geste}
-            onDeplacee={vue.deplacer}
+            places={view.zoomedOut ? [] : visibleOnes}
+            chosenSpot={chosenSpot}
+            trace={route.route?.trace ?? null}
+            here={here}
+            frozen={view.frozen}
+            onChoose={setIsOpen}
+            onGesture={view.gesture}
+            onMoved={view.move}
           />
         )}
-        {refusee && !arrivee && (
+        {refused && !arrival && (
           <div role="status" className="absolute inset-x-3 top-3 z-[500] rounded-2xl bg-white/95 px-4 py-2 text-lg">
             Position inconnue : la carte montre Paris.
           </div>
         )}
       </div>
 
-      <ColonneLieux
-        trajet={trajet.vers && <CarteTrajet lieu={trajet.vers} trajet={trajet.trajet} echec={trajet.echec} onFermer={trajet.fermer} />}
-        erreur={erreur}
-        onFermerErreur={() => setErreur(null)}
-        dezoomee={vue.dezoomee}
+      <PlacesColumn
+        route={route.toward && <RouteCard place={route.toward} route={route.route} failure={route.failure} onClose={route.close} />}
+        error={error}
+        onCloseError={() => setError(null)}
+        zoomedOut={view.zoomedOut}
         messages={{
           // Des places se comparent à leur distance ; des cafés, d'abord à leur facilité.
-          titre: filtre.id === 'garer' ? (arrivee ? 'Les plus proches de l’arrivée' : 'Les plus proches') : 'Les plus faciles d’abord',
-          aucunLieu: (vue.chargerAutour ? dansLaZone(lieux, vue.chargerAutour) : lieux).length === 0,
-          termine,
-          enCours,
-          enPanne,
-          aucunVisible: dansLaListe.length === 0,
-          onReessayer: reessayer,
+          title: filter.id === 'garer' ? (arrival ? 'Les plus proches de l’arrivée' : 'Les plus proches') : 'Les plus faciles d’abord',
+          noPlace: (view.loadAround ? inArea(places, view.loadAround) : places).length === 0,
+          finished,
+          inFlight,
+          down,
+          noneVisible: inList.length === 0,
+          onRetry: retry,
         }}
-        lieux={dansLaListe}
-        nbAffiches={nbAffiches}
-        onVoirPlus={() => setNbAffiches(n => n + PAR_PAGE)}
-        onChoisir={setOuvert}
-        onAjouterPlace={() => setDemande({ mode: 'place', point: positionReelle, connues: lieux.filter(l => l.type === 'parking') })}
-        onInfos={() => setInfos(true)}
+        places={inList}
+        shownCount={shownCount}
+        onShowMore={() => setShownCount(n => n + PER_PAGE)}
+        onChoose={setIsOpen}
+        onAddSpot={() => setRequest({ mode: 'spot', point: realPosition, known: places.filter(l => l.type === 'parking') })}
+        onInfo={() => setNotes(true)}
       />
 
-      <BarreDuPouce
-        filtres={{ actif: filtre, onChange: f => { setFiltre(f); setNbAffiches(PAR_PAGE) } }}
-        recherche={{
-          enCours: texteEnCours,
-          lieux,
-          recentes: destinations.recentes,
-          proche: position,
-          onChoisir: choisirArrivee,
-          onChoisirLieu: ouvrirLieuCherche,
-          onChercher: chercher,
-          onAnnuler: annulerItineraire,
+      <ThumbBar
+        filters={{ active: filter, onChange: f => { setFilter(f); setShownCount(PER_PAGE) } }}
+        searchText={{
+          inFlight: interimText,
+          places,
+          recentOnes: destinations.recentOnes,
+          near: position,
+          onChoose: chooseArrival,
+          onChoosePlace: openSearchedPlace,
+          onSearch: search,
+          onCancel: cancelRoute,
         }}
-        onMaPosition={positionReelle ? revenirIci : undefined}
+        onMyPosition={realPosition ? backHere : undefined}
       />
 
-      <Modifier demande={demande} compte={compte} onFermer={() => setDemande(null)} />
-      <Sources ouverte={infos} onFermer={() => setInfos(false)} />
-      <Fiche
-        lieu={ouvert}
-        versArrivee={arrivee !== null}
-        onFermer={() => setOuvert(null)}
-        onYAller={allerVers}
-        onGarerIci={garerIci}
-        onCorriger={l => { setOuvert(null); setDemande({ mode: 'corriger', lieu: l }) }}
+      <Edit request={request} account={account} onClose={() => setRequest(null)} />
+      <Sources opened={notes} onClose={() => setNotes(false)} />
+      <PlaceCard
+        place={isOpen}
+        towardArrival={arrival !== null}
+        onClose={() => setIsOpen(null)}
+        onGoThere={goTo}
+        onParkHere={parkHere}
+        onRedo={l => { setIsOpen(null); setRequest({ mode: 'edit', place: l }) }}
       />
     </div>
   )

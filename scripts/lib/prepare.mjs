@@ -7,8 +7,8 @@ export const zoneKey = (lat, lon) => `${Math.floor(lat / GRID)}_${Math.floor(lon
 
 // ---------- OpenStreetMap ----------
 
-// OSM tags the app reads; everything else is dropped. Must match ETIQUETTES_OSM in
-// description-osm.utils.ts (checked by a test in the app).
+// OSM tags the app reads; everything else is dropped. Must match OSM_TAGS in
+// osm-description.utils.ts (checked by a test in the app).
 export const KEPT_TAGS = [
   'name', 'amenity', 'parking_space', 'capacity:disabled', 'wheelchair', 'toilets:wheelchair',
   'wheelchair:description', 'wheelchair:description:fr', 'step_count', 'ramp:wheelchair', 'automatic_door',
@@ -67,7 +67,7 @@ export function featureToElement(feature) {
 
 // ---------- Acceslibre ----------
 
-/** Acceslibre columns the app reads. Must match COLONNES_ACCESLIBRE in description-acceslibre.utils.ts. */
+/** Acceslibre columns the app reads. Must match ACCESLIBRE_COLUMNS in acceslibre-description.utils.ts. */
 export const REQUIRED_COLUMNS = [
   'id', 'web_url', 'name', 'activite', 'latitude', 'longitude', 'numero', 'voie',
   'entree_plain_pied', 'entree_marches', 'entree_marches_rampe', 'entree_ascenseur',

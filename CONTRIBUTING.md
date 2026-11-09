@@ -24,13 +24,13 @@ publics saturent. Pour essayer la contribution sur le serveur de test d'OSM, voi
 L'appli est pensée pour une personne après un AVC, qui n'utilise qu'une main. **La simplicité passe
 avant tout le reste.**
 
-- Gros textes (18 px minimum), gros boutons (64 px de haut, `components/bouton.tsx`), un seul geste
+- Gros textes (18 px minimum), gros boutons (64 px de haut, `components/button.tsx`), un seul geste
   par action, tout ce qui se touche souvent en bas de l'écran.
 - Pas de jargon : « place handicapée », jamais « PMR ».
-- Couleurs d'un feu, une règle unique (`couleur.utils.ts`) : vert = facile, orange = attention,
+- Couleurs d'un feu, une règle unique (`color.utils.ts`) : vert = facile, orange = attention,
   rouge = difficile, blanc pointillé = pas d'info, bleu avec un P = place handicapée.
 - Jamais la couleur seule : chaque état a un symbole et un mot, sur la carte comme dans la liste.
-- Accessibilité : contrastes AA, contour visible au clavier, fenêtres avec `useFenetre` (Échap,
+- Accessibilité : contrastes AA, contour visible au clavier, fenêtres avec `useDialog` (Échap,
   focus), messages en `role="status"` ou `"alert"`, « réduire les animations » respecté.
 - **Rien d'inventé** : seulement ce que disent OpenStreetMap et Acceslibre, avec le sens exact des
   étiquettes du wiki ; quand ils ne disent rien, l'appli le dit.
@@ -42,20 +42,20 @@ avant tout le reste.**
 ```
 src/
 ├── main.tsx
-├── app/                    # L'appli : assemble les fonctionnalités (app.tsx), barre du pouce,
-│                           # colonne des lieux
-├── components/             # Composants partagés : Bouton, Icone
+├── app/                    # L'appli : assemble les fonctionnalités (app.tsx), barre du pouce
+│                           # (thumb-bar), colonne des lieux (places-column)
+├── components/             # Composants partagés : Button, Icon
 ├── constants/              # Constantes partagées : couleurs, icônes, boutons, rayons de recherche
-├── hooks/                  # use-position, use-fenetre (Échap, focus), use-glisser-pour-fermer
-├── types/                  # Types partagés (Lieu, Point…)
+├── hooks/                  # use-position, use-dialog (Échap, focus), use-swipe-to-close
+├── types/                  # Types partagés (Place, Point…)
 ├── utils/                  # distance, formats
 └── features/
-    ├── carte/              # Carte Leaflet : un composant par rôle (cadrer, suivre les gestes,
-    │                       # zoom, pastilles), vue de la carte (use-vue-carte)
-    ├── lieux/              # Chargement et fusion OSM + Acceslibre (rapprochement à part, réutilisable :
-    │                       # utils/rapprochement.utils.ts), quartiers gardés sur le téléphone
+    ├── map/                # Carte Leaflet : un composant par rôle (fit-view, follow-moves,
+    │                       # zoom-buttons, pins), vue de la carte (use-map-view)
+    ├── places/             # Chargement et fusion OSM + Acceslibre (rapprochement à part, réutilisable :
+    │                       # utils/matching.utils.ts), quartiers gardés sur le téléphone
     │                       # (IndexedDB), liste, fiche, filtres, légende
-    ├── itineraire/         # Barre et panneau de recherche, dictée, destinations récentes,
+    ├── itinerary/          # Barre et panneau de recherche, dictée, destinations récentes,
     │                       # trajet (IGN), guidage via Waze ou Google Maps
     ├── contribution/       # Compléter la carte : connexion OSM, questions façon StreetComplete,
     │                       # ajouter une place (serveur de test par défaut)
@@ -64,9 +64,9 @@ src/
 
 e2e/                        # Tests de bout en bout, un fichier par parcours (*.e2e.ts)
 ├── support/                # test étendu (réseau toujours simulé), aides
-└── donnees/                # réponses simulées des services extérieurs
+└── data/                   # réponses simulées des services extérieurs
 
-scripts/                    # Préparation des données à l'avance (désactivée, en anglais)
+scripts/                    # Préparation des données à l'avance (désactivée)
 docs/                       # Pourquoi l'appli, bonnes pratiques OSM, audit, décisions
 ```
 
@@ -76,15 +76,20 @@ dossier ; ce qui sert à plusieurs va dans `src/`.
 
 ## Style de code
 
-- Le code et les commentaires sont en français, comme l'interface ; le script de préparation des
-  données est en anglais.
+- **Le code est en anglais** : fichiers, dossiers, fonctions, variables, types, classes CSS, codes
+  (`'check'`, `'unknown'`…). **Les commentaires, la documentation, les noms des tests et l'interface
+  sont en français**, la langue de l'utilisatrice. Les noms des champs d'API externes restent tels
+  quels (`activite`, `numero`, `voie` d'Acceslibre ; les étiquettes OSM).
+- Les clés de stockage sur le téléphone (`adresses-recentes`, `osm-jeton:`…) ne changent pas : les
+  renommer ferait perdre ce qui y est gardé. Si le format d'une donnée gardée change, la relire sous
+  l'ancienne forme aussi (voir `fromStored`).
 - Fichiers en kebab-case, suffixés par leur rôle : `.api.ts`, `.utils.ts`, `.constants.ts`,
   `.types.ts` ; imports absolus via `~/` (alias de `src/`).
 - Un fichier par composant, qui n'exporte que des composants (sinon le rechargement à chaud casse).
 - `type Props = { … }` (pas d'`interface`), composants en `export function`, exports nommés.
 - **React Compiler** : pas de `useMemo`, `useCallback` ni `React.memo`.
 - `clsx` pour les classes conditionnelles ; hooks préfixés `use`, qui retournent un objet.
-- Pas de double cast : on vérifie la forme des données à la frontière (voir `versElementsOsm`).
+- Pas de double cast : on vérifie la forme des données à la frontière (voir `toOsmElements`).
 - Commentaires : le *pourquoi*, pas le *quoi*. Fichiers : 300 lignes conseillées, 500 au plus.
 - Dépendances : peu, et à version figée (pas de `^` ni `~`).
 

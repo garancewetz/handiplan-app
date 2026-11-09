@@ -1,23 +1,23 @@
 import { test as base, expect, type Page, type Request } from '@playwright/test'
-import { simulerReseau } from './reseau'
+import { mockNetwork } from './network'
 
-type Outils = {
+type Fixtures = {
   /** les envois faits au serveur de test OpenStreetMap (jamais à la vraie carte) */
-  envoisOsm: Request[]
+  osmRequests: Request[]
   /** ouvre l'appli en mode démo (données OSM enregistrées du centre de Paris) et attend les lieux */
-  ouvrir: (adresse?: string) => Promise<void>
+  open: (address?: string) => Promise<void>
 }
 
 /** Le `test` de Playwright, avec le réseau toujours simulé. */
-export const test = base.extend<Outils>({
-  envoisOsm: async ({ page }, utiliser) => {
-    const { envoisOsm } = await simulerReseau(page)
-    await utiliser(envoisOsm)
+export const test = base.extend<Fixtures>({
+  osmRequests: async ({ page }, provide) => {
+    const { osmRequests } = await mockNetwork(page)
+    await provide(osmRequests)
   },
-  ouvrir: async ({ page, envoisOsm }, utiliser) => {
-    void envoisOsm // le réseau est simulé avant d'ouvrir la page
-    await utiliser(async (adresse = '/?demo') => {
-      await page.goto(adresse)
+  open: async ({ page, osmRequests }, provide) => {
+    void osmRequests // le réseau est simulé avant d'ouvrir la page
+    await provide(async (address = '/?demo') => {
+      await page.goto(address)
       await expect(page.getByRole('heading', { name: 'Les plus faciles d’abord' })).toBeVisible()
     })
   },
@@ -26,7 +26,7 @@ export const test = base.extend<Outils>({
 export { expect }
 
 /** Une pastille de la carte, par ce qu'en dit un lecteur d'écran (« Marlette, attention »). */
-export const pastille = (page: Page, nom: string) => page.getByRole('button', { name: nom, exact: true })
+export const pin = (page: Page, name: string) => page.getByRole('button', { name: name, exact: true })
 
 /** La fiche ouverte d'un lieu. */
-export const fiche = (page: Page) => page.getByRole('dialog').filter({ has: page.locator('#fiche-titre') })
+export const card = (page: Page) => page.getByRole('dialog').filter({ has: page.locator('#place-card-title') })
