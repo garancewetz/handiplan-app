@@ -39,9 +39,9 @@ describe('toSuggest', () => {
   it('met les plus demandées en premier, puis les dernières, cinq en tout', () => {
     const list = [address('Hier', 48.1), address('Kiné', 48.2, 9), address('Avant-hier', 48.3), address('Maison', 48.4, 5),
       address('A', 48.5), address('B', 48.6), address('C', 48.7)]
-    const { often, recentOnes } = toSuggest(list)
+    const { often, recent } = toSuggest(list)
     expect(names(often)).toEqual(['Kiné', 'Maison'])
-    expect(names(recentOnes)).toEqual(['Hier', 'Avant-hier', 'A'])
+    expect(names(recent)).toEqual(['Hier', 'Avant-hier', 'A'])
   })
 })
 

@@ -9,7 +9,7 @@ import riquewihr from '~/features/places/mocks/matching/riquewihr.json'
 import sarlat from '~/features/places/mocks/matching/sarlat.json'
 import tours from '~/features/places/mocks/matching/tours-centre.json'
 import { pair, fromAcceslibre, fromOsm, groupDuplicates, oneRecordPerPlace, type Candidate } from '~/features/places/utils/matching.utils'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 
 // Le rapprochement rodé sur de vraies données de neuf endroits (mocks/rapprochement/LISEZMOI.md) : quatre
 // pour régler les règles, puis cinq neufs pour les mettre à l'épreuve sans les retoucher. Les paires aux
@@ -41,7 +41,7 @@ describe('rapprochement sur de vraies données', () => {
   it('jamais à plus de 100 m, jamais des toilettes avec un café', () => {
     for (const { pairs } of Object.values(results)) {
       for (const [o, a] of pairs) {
-        expect(distanceMetres(o, a)).toBeLessThanOrEqual(100)
+        expect(distanceMeters(o, a)).toBeLessThanOrEqual(100)
         expect(!!o.toilets).toBe(!!a.toilets)
       }
     }

@@ -4,7 +4,7 @@ import type { Place } from '~/types/place.types'
 
 const place = (state: Place['state'], lines: Place['lines'] = []): Place => ({
   id: 'node/1', type: 'restaurant', state, name: 'King Falafel Palace', label: 'Restauration rapide',
-  lat: 48.85, lon: 2.35, metres: 540, lines, sources: ['Acceslibre'],
+  lat: 48.85, lon: 2.35, meters: 540, lines, sources: ['Acceslibre'],
 })
 
 describe('verdict', () => {

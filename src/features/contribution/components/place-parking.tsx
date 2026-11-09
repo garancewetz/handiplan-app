@@ -8,7 +8,7 @@ import { SPOT_COMMENT, SPOT_TAGS } from '~/features/contribution/utils/questions
 import { nearestAddress } from '~/features/itinerary/api/address.api'
 import { osmAddLink } from '~/features/contribution/utils/edit-links.utils'
 import type { Point } from '~/types/place.types'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 import { Button } from '~/components/button'
 import { buttonClass } from '~/constants/buttons.constants'
 
@@ -25,11 +25,11 @@ type Step = 'placing' | 'check' | 'sending' | 'thanks' | 'error'
 // En deçà, une place déjà connue est probablement la même.
 const DUPLICATE_M = 15
 
-function FollowCentre({ onCentre }: { onCentre: (p: Point) => void }) {
+function FollowCenter({ onCenter }: { onCenter: (p: Point) => void }) {
   const map = useMapEvents({
     moveend: () => {
       const { lat, lng } = map.getCenter()
-      onCentre({ lat, lon: lng })
+      onCenter({ lat, lon: lng })
     },
   })
   return null
@@ -82,7 +82,7 @@ export function SpotPlacer({ departure, known, account, onClose }: Props) {
   }
 
   if (step === 'check') {
-    const near = known.map(p => distanceMetres(p, point)).filter(d => d <= DUPLICATE_M).sort((a, b) => a - b)[0]
+    const near = known.map(p => distanceMeters(p, point)).filter(d => d <= DUPLICATE_M).sort((a, b) => a - b)[0]
     return (
       <>
         {address && <p className="rounded-[20px] bg-white px-4 py-3.5 text-lg">Près du {address}</p>}
@@ -109,7 +109,7 @@ export function SpotPlacer({ departure, known, account, onClose }: Props) {
         {/* Sans inertie : la carte s'arrête là où le doigt la lâche, pour viser au mètre près. */}
         <MapContainer center={[point.lat, point.lon]} zoom={18} zoomControl={false} inertia={false} className="h-full w-full">
           <BaseMap />
-          <FollowCentre onCentre={setPoint} />
+          <FollowCenter onCenter={setPoint} />
         </MapContainer>
         {/* Repère fixe au centre, au-dessus de la carte : sa pointe marque l'endroit exact. */}
         <div aria-hidden className="pointer-events-none absolute top-1/2 left-1/2 z-[500] size-0">

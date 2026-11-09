@@ -1,5 +1,5 @@
-export function formatDistance(metres: number) {
-  return metres < 1000 ? `${Math.round(metres)} m` : `${(metres / 1000).toFixed(1).replace('.', ',')} km`
+export function formatDistance(meters: number) {
+  return meters < 1000 ? `${Math.round(meters)} m` : `${(meters / 1000).toFixed(1).replace('.', ',')} km`
 }
 
 export function formatDuration(seconds: number) {

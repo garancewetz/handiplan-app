@@ -3,7 +3,7 @@ import type { PlaceType } from '~/types/place.types'
 // Les questions posées sur place, une à la fois, comme StreetComplete. Chaque réponse est une valeur
 // du wiki d'OpenStreetMap, rien d'autre (docs/bien-contribuer-a-osm.md, docs/decisions/interface D12).
 
-/** `cle` : une réponse qui pose une autre étiquette que celle de la question (« pas de toilettes »). */
+/** `key` : une réponse qui pose une autre étiquette que celle de la question (« pas de toilettes »). */
 type Choice = { value: string; title: string; help?: string; key?: string }
 export type Question = { key: string; question: string; help?: string; choice: Choice[] }
 
@@ -79,12 +79,12 @@ export function changes(osmTags: Record<string, string>, answers: Answers): Chan
  */
 export function newTags(osmTags: Record<string, string>, answers: Answers, today: Date): Record<string, string> {
   const day = today.toISOString().slice(0, 10)
-  const freshOnes = { ...osmTags }
+  const updated = { ...osmTags }
   for (const [key, value] of Object.entries(answers)) {
-    freshOnes[key] = value
-    freshOnes[`check_date:${key}`] = day
+    updated[key] = value
+    updated[`check_date:${key}`] = day
   }
-  return freshOnes
+  return updated
 }
 
 /** Le commentaire du groupe de modifications : ce qui a été vérifié, en clair. */

@@ -1,13 +1,13 @@
 import type { Place, Point } from '~/types/place.types'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 
 /** Ce que la carte montre : son centre, et les bords du cadre. */
-export type Bounds = { centre: Point; south: number; west: number; north: number; east: number }
+export type Bounds = { center: Point; south: number; west: number; north: number; east: number }
 
 // Au-delà, les pastilles se chevauchent et la carte devient illisible : la liste montre le reste.
 const MAX_PINS = 40
 
-const inBounds = (l: Place, c: Bounds) => l.lat >= c.south && l.lat <= c.north && l.lon >= c.west && l.lon <= c.east
+const inBounds = (p: Place, c: Bounds) => p.lat >= c.south && p.lat <= c.north && p.lon >= c.west && p.lon <= c.east
 
 /**
  * Les lieux à dessiner : tous ceux qui sont dans le cadre de la carte. S'il y en a trop, les plus
@@ -16,11 +16,11 @@ const inBounds = (l: Place, c: Bounds) => l.lat >= c.south && l.lat <= c.north &
  */
 export function placesForMap(places: Place[], bounds: Bounds | null): Place[] {
   if (!bounds) return []
-  const indoors = places.filter(l => inBounds(l, bounds))
+  const indoors = places.filter(p => inBounds(p, bounds))
   if (indoors.length <= MAX_PINS) return indoors
   return indoors
-    .map(l => ({ l, d: distanceMetres(bounds.centre, l) }))
+    .map(p => ({ p, d: distanceMeters(bounds.center, p) }))
     .sort((a, b) => a.d - b.d)
     .slice(0, MAX_PINS)
-    .map(({ l }) => l)
+    .map(({ p }) => p)
 }

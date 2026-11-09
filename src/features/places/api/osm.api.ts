@@ -2,7 +2,7 @@ import { OSM_TAGS, describeOsm, osmLabel, osmType } from '~/features/places/util
 import type { Place, Point } from '~/types/place.types'
 import { DEMO_MODE } from '~/constants/demo.constants'
 import { SEARCH_RADIUS } from '~/constants/search.constants'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 import { loadByArea, type Rectangle } from '~/features/places/api/areas.api'
 import { zoneKey } from '~/features/places/utils/zones.utils'
 
@@ -73,13 +73,13 @@ async function queryOverpass(rectangle: Rectangle): Promise<OsmElement[]> {
  * Les quartiers gardés sur le téléphone, puis Overpass en direct pour les quartiers manquants
  * (docs/decisions/carte, D6). En mode démo : des données enregistrées du centre de Paris.
  */
-async function loadElements(centre: Point): Promise<OsmElement[]> {
+async function loadElements(center: Point): Promise<OsmElement[]> {
   if (DEMO_MODE) return toOsmElements((await import('~/features/places/mocks/paris-example.mock.json')).default)
 
   return loadByArea({
     // q3 : le champ gardé s'appelle « data » (avant : « donnees ») ; q2 : avec l'adresse (addr:*).
     dataset: 'osm-q3',
-    centre,
+    center,
     radius: SEARCH_RADIUS,
     load: queryOverpass,
     position: e => (e.lat !== undefined && e.lon !== undefined ? { lat: e.lat, lon: e.lon } : null),
@@ -89,37 +89,37 @@ async function loadElements(centre: Point): Promise<OsmElement[]> {
 // Une seule demande à la fois par zone (≈ 100 m), partagée si deux composants la font en même temps.
 const inFlight = new Map<string, Promise<OsmElement[]>>()
 
-function elementsAround(centre: Point) {
-  const key = zoneKey(centre)
+function elementsAround(center: Point) {
+  const key = zoneKey(center)
   let promise = inFlight.get(key)
   if (!promise) {
-    promise = loadElements(centre)
+    promise = loadElements(center)
     promise.catch(() => inFlight.delete(key))
     inFlight.set(key, promise)
   }
   return promise
 }
 
-export async function loadPlaces(centre: Point): Promise<Place[]> {
-  const elements = await elementsAround(centre)
+export async function loadOsm(center: Point): Promise<Place[]> {
+  const elements = await elementsAround(center)
   const places: Place[] = []
   for (const el of elements) {
     const type = osmType(el.tags)
     const lat = el.lat ?? el.center?.lat
     const lon = el.lon ?? el.center?.lon
     if (!type || lat === undefined || lon === undefined) continue
-    const metres = Math.round(distanceMetres(centre, { lat, lon }))
+    const meters = Math.round(distanceMeters(center, { lat, lon }))
     // Les zones préparées font environ 2 km : on ne garde que le voisinage.
-    if (metres > SEARCH_RADIUS) continue
+    if (meters > SEARCH_RADIUS) continue
     const label = osmLabel(type, el.tags)
     places.push({
       id: `${el.type}/${el.id}`,
       type, lat, lon, label,
       name: el.tags.name ?? label,
-      metres,
+      meters,
       ...describeOsm(type, el.tags),
       sources: ['OpenStreetMap'],
-      ...(el.tags['addr:housenumber'] && el.tags['addr:street'] ? { address: { numero: el.tags['addr:housenumber'], street: el.tags['addr:street'] } } : {}),
+      ...(el.tags['addr:housenumber'] && el.tags['addr:street'] ? { address: { number: el.tags['addr:housenumber'], street: el.tags['addr:street'] } } : {}),
     })
   }
   return places

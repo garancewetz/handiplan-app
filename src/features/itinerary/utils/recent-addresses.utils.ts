@@ -1,5 +1,5 @@
 import type { Arrival, PlaceType } from '~/types/place.types'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 
 /** Une adresse ou un lieu déjà choisi, et combien de fois : ce qu'on demande souvent revient en premier. */
 export type Destination = Arrival & { count: number; place?: { id: string; type: PlaceType; label: string } }
@@ -14,7 +14,7 @@ const OFTEN = 3
 const SAME_SPOT_M = 30
 
 const sameDestination = (a: Destination, b: Omit<Destination, 'count'>) =>
-  a.place && b.place ? a.place.id === b.place.id : a.address === b.address || distanceMetres(a, b) <= SAME_SPOT_M
+  a.place && b.place ? a.place.id === b.place.id : a.address === b.address || distanceMeters(a, b) <= SAME_SPOT_M
 
 /** La nouvelle destination en tête, comptée une fois de plus, sans doublon. */
 export function withRecent(list: Destination[], fresh: Omit<Destination, 'count'>): Destination[] {
@@ -31,10 +31,10 @@ export function withRecent(list: Destination[], fresh: Omit<Destination, 'count'
 }
 
 /** Ce que le panneau propose, champ vide : les plus demandées, puis les dernières, cinq en tout. */
-export function toSuggest(list: Destination[]): { often: Destination[]; recentOnes: Destination[] } {
+export function toSuggest(list: Destination[]): { often: Destination[]; recent: Destination[] } {
   const often = list.filter(d => d.count >= OFTEN).sort((a, b) => b.count - a.count).slice(0, 3)
-  const recentOnes = list.filter(d => !often.includes(d)).slice(0, SUGGESTED - often.length)
-  return { often, recentOnes }
+  const recent = list.filter(d => !often.includes(d)).slice(0, SUGGESTED - often.length)
+  return { often, recent }
 }
 
 // Les destinations gardées avant le passage du code en anglais (novembre 2026) avaient des noms français :

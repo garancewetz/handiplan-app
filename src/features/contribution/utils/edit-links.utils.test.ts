@@ -4,7 +4,7 @@ import type { Place } from '~/types/place.types'
 
 const place: Place = {
   id: 'node/42', type: 'cafe', state: 'unknown', name: 'Le Train de Vie', label: 'Bar',
-  lat: 48.88, lon: 2.43, metres: 50, lines: [], sources: ['OpenStreetMap'],
+  lat: 48.88, lon: 2.43, meters: 50, lines: [], sources: ['OpenStreetMap'],
 }
 
 describe('osmEditLink', () => {
@@ -21,16 +21,16 @@ describe('osmEditLink', () => {
 describe('editLinks', () => {
   it('met Acceslibre en premier quand le lieu y est', () => {
     const link = 'https://acceslibre.beta.gouv.fr/app/x'
-    expect(editLinks({ ...place, acceslibreLink: link }).map(l => l.url)).toEqual([link, 'https://www.openstreetmap.org/edit?editor=id&node=42#hashtags=handiplan'])
-    expect(editLinks({ ...place, id: 'acceslibre/abc', acceslibreLink: link }).map(l => l.url)).toEqual([link])
+    expect(editLinks({ ...place, acceslibreLink: link }).map(item => item.url)).toEqual([link, 'https://www.openstreetmap.org/edit?editor=id&node=42#hashtags=handiplan'])
+    expect(editLinks({ ...place, id: 'acceslibre/abc', acceslibreLink: link }).map(item => item.url)).toEqual([link])
   })
 
   it('propose d’ajouter sur Acceslibre un lieu qui n’y est pas', () => {
-    expect(editLinks(place).map(l => l.text)).toEqual(['Ajouter sur Acceslibre', 'Modifier sur OpenStreetMap'])
+    expect(editLinks(place).map(link => link.text)).toEqual(['Ajouter sur Acceslibre', 'Modifier sur OpenStreetMap'])
   })
 
   it('n’envoie pas les places handicapées vers Acceslibre', () => {
-    expect(editLinks({ ...place, type: 'parking', state: 'parking' }).map(l => l.text)).toEqual(['Modifier sur OpenStreetMap'])
+    expect(editLinks({ ...place, type: 'parking', state: 'parking' }).map(link => link.text)).toEqual(['Modifier sur OpenStreetMap'])
   })
 })
 

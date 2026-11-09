@@ -37,5 +37,5 @@ export async function computeRoute(departure: Point, arrival: Point, mode: Mode)
 }
 
 /** Au-delà de 1,5 km, on propose la voiture : marcher plus loin est rarement réaliste. */
-export const suggestedMode = (towardSpot: boolean, metres: number): Mode =>
-  towardSpot || metres > 1500 ? 'car' : 'walk'
+export const suggestedMode = (towardSpot: boolean, meters: number): Mode =>
+  towardSpot || meters > 1500 ? 'car' : 'walk'

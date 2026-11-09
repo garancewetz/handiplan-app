@@ -14,7 +14,7 @@ type Props = {
   onCloseError: () => void
   /** la carte montre plusieurs kilomètres : on invite à zoomer plutôt que de tout lister */
   zoomedOut: boolean
-  messages: ComponentProps<typeof LoadingMessages>
+  status: ComponentProps<typeof LoadingMessages>
   places: Place[]
   /** combien de lieux de la liste sont montrés ; le reste à la demande */
   shownCount: number
@@ -25,7 +25,7 @@ type Props = {
 }
 
 /** Sous la carte : le trajet, la légende, la liste des lieux, et les actions plus rares. */
-export function PlacesColumn({ route, error, onCloseError, zoomedOut, messages, places, shownCount, onShowMore, onChoose, onAddSpot, onInfo }: Props) {
+export function PlacesColumn({ route, error, onCloseError, zoomedOut, status, places, shownCount, onShowMore, onChoose, onAddSpot, onInfo }: Props) {
   return (
     <main className="min-h-0 overflow-y-auto overscroll-contain px-4 pt-3.5 pb-4 lg:col-start-1 lg:row-start-1">
       <InstallPrompt />
@@ -43,7 +43,7 @@ export function PlacesColumn({ route, error, onCloseError, zoomedOut, messages, 
       ) : (
         <>
           <Legend />
-          <LoadingMessages {...messages} />
+          <LoadingMessages {...status} />
           <PlaceList places={places.slice(0, shownCount)} onChoose={onChoose} />
           {places.length > shownCount && (
             <button onClick={onShowMore} className="mt-2.5 h-15 w-full rounded-[22px] border-2 border-moss text-xl font-semibold text-moss">

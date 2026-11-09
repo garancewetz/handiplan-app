@@ -1,5 +1,5 @@
 import type { Arrival, Point } from '~/types/place.types'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 import { formatDistance } from '~/utils/format.utils'
 
 // Géocodeur officiel français (Base Adresse Nationale et lieux de l'IGN, via la Géoplateforme).
@@ -108,21 +108,21 @@ export function nearbyPlaces(results: PhotonPlace[], near: Point | null, text = 
     .filter(r => r.properties.name && PLACE_KINDS.has(r.properties.osm_key ?? '') && !NOT_A_DESTINATION.has(r.properties.osm_value ?? ''))
     .map(r => {
       const [lon, lat] = r.geometry.coordinates
-      return { r, lat, lon, metres: near ? distanceMetres(near, { lat, lon }) : null }
+      return { r, lat, lon, meters: near ? distanceMeters(near, { lat, lon }) : null }
     })
-    .filter(({ metres }) => metres === null || metres <= PLACES_RADIUS_M)
-    .sort((a, b) => exact(a.r.properties.name!) - exact(b.r.properties.name!) || (a.metres ?? 0) - (b.metres ?? 0))
+    .filter(({ meters }) => meters === null || meters <= PLACES_RADIUS_M)
+    .sort((a, b) => exact(a.r.properties.name!) - exact(b.r.properties.name!) || (a.meters ?? 0) - (b.meters ?? 0))
     // Une gare est souvent plusieurs objets du même nom (bâtiment, station) : on n'en garde qu'un.
     .filter(({ r }, i, all) => all.findIndex(({ r: other }) => other.properties.name === r.properties.name && other.properties.city === r.properties.city) === i)
     .slice(0, 3)
-    .map(({ r, lat, lon, metres }) => {
+    .map(({ r, lat, lon, meters }) => {
       const name = r.properties.name!
       const town = r.properties.city
       return {
         lat, lon,
         address: town ? `${name}, ${town}` : name,
         title: name,
-        detail: [metres !== null ? `à ${formatDistance(metres)}` : null, r.properties.street, town].filter(Boolean).join(' · ') || undefined,
+        detail: [meters !== null ? `à ${formatDistance(meters)}` : null, r.properties.street, town].filter(Boolean).join(' · ') || undefined,
       }
     })
 }
@@ -134,14 +134,14 @@ export async function suggest(text: string, near: Point | null, signal?: AbortSi
     query(text, 'address', 4, near, signal),
     query(text, 'poi', 3, near, signal).catch(() => []),
   ])
-  const notTooFar = (s: Suggestion) => !near || distanceMetres(near, s) <= PLACES_RADIUS_M
-  const seenOnes = new Set<string>()
+  const notTooFar = (s: Suggestion) => !near || distanceMeters(near, s) <= PLACES_RADIUS_M
+  const seen = new Set<string>()
   // Des lieux trouvés par leur nom : les lieux publics de l'IGN ne seraient que du bruit
   // (« king falafel » donnait « Résidence Universitaire Martin Luther King »).
   const publicPlaces = osmPlaces.length > 0 ? [] : places.filter(notTooFar)
   // De même, « gare de lyon » trouvée tout près : « Rue de la Gare, Lyon » n'est que du bruit.
   const streets = osmPlaces.length > 0 ? addresses.filter(notTooFar) : addresses
-  return [...osmPlaces, ...streets, ...publicPlaces].filter(s => !seenOnes.has(s.address) && seenOnes.add(s.address))
+  return [...osmPlaces, ...streets, ...publicPlaces].filter(s => !seen.has(s.address) && seen.add(s.address))
 }
 
 export async function searchAddress(text: string, near: Point | null = null): Promise<Arrival | null> {

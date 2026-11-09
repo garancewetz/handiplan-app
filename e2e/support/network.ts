@@ -18,7 +18,7 @@ export async function mockNetwork(page: Page) {
   await page.route('https://tabular-api.data.gouv.fr/**', r => {
     // Comme l'API tabulaire : seulement les activités demandées (« activite__in », entre guillemets).
     const activities = new URL(r.request().url()).searchParams.get('activite__in') ?? ''
-    const lines = ACCESLIBRE_ROWS.filter(l => activities.includes(`"${l.activite}"`))
+    const lines = ACCESLIBRE_ROWS.filter(row => activities.includes(`"${row.activite}"`))
     return r.fulfill(json({ data: lines, meta: { total: lines.length }, links: { next: null } }))
   })
   // Recherche d'adresses (IGN) et de lieux par nom (Photon).

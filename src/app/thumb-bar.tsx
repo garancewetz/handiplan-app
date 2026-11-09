@@ -5,7 +5,7 @@ import { Filters } from '~/features/places/components/filters'
 
 type Props = {
   filters: ComponentProps<typeof Filters>
-  searchText: ComponentProps<typeof Search>
+  search: ComponentProps<typeof Search>
   /** absent tant que la position est inconnue */
   onMyPosition?: () => void
 }
@@ -14,13 +14,13 @@ type Props = {
  * La barre du bas, sous le pouce : le filtre, la recherche et « Ma position », tout ce qui se touche
  * souvent (docs/decisions/interface, D16).
  */
-export function ThumbBar({ filters, searchText, onMyPosition }: Props) {
+export function ThumbBar({ filters, search, onMyPosition }: Props) {
   return (
     <nav aria-label="Recherche et filtres" className="relative z-[950] flex flex-col gap-2.5 rounded-t-[28px] bg-moss-light px-4 pt-3 pb-[max(env(safe-area-inset-bottom),14px)] lg:col-start-1 lg:row-start-2">
       <Filters {...filters} />
       <div className="flex items-center gap-2">
         <div className="min-w-0 flex-1">
-          <Search {...searchText} />
+          <Search {...search} />
         </div>
         {onMyPosition && (
           // L'icône « ma position » de Google Maps et Waze : seule, dans un rond, comme là-bas ; le

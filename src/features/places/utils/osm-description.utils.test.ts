@@ -21,7 +21,7 @@ describe('describeOsm', () => {
   it('compte les places handicapées d’un parking, sans critère étranger au handicap', () => {
     const { state, lines } = describeOsm('parking', { 'capacity:disabled': '3', fee: 'no' })
     expect(state).toBe('parking')
-    expect(lines.map(l => l.text)).toEqual(['3 places handicapées'])
+    expect(lines.map(line => line.text)).toEqual(['3 places handicapées'])
   })
 
   it('marque « ok » un café accessible avec toilettes adaptées, et conseille de demander au comptoir', () => {
@@ -70,7 +70,7 @@ describe('describeOsm', () => {
 })
 
 describe('describeOsm : détails renseignés par les bénévoles', () => {
-  const texts = (t: Record<string, string>) => describeOsm('cafe', t).lines.map(l => `${l.theme} · ${l.text}`)
+  const texts = (tags: Record<string, string>) => describeOsm('cafe', tags).lines.map(line => `${line.theme} · ${line.text}`)
 
   it('ajoute les autres critères handicap du wiki, et rien d’autre', () => {
     expect(texts({
@@ -95,6 +95,6 @@ describe('describeOsm : détails renseignés par les bénévoles', () => {
   })
 
   it('garde les détails même quand l’accessibilité n’est pas renseignée', () => {
-    expect(describeOsm('cafe', { level: '-1' }).lines.map(l => l.text)).toEqual(['Accessibilité inconnue', 'En sous-sol'])
+    expect(describeOsm('cafe', { level: '-1' }).lines.map(line => line.text)).toEqual(['Accessibilité inconnue', 'En sous-sol'])
   })
 })

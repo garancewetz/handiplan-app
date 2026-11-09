@@ -1,5 +1,5 @@
 import { loadAcceslibre } from '~/features/places/api/acceslibre.api'
-import { loadPlaces as chargerOsm } from '~/features/places/api/osm.api'
+import { loadOsm } from '~/features/places/api/osm.api'
 import { mergePlaces, sortPlaces } from '~/features/places/utils/merge-places.utils'
 import type { Place, Point, Source } from '~/types/place.types'
 
@@ -16,7 +16,7 @@ export type Loading = {
  * répond en 2 à 3 s, alors qu'Overpass peut mettre une minute quand il est saturé.
  * Renvoie une fonction pour ignorer les réponses qui arriveraient après un changement de zone.
  */
-export function loadProgressively(centre: Point, onChanged: (loading: Loading) => void): () => void {
+export function loadProgressively(center: Point, onChanged: (loading: Loading) => void): () => void {
   let cancelled = false
   let osm: Place[] = []
   let acceslibre: Place[] = []
@@ -27,14 +27,14 @@ export function loadProgressively(centre: Point, onChanged: (loading: Loading) =
     if (cancelled) return
     onChanged({ places: sortPlaces(mergePlaces(osm, acceslibre)), inFlight: [...inFlight], down: [...down] })
   }
-  const follow = (source: Source, promise: Promise<Place[]>, sort: (l: Place[]) => void) =>
+  const follow = (source: Source, promise: Promise<Place[]>, keep: (found: Place[]) => void) =>
     promise
-      .then(sort)
+      .then(keep)
       .catch(() => down.add(source))
       .finally(() => { inFlight.delete(source); publish() })
 
   publish()
-  follow('OpenStreetMap', chargerOsm(centre), l => { osm = l })
-  follow('Acceslibre', loadAcceslibre(centre), l => { acceslibre = l })
+  follow('OpenStreetMap', loadOsm(center), found => { osm = found })
+  follow('Acceslibre', loadAcceslibre(center), found => { acceslibre = found })
   return () => { cancelled = true }
 }

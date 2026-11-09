@@ -11,7 +11,7 @@ import { REDUCED_MOTION } from '~/constants/motion.constants'
 import type { Place, Point } from '~/types/place.types'
 
 type Props = {
-  centre: Point
+  center: Point
   towardArrival: boolean
   places: Place[]
   chosenSpot: Place | null
@@ -25,15 +25,15 @@ type Props = {
   /** dès le début d'un glissement ou d'un zoom fait à la main */
   onGesture: () => void
   /** centre et zoom de la carte, une fois le déplacement ou le zoom à la main terminé */
-  onMoved: (centre: Point, zoom: number) => void
+  onMoved: (center: Point, zoom: number) => void
 }
 
-export function PlacesMap({ centre, towardArrival, places, chosenSpot, trace, here, frozen, onChoose, onGesture, onMoved }: Props) {
+export function PlacesMap({ center, towardArrival, places, chosenSpot, trace, here, frozen, onChoose, onGesture, onMoved }: Props) {
   // Le zoom qu'elle a choisi à la main, gardé tant que l'appli est ouverte.
   const chosenZoom = useRef<number | null>(null)
   return (
     <MapContainer
-      center={[centre.lat, centre.lon]}
+      center={[center.lat, center.lon]}
       zoom={17}
       zoomControl={false}
       attributionControl
@@ -43,7 +43,7 @@ export function PlacesMap({ centre, towardArrival, places, chosenSpot, trace, he
       className="h-full w-full"
     >
       <BaseMap />
-      <FitView centre={centre} places={places} trace={trace} frozen={frozen} chosenZoom={chosenZoom} />
+      <FitView center={center} places={places} trace={trace} frozen={frozen} chosenZoom={chosenZoom} />
       <FollowMoves onGesture={onGesture} onMoved={onMoved} chosenZoom={chosenZoom} />
       <ZoomButtons />
 
@@ -51,13 +51,13 @@ export function PlacesMap({ centre, towardArrival, places, chosenSpot, trace, he
 
       {chosenSpot && (
         <Polyline
-          positions={[[chosenSpot.lat, chosenSpot.lon], [centre.lat, centre.lon]]}
+          positions={[[chosenSpot.lat, chosenSpot.lon], [center.lat, center.lon]]}
           pathOptions={{ color: COLORS.ink, weight: 5, dashArray: '2 10', lineCap: 'round' }}
         />
       )}
 
       {/* Des repères, pas des boutons : ni le doigt ni le clavier ne s'y arrêtent. */}
-      {towardArrival && <Marker position={[centre.lat, centre.lon]} icon={ARRIVAL_ICON} interactive={false} keyboard={false} zIndexOffset={2000} />}
+      {towardArrival && <Marker position={[center.lat, center.lon]} icon={ARRIVAL_ICON} interactive={false} keyboard={false} zIndexOffset={2000} />}
       {here && <Marker position={[here.lat, here.lon]} icon={HERE_ICON} interactive={false} keyboard={false} zIndexOffset={1000} />}
       <Pins places={places} chosenSpot={chosenSpot} onChoose={onChoose} />
     </MapContainer>

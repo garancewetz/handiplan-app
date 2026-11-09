@@ -10,7 +10,7 @@ export type Rectangle = [number, number, number, number]
 type Options<T> = {
   /** préfixe des clés gardées : `osm-q1`, `acceslibre-q1`… (le changer oublie l'ancienne forme) */
   dataset: string
-  centre: Point
+  center: Point
   radius: number
   /** interroge le serveur sur ce rectangle [sud, ouest, nord, est] */
   load: (rectangle: Rectangle) => Promise<T[]>
@@ -54,13 +54,13 @@ async function loadAndKeep<T>({ dataset, load, position, storage }: Options<T>, 
 export async function loadByArea<T>({ storage = browserStorage, ...rest }: Options<T>): Promise<T[]> {
   cleanUp()
   const options = { ...rest, storage }
-  const keys = areasAround(options.centre, options.radius)
-  const keptOnes = (await storage?.read(keys.map(c => `${options.dataset}:${c}`)).catch(() => null)) ?? new Map<string, Kept>()
+  const keys = areasAround(options.center, options.radius)
+  const keptAreas = (await storage?.read(keys.map(c => `${options.dataset}:${c}`)).catch(() => null)) ?? new Map<string, Kept>()
   const foundOnes: T[] = []
   const missing: string[] = []
   const stale: string[] = []
   for (const key of keys) {
-    const kept = keptOnes.get(`${options.dataset}:${key}`)
+    const kept = keptAreas.get(`${options.dataset}:${key}`)
     if (!kept) { missing.push(key); continue }
     foundOnes.push(...(kept.data as T[]))
     if (Date.now() - kept.date > REFRESH_AFTER && !refreshing.has(`${options.dataset}:${key}`)) stale.push(key)

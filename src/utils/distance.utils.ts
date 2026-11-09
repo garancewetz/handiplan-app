@@ -1,7 +1,7 @@
 import type { Point } from '~/types/place.types'
 
 /** Distance à vol d'oiseau en mètres (formule de haversine). */
-export function distanceMetres(a: Point, b: Point) {
+export function distanceMeters(a: Point, b: Point) {
   const R = 6371000
   const rad = (d: number) => (d * Math.PI) / 180
   const dLat = rad(b.lat - a.lat)

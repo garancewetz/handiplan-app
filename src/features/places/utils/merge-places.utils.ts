@@ -5,7 +5,7 @@ import type { Entrance, Line, Place, Toilets } from '~/types/place.types'
 // Reconnaître le même lieu : rapprochement.utils.ts (indépendant de l'affichage). Ici, réunir ce que
 // disent les deux descriptions en une seule fiche.
 
-const candidate = (l: Place): Candidate => ({ id: l.id, name: l.name, lat: l.lat, lon: l.lon, address: l.address, toilets: l.type === 'wc', otherNames: l.otherNames })
+const candidate = (p: Place): Candidate => ({ id: p.id, name: p.name, lat: p.lat, lon: p.lon, address: p.address, toilets: p.type === 'wc', otherNames: p.otherNames })
 
 const lowercaseFirst = (text: string) => text.charAt(0).toLowerCase() + text.slice(1)
 
@@ -15,7 +15,7 @@ const UNKNOWN: Record<Aspect, Entrance | Toilets> = { entrance: 'unknown', toile
 // Du plus facile au plus difficile, pour garder la réponse la plus prudente.
 const CAUTION: Record<string, number> = { ok: 0, partial: 1, no: 2 }
 
-const knows = (l: Place, aspect: Aspect) => !!l.access && l.access[aspect] !== UNKNOWN[aspect]
+const knows = (p: Place, aspect: Aspect) => !!p.access && p.access[aspect] !== UNKNOWN[aspect]
 
 /**
  * Qui croire, pour l'entrée ou les toilettes, entre deux descriptions du même lieu : celle qui sait ; si
@@ -42,27 +42,27 @@ const DISAGREEMENT_ADVICE = 'Les infos ne sont pas d’accord : à vérifier sur
  */
 function combine(p: Place, s: Place, names: [string, string]): Pick<Place, 'lines' | 'access' | 'state' | 'advice' | 'disagreement'> {
   const choice = { entrance: choose('entrance', p, s), toilets: choose('toilets', p, s) }
-  const says = (l: Place, theme: string, name: string) => {
-    const line = l.lines.find(x => x.theme === theme) ?? l.lines[0]
+  const says = (place: Place, theme: string, name: string) => {
+    const line = place.lines.find(x => x.theme === theme) ?? place.lines[0]
     return line ? `${name} : ${lowercaseFirst(line.text)}` : null
   }
   const essentials = (aspect: Aspect): Line[] => {
     const theme = THEME[aspect]
-    const from = (l: Place) => l.lines.filter(x => x.theme === theme)
-    const { from: chosenOne, disagreement } = choice[aspect]
+    const from = (place: Place) => place.lines.filter(x => x.theme === theme)
+    const { from: chosen, disagreement } = choice[aspect]
     const head: Line[] = disagreement
       ? [{ theme, answer: 'warning', text: `${theme} : les infos ne sont pas d’accord`, detail: [says(p, theme, names[0]), says(s, theme, names[1])].filter(Boolean).join(' · ') }]
-      : from(chosenOne).slice(0, 1)
+      : from(chosen).slice(0, 1)
     // puis les détails des deux (sans leur réponse principale), une fois chacun
-    const details = [...from(chosenOne).slice(1), ...from(chosenOne === s ? p : s).slice(1)]
-    return [...head, ...details.filter((l, i) => details.findIndex(x => x.text === l.text) === i)]
+    const details = [...from(chosen).slice(1), ...from(chosen === s ? p : s).slice(1)]
+    return [...head, ...details.filter((line, i) => details.findIndex(x => x.text === line.text) === i)]
   }
   // Les autres thèmes : `s`, et `p` pour ceux que `s` ne renseigne pas (un étage, une précision…).
-  const themesS = new Set(s.lines.map(l => l.theme))
-  const others = (l: Line) => l.theme !== 'Entrée' && l.theme !== 'Toilettes'
+  const themesS = new Set(s.lines.map(line => line.theme))
+  const others = (line: Line) => line.theme !== 'Entrée' && line.theme !== 'Toilettes'
   const lines = [
     ...essentials('entrance'), ...essentials('toilets'),
-    ...s.lines.filter(others), ...p.lines.filter(l => others(l) && !themesS.has(l.theme)),
+    ...s.lines.filter(others), ...p.lines.filter(line => others(line) && !themesS.has(line.theme)),
   ]
   // Un vrai désaccord compte comme « en partie » pour l'entrée, « on ne sait pas » pour les toilettes :
   // orange, jamais vert.
@@ -89,7 +89,7 @@ function merge(o: Place, a: Place): Place {
   return {
     ...a,
     ...combine(o, a, ['OpenStreetMap', 'Acceslibre']),
-    id: o.id, name: o.name, type: o.type, label: o.label, lat: o.lat, lon: o.lon, metres: o.metres,
+    id: o.id, name: o.name, type: o.type, label: o.label, lat: o.lat, lon: o.lon, meters: o.meters,
     address: o.address ?? a.address,
     sources: ['OpenStreetMap', 'Acceslibre'],
   }
@@ -101,7 +101,7 @@ function merge(o: Place, a: Place): Place {
  * sait l'emportant sur celle qui ne sait pas. On part de celle qui en sait le plus.
  */
 function onePerPlace(places: Place[]): Place[] {
-  const knowledge = (l: Place) => (knows(l, 'entrance') ? 1 : 0) + (knows(l, 'toilets') ? 1 : 0)
+  const knowledge = (p: Place) => (knows(p, 'entrance') ? 1 : 0) + (knows(p, 'toilets') ? 1 : 0)
   const sorted = [...places].sort((x, y) => knowledge(y) - knowledge(x) || y.lines.length - x.lines.length)
   return groupDuplicates(sorted.map(candidate)).map(([first, ...others]) =>
     others.reduce((g, i) => ({
@@ -116,13 +116,13 @@ function onePerPlace(places: Place[]): Place[] {
  */
 export function mergePlaces(osm: Place[], records: Place[]): Place[] {
   const acceslibre = onePerPlace(records)
-  const places = osm.filter(l => l.type !== 'parking')
+  const places = osm.filter(p => p.type !== 'parking')
   const pairs = pair(places.map(candidate), acceslibre.map(candidate))
   const mergedOnes = new Map(pairs.map(([i, j]) => [i, merge(places[i], acceslibre[j])]))
   const taken = new Set(pairs.map(([, j]) => j))
   return [
-    ...places.map((l, i) => mergedOnes.get(i) ?? l),
-    ...osm.filter(l => l.type === 'parking'),
+    ...places.map((p, i) => mergedOnes.get(i) ?? p),
+    ...osm.filter(p => p.type === 'parking'),
     ...acceslibre.filter((_, j) => !taken.has(j)),
   ]
 }
@@ -132,6 +132,6 @@ export function mergePlaces(osm: Place[], records: Place[]): Place[] {
  * info ensemble, du plus proche au plus loin ; chaque groupe par distance (docs/decisions/interface, D25).
  */
 export function sortPlaces(places: Place[]): Place[] {
-  const rank = (l: Place) => ({ ok: 0, parking: 0, check: 1, unknown: 2, no: 2 })[l.state]
-  return [...places].sort((a, b) => rank(a) - rank(b) || a.metres - b.metres)
+  const rank = (p: Place) => ({ ok: 0, parking: 0, check: 1, unknown: 2, no: 2 })[p.state]
+  return [...places].sort((a, b) => rank(a) - rank(b) || a.meters - b.meters)
 }

@@ -45,7 +45,7 @@ function Verdict({ place }: { place: Place }) {
 function Criteria({ place, themes }: { place: Place; themes: readonly Theme[] }) {
   return themes.map(theme => {
     // « Place handicapée » sous le titre « Place handicapée » n'apprendrait rien.
-    const lines = place.lines.filter(l => l.theme === theme && l.text !== place.name)
+    const lines = place.lines.filter(line => line.theme === theme && line.text !== place.name)
     if (lines.length === 0) return null
     return (
       <section key={theme} className="flex shrink-0 flex-col gap-2">
@@ -70,12 +70,12 @@ function Criteria({ place, themes }: { place: Place; themes: readonly Theme[] })
 
 /** Les détails, repliés : un lieu change, ils se replient (la clé du composant suit le lieu). */
 function Details({ place }: { place: Place }) {
-  const [openOnes, setOpenOnes] = useState(false)
-  const themes = THEMES.filter(t => !ESSENTIALS.includes(t) && place.lines.some(l => l.theme === t))
+  const [expanded, setExpanded] = useState(false)
+  const themes = THEMES.filter(theme => !ESSENTIALS.includes(theme) && place.lines.some(line => line.theme === theme))
   if (themes.length === 0) return null
-  if (!openOnes) {
+  if (!expanded) {
     return (
-      <Button variant="quiet" onClick={() => setOpenOnes(true)} aria-expanded={false}>
+      <Button variant="quiet" onClick={() => setExpanded(true)} aria-expanded={false}>
         Voir tous les détails
       </Button>
     )
@@ -88,9 +88,9 @@ type Props = {
   /** pendant un itinéraire, une place handicapée propose « Me garer ici » */
   towardArrival: boolean
   onClose: () => void
-  onGoThere: (l: Place) => void
-  onParkHere: (l: Place) => void
-  onRedo: (l: Place) => void
+  onGoThere: (p: Place) => void
+  onParkHere: (p: Place) => void
+  onRedo: (p: Place) => void
 }
 
 export function PlaceCard({ place, towardArrival, onClose, onGoThere, onParkHere, onRedo }: Props) {
@@ -130,7 +130,7 @@ export function PlaceCard({ place, towardArrival, onClose, onGoThere, onParkHere
           <>
             {place.name !== place.label && <div className="text-lg">{place.label}</div>}
             <h2 id="place-card-title" className="text-[32px] leading-[38px] font-bold tracking-tight">{place.name}</h2>
-            <div className="text-[21px]">À {place.metres} mètres{towardArrival ? ' de l’arrivée' : ''}</div>
+            <div className="text-[21px]">À {place.meters} mètres{towardArrival ? ' de l’arrivée' : ''}</div>
             {/* Une place n'a pas de verdict à donner : son titre dit déjà ce qu'elle est. */}
             {place.type !== 'parking' && <Verdict place={place} />}
             <Criteria place={place} themes={ESSENTIALS} />

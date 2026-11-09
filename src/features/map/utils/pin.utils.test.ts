@@ -3,7 +3,7 @@ import { pinHtml, pinName } from '~/features/map/utils/pin.utils'
 import type { Place } from '~/types/place.types'
 
 const place = (name: string, state: Place['state'], type: Place['type'] = 'cafe'): Place => ({
-  id: name, type, state, name, label: 'Café', lat: 48.85, lon: 2.35, metres: 100, lines: [], sources: ['OpenStreetMap'],
+  id: name, type, state, name, label: 'Café', lat: 48.85, lon: 2.35, meters: 100, lines: [], sources: ['OpenStreetMap'],
 })
 
 describe('pinName', () => {

@@ -34,19 +34,19 @@ export function App() {
   const [chosenSpot, setChosenSpot] = useState<Place | null>(null)
   const [filter, setFilter] = useState<Filter>(FILTERS[0])
   const [shownCount, setShownCount] = useState(PER_PAGE)
-  const [isOpen, setIsOpen] = useState<Place | null>(null)
+  const [openPlace, setOpenPlace] = useState<Place | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [notes, setNotes] = useState(false)
+  const [sourcesOpen, setSourcesOpen] = useState(false)
   const [request, setRequest] = useState<Request | null>(null)
   const account = useOsmAccount()
   const destinations = useDestinations()
   const route = useRoute(realPosition)
 
-  const centre = arrival ?? position
-  const view = useMapView(centre)
+  const center = arrival ?? position
+  const view = useMapView(center)
   const { places, inFlight, down, finished, retry } = usePlaces(view.loadAround, arrival ?? realPosition)
-  const visibleOnes = places.filter(l => matches(l.type, filter))
-  const inList = view.loadAround ? inArea(visibleOnes, view.loadAround) : visibleOnes
+  const visiblePlaces = places.filter(p => matches(p.type, filter))
+  const inList = view.loadAround ? inArea(visiblePlaces, view.loadAround) : visiblePlaces
 
   /** Revenir autour de soi. Pendant un trajet, on garde le chemin : la carte le recadre. */
   function backHere() {
@@ -57,14 +57,14 @@ export function App() {
     setShownCount(PER_PAGE)
   }
 
-  function chooseArrival(chosenOne: Arrival) {
+  function chooseArrival(destination: Arrival) {
     setError(null)
     setChosenSpot(null)
     view.forget()
     setShownCount(PER_PAGE)
     route.close()
-    setArrival(chosenOne)
-    destinations.remember(chosenOne)
+    setArrival(destination)
+    destinations.remember(destination)
   }
 
   async function search(text: string) {
@@ -88,11 +88,11 @@ export function App() {
 
   function openSearchedPlace(place: Place) {
     destinations.rememberPlace(place)
-    setIsOpen(place)
+    setOpenPlace(place)
   }
 
   function goTo(place: Place) {
-    setIsOpen(null)
+    setOpenPlace(null)
     if (!destinations.justRemembered(place)) destinations.rememberPlace(place)
     route.goTo(place)
   }
@@ -103,15 +103,15 @@ export function App() {
    * dans « Récemment » : la destination, c'est l'adresse (docs/decisions/interface, D23).
    */
   function parkHere(spot: Place) {
-    setIsOpen(null)
+    setOpenPlace(null)
     setChosenSpot(spot)
     const app = preferredApp()
     if (app) openGps(spot, 'car', app)
     else route.goTo(spot)
   }
 
-  const interimText = arrival
-    ? chosenSpot ? `Garé à ${chosenSpot.metres} m de l’arrivée` : arrival.address
+  const barText = arrival
+    ? chosenSpot ? `Garé à ${chosenSpot.meters} m de l’arrivée` : arrival.address
     : null
 
   return (
@@ -120,17 +120,17 @@ export function App() {
 
       {/* La carte reste toujours visible ; seule la liste en dessous défile. */}
       <div role="region" aria-label="Carte des lieux" className="relative mx-4 mt-[max(env(safe-area-inset-top),16px)] h-[clamp(240px,40dvh,340px)] overflow-hidden rounded-[28px] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:m-0 lg:h-full lg:rounded-none">
-        {centre && (
+        {center && (
           <PlacesMap
-            centre={centre}
+            center={center}
             towardArrival={arrival !== null}
             // Trop dézoomée, la carte ferait un tas illisible de pastilles : elle se tait, comme la liste.
-            places={view.zoomedOut ? [] : visibleOnes}
+            places={view.zoomedOut ? [] : visiblePlaces}
             chosenSpot={chosenSpot}
             trace={route.route?.trace ?? null}
             here={here}
             frozen={view.frozen}
-            onChoose={setIsOpen}
+            onChoose={setOpenPlace}
             onGesture={view.gesture}
             onMoved={view.move}
           />
@@ -147,7 +147,7 @@ export function App() {
         error={error}
         onCloseError={() => setError(null)}
         zoomedOut={view.zoomedOut}
-        messages={{
+        status={{
           // Des places se comparent à leur distance ; des cafés, d'abord à leur facilité.
           title: filter.id === 'park' ? (arrival ? 'Les plus proches de l’arrivée' : 'Les plus proches') : 'Les plus faciles d’abord',
           noPlace: (view.loadAround ? inArea(places, view.loadAround) : places).length === 0,
@@ -160,17 +160,17 @@ export function App() {
         places={inList}
         shownCount={shownCount}
         onShowMore={() => setShownCount(n => n + PER_PAGE)}
-        onChoose={setIsOpen}
-        onAddSpot={() => setRequest({ mode: 'spot', point: realPosition, known: places.filter(l => l.type === 'parking') })}
-        onInfo={() => setNotes(true)}
+        onChoose={setOpenPlace}
+        onAddSpot={() => setRequest({ mode: 'spot', point: realPosition, known: places.filter(p => p.type === 'parking') })}
+        onInfo={() => setSourcesOpen(true)}
       />
 
       <ThumbBar
         filters={{ active: filter, onChange: f => { setFilter(f); setShownCount(PER_PAGE) } }}
-        searchText={{
-          inFlight: interimText,
+        search={{
+          inFlight: barText,
           places,
-          recentOnes: destinations.recentOnes,
+          recent: destinations.recent,
           near: position,
           onChoose: chooseArrival,
           onChoosePlace: openSearchedPlace,
@@ -181,14 +181,14 @@ export function App() {
       />
 
       <Edit request={request} account={account} onClose={() => setRequest(null)} />
-      <Sources opened={notes} onClose={() => setNotes(false)} />
+      <Sources opened={sourcesOpen} onClose={() => setSourcesOpen(false)} />
       <PlaceCard
-        place={isOpen}
+        place={openPlace}
         towardArrival={arrival !== null}
-        onClose={() => setIsOpen(null)}
+        onClose={() => setOpenPlace(null)}
         onGoThere={goTo}
         onParkHere={parkHere}
-        onRedo={l => { setIsOpen(null); setRequest({ mode: 'edit', place: l }) }}
+        onRedo={p => { setOpenPlace(null); setRequest({ mode: 'edit', place: p }) }}
       />
     </div>
   )

@@ -5,7 +5,7 @@ import type { Point } from '~/types/place.types'
 
 type Props = {
   onGesture: () => void
-  onMoved: (centre: Point, zoom: number) => void
+  onMoved: (center: Point, zoom: number) => void
   /** retient le zoom fait à la main */
   chosenZoom: RefObject<number | null>
 }

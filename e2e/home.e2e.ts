@@ -15,8 +15,8 @@ test.describe('Accueil : choisir un café ou un restaurant autour de soi', () =>
   })
 
   test('la liste met les plus faciles d’abord', async ({ page }) => {
-    const firstOne = page.getByRole('main').getByRole('listitem').filter({ has: page.getByRole('button') }).first()
-    await expect(firstOne).toContainText('Facile')
+    const firstPlace = page.getByRole('main').getByRole('listitem').filter({ has: page.getByRole('button') }).first()
+    await expect(firstPlace).toContainText('Facile')
   })
 
   test('« Se garer » ne montre que les places, de la plus proche à la plus loin', async ({ page }) => {
@@ -61,12 +61,12 @@ test.describe('Accueil : choisir un café ou un restaurant autour de soi', () =>
     // La liste se montre par pages : on va jusqu'au bout.
     while (await more.isVisible()) await more.click()
     await expect(title).toBeVisible()
-    const metres = await page.getByRole('main').getByRole('listitem')
+    const distances = await page.getByRole('main').getByRole('listitem')
       .filter({ has: page.getByRole('button', { name: /(Difficile|Pas d’info)$/ }) })
-      .evaluateAll(lines => lines.map(l => Number(/à ([\d\s]+) m/.exec(l.textContent ?? '')?.[1]?.replace(/\s/g, ''))))
+      .evaluateAll(lines => lines.map(el => Number(/à ([\d\s]+) m/.exec(el.textContent ?? '')?.[1]?.replace(/\s/g, ''))))
     // Les données de démo n'en ont qu'un ici ; l'ordre avec plusieurs est vérifié par trier() (fusion-lieux.utils.test.ts).
-    expect(metres.length).toBeGreaterThan(0)
-    expect(metres).toEqual([...metres].sort((a, b) => a - b))
+    expect(distances.length).toBeGreaterThan(0)
+    expect(distances).toEqual([...distances].sort((a, b) => a - b))
   })
 })
 

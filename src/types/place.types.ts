@@ -21,7 +21,7 @@ export type Entrance = 'ok' | 'partial' | 'no' | 'unknown'
 export type Toilets = 'yes' | 'no' | 'unknown'
 
 /** Le numéro et la rue, pour reconnaître un même lieu dans OSM et dans Acceslibre. */
-export type Address = { numero: string; street: string }
+export type Address = { number: string; street: string }
 
 export type Place = Point & {
   id: string
@@ -32,7 +32,7 @@ export type Place = Point & {
   lines: Line[]
   advice?: string
   /** distance en mètres depuis le centre de recherche (moi ou l'arrivée) */
-  metres: number
+  meters: number
   sources: Source[]
   /** page Acceslibre du lieu, où l'on peut corriger sa fiche */
   acceslibreLink?: string

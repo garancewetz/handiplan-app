@@ -15,7 +15,7 @@ type Props = {
 function boundsOf(map: L.Map): Bounds {
   const b = map.getBounds()
   const { lat, lng } = map.getCenter()
-  return { centre: { lat, lon: lng }, south: b.getSouth(), west: b.getWest(), north: b.getNorth(), east: b.getEast() }
+  return { center: { lat, lon: lng }, south: b.getSouth(), west: b.getWest(), north: b.getNorth(), east: b.getEast() }
 }
 
 /** Les pastilles des lieux qui sont dans le cadre de la carte, remises à jour à chaque déplacement. */
@@ -23,11 +23,11 @@ export function Pins({ places, chosenSpot, onChoose }: Props) {
   const map = useMap()
   const [bounds, setBounds] = useState<Bounds>(() => boundsOf(map))
   useMapEvents({ moveend: () => setBounds(boundsOf(map)) })
-  const shownOnes = placesForMap(places, bounds)
+  const shown = placesForMap(places, bounds)
   // La place où l'on se gare reste visible, même hors du cadre ou au-delà du nombre de pastilles.
-  if (chosenSpot && !shownOnes.some(l => l.id === chosenSpot.id)) shownOnes.push(chosenSpot)
+  if (chosenSpot && !shown.some(p => p.id === chosenSpot.id)) shown.push(chosenSpot)
 
-  return shownOnes.map(place => (
+  return shown.map(place => (
     <Marker
       key={place.id}
       position={[place.lat, place.lon]}

@@ -10,7 +10,7 @@ export function split(address: string): { title: string; detail?: string } {
 
 /** Les lieux déjà chargés dont le nom contient ce qu'on tape (sans accents ni majuscules), trois au plus. */
 export function matchingPlaces(places: Place[], text: string): Place[] {
-  const t = simplify(text.trim())
-  if (t.length < 3) return []
-  return places.filter(l => l.name !== l.label && simplify(l.name).includes(t)).slice(0, 3)
+  const query = simplify(text.trim())
+  if (query.length < 3) return []
+  return places.filter(p => p.name !== p.label && simplify(p.name).includes(query)).slice(0, 3)
 }

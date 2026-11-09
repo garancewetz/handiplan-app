@@ -25,31 +25,31 @@ function open() {
   return base
 }
 
-const done = (t: IDBTransaction) => new Promise<void>((resolve, reject) => {
-  t.oncomplete = () => resolve()
-  t.onerror = () => reject(t.error)
+const done = (tx: IDBTransaction) => new Promise<void>((resolve, reject) => {
+  tx.oncomplete = () => resolve()
+  tx.onerror = () => reject(tx.error)
 })
 
 /** Le stockage du téléphone, ou `null` s'il n'y en a pas (navigation privée stricte) : on charge alors à chaque fois. */
 export const browserStorage: Storage | null = typeof indexedDB === 'undefined' ? null : {
   async read(keys) {
-    const t = (await open()).transaction(STORE)
-    const store = t.objectStore(STORE)
-    const keptOnes = new Map<string, Kept>()
+    const tx = (await open()).transaction(STORE)
+    const store = tx.objectStore(STORE)
+    const kept = new Map<string, Kept>()
     for (const key of keys) {
       const request = store.get(key)
       request.onsuccess = () => {
         const g = request.result as Kept | undefined
-        if (g && Date.now() - g.date < DURATION) keptOnes.set(key, g)
+        if (g && Date.now() - g.date < DURATION) kept.set(key, g)
       }
     }
-    await done(t)
-    return keptOnes
+    await done(tx)
+    return kept
   },
   async write(entries) {
-    const t = (await open()).transaction(STORE, 'readwrite')
-    const store = t.objectStore(STORE)
+    const tx = (await open()).transaction(STORE, 'readwrite')
+    const store = tx.objectStore(STORE)
     for (const [key, kept] of entries) store.put(kept, key)
-    await done(t)
+    await done(tx)
   },
 }

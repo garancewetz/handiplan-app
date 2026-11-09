@@ -5,7 +5,7 @@ import type { Place } from '~/types/place.types'
 function place(fields: Partial<Place>): Place {
   return {
     id: 'node/1', type: 'cafe', state: 'check', name: 'Feria Café', label: 'Café',
-    lat: 48.8566, lon: 2.3522, metres: 100, lines: [], sources: ['OpenStreetMap'],
+    lat: 48.8566, lon: 2.3522, meters: 100, lines: [], sources: ['OpenStreetMap'],
     ...fields,
   }
 }
@@ -28,7 +28,7 @@ describe('mergePlaces', () => {
     const near = place({ id: 'acceslibre/1', name: 'Petit Marcel', lat: CLOSE, sources: ['Acceslibre'] })
     const other = place({ id: 'acceslibre/2', name: 'Marcel et fils', lat: CLOSE, sources: ['Acceslibre'] })
     const result = mergePlaces([osm], [other, near])
-    expect(result.map(l => l.id)).toEqual(['node/1', 'acceslibre/2'])
+    expect(result.map(p => p.id)).toEqual(['node/1', 'acceslibre/2'])
   })
 
   it('un Acceslibre muet sur les toilettes n’efface pas des toilettes adaptées notées dans OSM', () => {
@@ -43,7 +43,7 @@ describe('mergePlaces', () => {
     })
     const [merged] = mergePlaces([osm], [acceslibre])
     expect(merged.state).toBe('ok')
-    expect(merged.lines.map(l => l.text)).toEqual(['Entrée sans marche', 'Toilettes adaptées'])
+    expect(merged.lines.map(line => line.text)).toEqual(['Entrée sans marche', 'Toilettes adaptées'])
     expect(merged.advice).toBe('Toilettes pour les clients : demandez au comptoir.')
   })
 
@@ -67,7 +67,7 @@ describe('mergePlaces', () => {
       theme: 'Entrée', answer: 'warning', text: 'Entrée : les infos ne sont pas d’accord',
       detail: 'OpenStreetMap : marche haute ou escalier à l’entrée · Acceslibre : entrée sans marche',
     })
-    expect(merged.lines.map(l => l.text)).toEqual(['Entrée : les infos ne sont pas d’accord', 'Porte de 90 cm', 'Toilettes adaptées'])
+    expect(merged.lines.map(line => line.text)).toEqual(['Entrée : les infos ne sont pas d’accord', 'Porte de 90 cm', 'Toilettes adaptées'])
     expect(merged.advice).toBe('Les infos ne sont pas d’accord : à vérifier sur place.')
   })
 
@@ -79,7 +79,7 @@ describe('mergePlaces', () => {
     })
     const [merged] = mergePlaces([osm], [acceslibre])
     expect(merged.state).toBe('check')
-    expect(merged.lines.find(l => l.theme === 'Toilettes')?.detail).toBe('OpenStreetMap : toilettes non adaptées · Acceslibre : toilettes adaptées')
+    expect(merged.lines.find(line => line.theme === 'Toilettes')?.detail).toBe('OpenStreetMap : toilettes non adaptées · Acceslibre : toilettes adaptées')
   })
 
   it('« petite marche » contre « sans marche » : pas de désaccord, la réponse la plus prudente', () => {
@@ -90,7 +90,7 @@ describe('mergePlaces', () => {
     })
     const [merged] = mergePlaces([osm], [acceslibre])
     expect(merged.state).toBe('check')
-    expect(merged.lines.map(l => l.text)).toEqual(['Une petite marche à l’entrée', 'Sonnette pour appeler', 'Toilettes adaptées'])
+    expect(merged.lines.map(line => line.text)).toEqual(['Une petite marche à l’entrée', 'Sonnette pour appeler', 'Toilettes adaptées'])
     expect(merged.advice).toBeUndefined()
   })
 
@@ -106,9 +106,9 @@ describe('mergePlaces', () => {
   })
 
   it('le lieu réuni garde la position et le type d’OSM, plus précis', () => {
-    const osm = place({ type: 'restaurant', label: 'Restaurant', lat: 48.8566, metres: 100 })
-    const acceslibre = place({ id: 'acceslibre/9', type: 'cafe', label: 'Café', lat: CLOSE, metres: 111, sources: ['Acceslibre'] })
-    expect(mergePlaces([osm], [acceslibre])[0]).toMatchObject({ type: 'restaurant', label: 'Restaurant', lat: 48.8566, metres: 100 })
+    const osm = place({ type: 'restaurant', label: 'Restaurant', lat: 48.8566, meters: 100 })
+    const acceslibre = place({ id: 'acceslibre/9', type: 'cafe', label: 'Café', lat: CLOSE, meters: 111, sources: ['Acceslibre'] })
+    expect(mergePlaces([osm], [acceslibre])[0]).toMatchObject({ type: 'restaurant', label: 'Restaurant', lat: 48.8566, meters: 100 })
   })
 
   it('deux fiches Acceslibre du même lieu : celle qui sait l’emporte, pas la plus longue', () => {
@@ -124,7 +124,7 @@ describe('mergePlaces', () => {
     const [merged, ...rest] = mergePlaces([], [silent, knows])
     expect(rest).toHaveLength(0)
     expect(merged.state).toBe('ok')
-    expect(merged.lines.map(l => l.text)).toEqual(['Entrée sans marche', 'Toilettes adaptées', 'Personnel formé au handicap'])
+    expect(merged.lines.map(line => line.text)).toEqual(['Entrée sans marche', 'Toilettes adaptées', 'Personnel formé au handicap'])
   })
 
   it('deux fiches Acceslibre qui se contredisent : on le dit', () => {
@@ -147,13 +147,13 @@ describe('mergePlaces', () => {
   it('deux fiches Acceslibre du même lieu n’en font qu’une, la plus complète', () => {
     const short = place({ id: 'acceslibre/1', name: 'Eataly', sources: ['Acceslibre'] })
     const complete = place({ id: 'acceslibre/2', name: 'EATALY PARIS MARAIS', sources: ['Acceslibre'], lines: [{ theme: 'Entrée', answer: 'yes', text: 'Entrée sans marche' }] })
-    expect(mergePlaces([], [short, complete]).map(l => l.id)).toEqual(['acceslibre/2'])
+    expect(mergePlaces([], [short, complete]).map(p => p.id)).toEqual(['acceslibre/2'])
   })
 
   it('ne réunit jamais une place handicapée avec un café qui s’appelle « La Place »', () => {
     const spot = place({ id: 'node/2', type: 'parking', name: 'Place handicapée', state: 'parking' })
     const cafe = place({ id: 'acceslibre/9', name: 'La Place Handicapée', lat: CLOSE, sources: ['Acceslibre'] })
-    expect(mergePlaces([spot], [cafe]).map(l => l.id).sort()).toEqual(['acceslibre/9', 'node/2'])
+    expect(mergePlaces([spot], [cafe]).map(p => p.id).sort()).toEqual(['acceslibre/9', 'node/2'])
   })
 
   it('ajoute les lieux qu’Acceslibre est seul à connaître', () => {
@@ -165,12 +165,12 @@ describe('mergePlaces', () => {
 describe('sortPlaces', () => {
   it('met les plus faciles d’abord, puis les difficiles et les sans info mêlés, par distance', () => {
     const order = sortPlaces([
-      place({ id: 'e', state: 'unknown', metres: 7 }),
-      place({ id: 'd', state: 'no', metres: 5 }),
-      place({ id: 'a', state: 'check', metres: 10 }),
-      place({ id: 'b', state: 'ok', metres: 200 }),
-      place({ id: 'c', state: 'parking', metres: 50 }),
-    ]).map(l => l.id)
+      place({ id: 'e', state: 'unknown', meters: 7 }),
+      place({ id: 'd', state: 'no', meters: 5 }),
+      place({ id: 'a', state: 'check', meters: 10 }),
+      place({ id: 'b', state: 'ok', meters: 200 }),
+      place({ id: 'c', state: 'parking', meters: 50 }),
+    ]).map(p => p.id)
     expect(order).toEqual(['c', 'b', 'a', 'd', 'e'])
   })
 })

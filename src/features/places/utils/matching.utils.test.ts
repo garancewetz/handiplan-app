@@ -56,17 +56,17 @@ describe('frequentWords', () => {
 
 describe('streetWords', () => {
   it('les mots des rues de l’endroit', () => {
-    expect(streetWords([place('Confort Kebab', { address: { numero: '12', street: 'Rue Confort' } })])).toEqual(new Set(['rue', 'confort']))
+    expect(streetWords([place('Confort Kebab', { address: { number: '12', street: 'Rue Confort' } })])).toEqual(new Set(['rue', 'confort']))
   })
 })
 
 describe('sameAddress', () => {
   it('reconnaît le même numéro écrit autrement, et une plage', () => {
-    expect(sameAddress({ numero: '11 bis', street: 'Rue Saint-Martin' }, { numero: '11B', street: 'rue St Martin' })).toBe(true)
-    expect(sameAddress({ numero: '31-35', street: 'Boulevard de Sébastopol' }, { numero: '35', street: 'Bd de Sébastopol' })).toBe(true)
-    expect(sameAddress({ numero: '11', street: 'Rue Saint-Martin' }, { numero: '11 bis', street: 'Rue Saint-Martin' })).toBe(false)
-    expect(sameAddress({ numero: '35;39bis', street: 'Rue de l’Église' }, { numero: '39 bis', street: 'Rue de l’Église' })).toBe(true)
-    expect(sameAddress({ numero: '12', street: 'Rue des Rosiers' }, { numero: '12', street: 'Rue des Écouffes' })).toBe(false)
+    expect(sameAddress({ number: '11 bis', street: 'Rue Saint-Martin' }, { number: '11B', street: 'rue St Martin' })).toBe(true)
+    expect(sameAddress({ number: '31-35', street: 'Boulevard de Sébastopol' }, { number: '35', street: 'Bd de Sébastopol' })).toBe(true)
+    expect(sameAddress({ number: '11', street: 'Rue Saint-Martin' }, { number: '11 bis', street: 'Rue Saint-Martin' })).toBe(false)
+    expect(sameAddress({ number: '35;39bis', street: 'Rue de l’Église' }, { number: '39 bis', street: 'Rue de l’Église' })).toBe(true)
+    expect(sameAddress({ number: '12', street: 'Rue des Rosiers' }, { number: '12', street: 'Rue des Écouffes' })).toBe(false)
   })
 })
 
@@ -83,7 +83,7 @@ describe('samePlace', () => {
   })
 
   it('à la même adresse, un mot commun suffit, même un peu plus loin', () => {
-    const address = { numero: '12', street: 'Rue des Rosiers' }
+    const address = { number: '12', street: 'Rue des Rosiers' }
     expect(samePlace(place('Chez Marcel', { address }), place('Bistrot Marcel', { lat: AT_55_M, address }))).toBe(true)
     expect(samePlace(place('Chez Marcel', { address }), place('Sushi Shop', { lat: AT_55_M, address }))).toBe(false)
   })
@@ -100,10 +100,10 @@ describe('samePlace', () => {
   })
 
   it('à la même adresse, même un mot de la rue suffit', () => {
-    const address = { numero: '6', street: 'Rue du Renard' }
+    const address = { number: '6', street: 'Rue du Renard' }
     expect(samePlace(place('Le Renard', { address }), place('Le Renard Bistrot', { lat: AT_11_M, address }), new Set(['renard']))).toBe(true)
     // mais pas à un autre numéro : « Confort Kebab » (12) et « Re Confort Café » (5), rue Confort
-    expect(samePlace(place('Confort Kebab', { address: { numero: '12', street: 'Rue Confort' } }), place('Re Confort Café', { lat: AT_11_M, address: { numero: '5', street: 'Rue Confort' } }), new Set(['confort']))).toBe(false)
+    expect(samePlace(place('Confort Kebab', { address: { number: '12', street: 'Rue Confort' } }), place('Re Confort Café', { lat: AT_11_M, address: { number: '5', street: 'Rue Confort' } }), new Set(['confort']))).toBe(false)
   })
 
   it('deux spécialités différentes sont deux lieux ; un genre de lieu, non', () => {
@@ -125,7 +125,7 @@ describe('samePlace', () => {
 
   it('ne prend jamais des toilettes publiques pour le café d’à côté', () => {
     // la Sanisette du 50 rue de Rivoli et le café « Relais de l’Hôtel de Ville », à la même adresse
-    const address = { numero: '50', street: 'Rue de Rivoli' }
+    const address = { number: '50', street: 'Rue de Rivoli' }
     expect(samePlace(place('Le Relais de l’Hôtel de Ville', { address }), place('Sanisette Hôtel de Ville', { lat: AT_11_M, address, toilets: true }))).toBe(false)
   })
 })
@@ -148,12 +148,12 @@ describe('groupDuplicates', () => {
 describe('depuis les données brutes', () => {
   it('un élément OSM : nom, position (ou centre), adresse, toilettes', () => {
     expect(fromOsm({ type: 'way', id: 7, center: HERE, tags: { amenity: 'toilets', name: 'Sanisette', 'addr:housenumber': '50', 'addr:street': 'Rue de Rivoli' } }))
-      .toEqual({ id: 'way/7', name: 'Sanisette', ...HERE, address: { numero: '50', street: 'Rue de Rivoli' }, toilets: true })
+      .toEqual({ id: 'way/7', name: 'Sanisette', ...HERE, address: { number: '50', street: 'Rue de Rivoli' }, toilets: true })
     expect(fromOsm({ type: 'node', id: 1, ...HERE, tags: { amenity: 'cafe' } })).toBeNull()
   })
 
   it('une fiche Acceslibre', () => {
     expect(fromAcceslibre({ id: 'x', name: 'Bayan', activite: 'Restaurant', latitude: HERE.lat, longitude: HERE.lon, numero: '4', voie: 'Rue de la Coutellerie' }))
-      .toEqual({ id: 'acceslibre/x', name: 'Bayan', ...HERE, address: { numero: '4', street: 'Rue de la Coutellerie' } })
+      .toEqual({ id: 'acceslibre/x', name: 'Bayan', ...HERE, address: { number: '4', street: 'Rue de la Coutellerie' } })
   })
 })

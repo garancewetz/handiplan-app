@@ -13,7 +13,7 @@ type Props = {
   /** lieux déjà chargés, proposés en premier quand leur nom correspond */
   places: Place[]
   /** adresses et lieux déjà choisis, proposés quand le champ est vide */
-  recentOnes: Destination[]
+  recent: Destination[]
   /** pour classer les adresses proches en premier */
   near: Point | null
   onChoose: (arrival: Arrival) => void

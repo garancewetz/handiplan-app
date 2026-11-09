@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { computeRoute, suggestedMode, type Route } from '~/features/itinerary/api/route.api'
 import type { Place, Point } from '~/types/place.types'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 
 /**
  * Chemin vers un lieu, calculé depuis là où l'on est vraiment (même quand la carte montre
@@ -11,10 +11,10 @@ export function useRoute(departure: Point | null) {
   const [toward, setToward] = useState<Place | null>(null)
   const [route, setRoute] = useState<Route | null>(null)
   const [failure, setFailure] = useState(false)
-  const lastOne = useRef(0)
+  const latestRequest = useRef(0)
 
   function close() {
-    lastOne.current++
+    latestRequest.current++
     setToward(null)
     setRoute(null)
     setFailure(false)
@@ -24,11 +24,11 @@ export function useRoute(departure: Point | null) {
     close()
     setToward(place)
     if (!departure) { setFailure(true); return }
-    const numero = lastOne.current
-    const mode = suggestedMode(place.type === 'parking', distanceMetres(departure, place))
+    const requestId = latestRequest.current
+    const mode = suggestedMode(place.type === 'parking', distanceMeters(departure, place))
     computeRoute(departure, place, mode)
-      .then(t => { if (numero === lastOne.current) setRoute(t) })
-      .catch(() => { if (numero === lastOne.current) setFailure(true) })
+      .then(result => { if (requestId === latestRequest.current) setRoute(result) })
+      .catch(() => { if (requestId === latestRequest.current) setFailure(true) })
   }
 
   return { toward, route, failure, goTo, close }

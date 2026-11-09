@@ -15,9 +15,9 @@ const TITLES: Record<State, string> = {
 
 /** Ce qui gêne, en peu de mots : les lignes « non » puis « attention » de l'entrée et des toilettes. */
 function obstacles(place: Place): string[] {
-  const essentials = place.lines.filter(l => l.theme === 'Entrée' || l.theme === 'Toilettes')
-  return [...essentials.filter(l => l.answer === 'no'), ...essentials.filter(l => l.answer === 'warning')]
-    .map(l => l.text.charAt(0).toLowerCase() + l.text.slice(1))
+  const essentials = place.lines.filter(line => line.theme === 'Entrée' || line.theme === 'Toilettes')
+  return [...essentials.filter(line => line.answer === 'no'), ...essentials.filter(line => line.answer === 'warning')]
+    .map(line => line.text.charAt(0).toLowerCase() + line.text.slice(1))
 }
 
 export function verdict(place: Place): Verdict {

@@ -10,11 +10,11 @@ import { toSuggest, type Destination } from '~/features/itinerary/utils/recent-a
 import { split, matchingPlaces } from '~/features/itinerary/utils/search.utils'
 import { useDialog } from '~/hooks/use-dialog'
 import type { Arrival, Place, Point } from '~/types/place.types'
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 
 type Props = {
   places: Place[]
-  recentOnes: Destination[]
+  recent: Destination[]
   near: Point | null
   onChoose: (arrival: Arrival) => void
   onChoosePlace: (place: Place) => void
@@ -30,7 +30,7 @@ const key = (d: Destination) => d.place?.id ?? `${d.lat},${d.lon}`
  * de toucher la barre, juste au-dessus du clavier ; les propositions, en grandes lignes, s'empilent
  * au-dessus (docs/decisions/interface, D19).
  */
-export function SearchPanel({ places, recentOnes, near, onChoose, onChoosePlace, onSearch, onClose }: Props) {
+export function SearchPanel({ places, recent, near, onChoose, onChoosePlace, onSearch, onClose }: Props) {
   const [text, setText] = useState('')
   const field = useRef<HTMLInputElement>(null)
   // Rendu hors de l'appli (dans le corps de la page) : on rend l'appli inerte derrière, pour qu'un
@@ -49,9 +49,9 @@ export function SearchPanel({ places, recentOnes, near, onChoose, onChoosePlace,
   const empty = text.trim() === ''
   const suggestedPlaces = matchingPlaces(places, text)
   // Un lieu déjà chargé (qui ouvre sa fiche) et le même trouvé par la recherche : on ne le montre qu'une fois.
-  const otherSuggestions = suggestions.filter(s => !suggestedPlaces.some(l => distanceMetres(l, s) < 50))
+  const otherSuggestions = suggestions.filter(s => !suggestedPlaces.some(p => distanceMeters(p, s) < 50))
   // Champ vide : comme Waze, on propose d'abord ce qu'on demande souvent, puis les dernières destinations.
-  const { often, recentOnes: dernieres } = empty ? toSuggest(recentOnes) : { often: [], recentOnes: [] }
+  const { often, recent: dernieres } = empty ? toSuggest(recent) : { often: [], recent: [] }
   const number = often.length + dernieres.length + suggestedPlaces.length + otherSuggestions.length
 
   // Le clavier s'ouvre tout de suite : on vient pour taper.
@@ -64,7 +64,7 @@ export function SearchPanel({ places, recentOnes, near, onChoose, onChoosePlace,
 
   /** Un lieu déjà chargé rouvre sa fiche ; sinon, la carte va à l'endroit et le montre. */
   function reopen(d: Destination) {
-    const place = d.place && places.find(l => l.id === d.place?.id)
+    const place = d.place && places.find(p => p.id === d.place?.id)
     if (place) onChoosePlace(place)
     else onChoose(d)
   }
@@ -112,8 +112,8 @@ export function SearchPanel({ places, recentOnes, near, onChoose, onChoosePlace,
           )}
           {(suggestedPlaces.length > 0 || otherSuggestions.length > 0) && (
             <ul aria-label="Propositions" className="flex flex-col gap-2">
-              {suggestedPlaces.map(l => (
-                <SuggestionRow key={l.id} title={l.name} detail={`${l.label} · à ${l.metres} m`} icon={l.type} isPlace onChoose={() => choose(() => onChoosePlace(l))} />
+              {suggestedPlaces.map(p => (
+                <SuggestionRow key={p.id} title={p.name} detail={`${p.label} · à ${p.meters} m`} icon={p.type} isPlace onChoose={() => choose(() => onChoosePlace(p))} />
               ))}
               {otherSuggestions.map(s => (
                 <SuggestionRow key={`${s.lat},${s.lon},${s.title}`} title={s.title} detail={s.detail} onChoose={() => choose(() => onChoose(s))} />
@@ -122,7 +122,7 @@ export function SearchPanel({ places, recentOnes, near, onChoose, onChoosePlace,
           )}
           {loading && suggestions.length === 0 && <p className="px-2 py-3 text-lg text-muted">Je cherche…</p>}
           {/* Un panneau tout vide ne dit pas quoi faire : au premier usage, une phrase et des exemples. */}
-          {empty && recentOnes.length === 0 && (
+          {empty && recent.length === 0 && (
             <p className="px-2 pb-1 text-xl leading-8">
               Écrivez une adresse ou le nom d’un lieu, comme « 12 rue de Rivoli », « hôpital Saint-Antoine » ou « Marlette ».
               {dictation.available && <span className="block text-muted">Ou touchez le micro pour le dire.</span>}
@@ -136,9 +136,9 @@ export function SearchPanel({ places, recentOnes, near, onChoose, onChoosePlace,
             e.preventDefault()
             // Entrée prend le premier de la liste, comme le doigt : le lieu proche s'il y en a un.
             const place: Place | undefined = suggestedPlaces[0]
-            const firstOne: Suggestion | undefined = otherSuggestions[0]
+            const first: Suggestion | undefined = otherSuggestions[0]
             if (place) choose(() => onChoosePlace(place))
-            else if (firstOne) choose(() => onChoose(firstOne))
+            else if (first) choose(() => onChoose(first))
             else if (text.trim()) choose(() => onSearch(text.trim()))
           }}
         >
@@ -168,7 +168,7 @@ export function SearchPanel({ places, recentOnes, near, onChoose, onChoosePlace,
                 <Icon name="cross" className="size-6" />
               </button>
             ) : dictation.available && (
-              <MicButton listening={dictation.listening} onListen={() => dictation.listen(t => choose(() => onSearch(t)))} />
+              <MicButton listening={dictation.listening} onListen={() => dictation.listen(query => choose(() => onSearch(query)))} />
             )}
           </div>
         </form>

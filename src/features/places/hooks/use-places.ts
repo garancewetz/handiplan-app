@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { loadProgressively, type Loading } from '~/features/places/api/places.api'
-import { keepNeighbours, measureFrom } from '~/features/places/utils/nearby.utils'
+import { keepNeighbors, measureFrom } from '~/features/places/utils/nearby.utils'
 import type { Place, Point } from '~/types/place.types'
 
 /**
@@ -8,7 +8,7 @@ import type { Place, Point } from '~/types/place.types'
  * Quand le point change (carte déplacée), les lieux voisins déjà chargés restent affichés.
  * Les distances sont mesurées depuis `reference` (moi ou l'arrivée), pas depuis le point chargé.
  */
-export function usePlaces(centre: Point | null, reference: Point | null) {
+export function usePlaces(center: Point | null, reference: Point | null) {
   const [loading, setLoading] = useState<Loading>({ places: [], inFlight: [], down: [] })
   const [attempt, setAttempt] = useState(0)
   // Les lieux affichés au moment où l'on change de zone : la base qu'on complète.
@@ -19,13 +19,13 @@ export function usePlaces(centre: Point | null, reference: Point | null) {
   }, [loading.places])
 
   useEffect(() => {
-    if (!centre) return
+    if (!center) return
     const stale = shown.current
-    return loadProgressively(centre, newOne => setLoading({ ...newOne, places: keepNeighbours(stale, newOne.places, centre) }))
+    return loadProgressively(center, next => setLoading({ ...next, places: keepNeighbors(stale, next.places, center) }))
     // Suivre lat/lon plutôt que l'objet : un nouvel objet au même endroit ne doit pas tout recharger.
-  }, [centre?.lat, centre?.lon, attempt]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [center?.lat, center?.lon, attempt]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const since = reference ?? centre
+  const since = reference ?? center
   return {
     ...loading,
     places: since ? measureFrom(loading.places, since) : loading.places,

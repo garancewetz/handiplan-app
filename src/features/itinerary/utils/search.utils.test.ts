@@ -3,7 +3,7 @@ import { split, matchingPlaces } from '~/features/itinerary/utils/search.utils'
 import type { Place } from '~/types/place.types'
 
 const place = (name: string, label = 'Café'): Place => ({
-  id: name, type: 'cafe', state: 'ok', name, label, lat: 48.85, lon: 2.35, metres: 100, lines: [], sources: ['OpenStreetMap'],
+  id: name, type: 'cafe', state: 'ok', name, label, lat: 48.85, lon: 2.35, meters: 100, lines: [], sources: ['OpenStreetMap'],
 })
 
 describe('split', () => {
@@ -18,7 +18,7 @@ describe('split', () => {
 
 describe('matchingPlaces', () => {
   it('trouve un lieu sans tenir compte des accents ni des majuscules', () => {
-    expect(matchingPlaces([place('Café Élo'), place('Marlette')], 'elo').map(l => l.name)).toEqual(['Café Élo'])
+    expect(matchingPlaces([place('Café Élo'), place('Marlette')], 'elo').map(p => p.name)).toEqual(['Café Élo'])
   })
 
   it('attend trois lettres, et ignore les lieux sans vrai nom', () => {

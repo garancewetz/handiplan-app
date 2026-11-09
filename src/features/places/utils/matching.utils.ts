@@ -1,4 +1,4 @@
-import { distanceMetres } from '~/utils/distance.utils'
+import { distanceMeters } from '~/utils/distance.utils'
 
 // Reconnaître le même lieu dans OpenStreetMap et dans Acceslibre, à partir des données brutes : un
 // élément OSM, une fiche Acceslibre. Rien ici ne dépend de l'affichage de Handiplan, pour que d'autres
@@ -10,7 +10,7 @@ export type Candidate = {
   name: string
   lat: number
   lon: number
-  address?: { numero: string; street: string }
+  address?: { number: string; street: string }
   /** des toilettes publiques : jamais le même lieu qu'un café ou un restaurant */
   toilets?: boolean
   /** les noms des autres fiches du même lieu (voir `regrouper`) : chacun peut servir à le reconnaître */
@@ -66,19 +66,19 @@ const SAME_SPOT_M = 50
  */
 export function frequentWords(places: Candidate[], threshold = 3): Set<string> {
   const spots = new Map<string, Candidate[]>()
-  for (const l of places) {
-    for (const m of wordsOf(l.name)) {
-      const seenOnes = spots.get(m) ?? []
-      if (!seenOnes.some(v => distanceMetres(v, l) <= SAME_SPOT_M)) seenOnes.push(l)
-      spots.set(m, seenOnes)
+  for (const c of places) {
+    for (const m of wordsOf(c.name)) {
+      const nearby = spots.get(m) ?? []
+      if (!nearby.some(v => distanceMeters(v, c) <= SAME_SPOT_M)) nearby.push(c)
+      spots.set(m, nearby)
     }
   }
-  return new Set([...spots].filter(([, seenOnes]) => seenOnes.length >= threshold).map(([m]) => m))
+  return new Set([...spots].filter(([, nearby]) => nearby.length >= threshold).map(([m]) => m))
 }
 
 /** Les mots des rues de l'endroit (« Canebière », « Confort », « Mercière ») : ils aussi disent où. */
 export function streetWords(places: Candidate[]): Set<string> {
-  return new Set(places.flatMap(l => (l.address ? wordsOf(l.address.street) : [])))
+  return new Set(places.flatMap(c => (c.address ? wordsOf(c.address.street) : [])))
 }
 
 // Une faute de frappe par mot : « Coupe » et « Coup », « Kebab » et « Kebap ». Pas sur les mots de moins
@@ -152,20 +152,20 @@ const nameless = (name: string) => simplify(name).split(' ').every(m => !m || SM
  * mots à une faute près (« Paris Kebab » et « Paris Kebap »), ou les mêmes mots qui comptent (« Filippo » et « Restaurant Filippo »). Si ces mots ne sont que
  * des mots de l'endroit (« Bistrot Beaubourg », « Café Beaubourg »), il faut être tout près.
  */
-function sameName(a: string, b: string, frequent: Set<string>, metres: number) {
+function sameName(a: string, b: string, frequent: Set<string>, meters: number) {
   if (nameless(a) || nameless(b)) return false
   if (glued(a) === glued(b) || nearlySameWords(a, b)) return true
   const equalWords = (x: string[], y: string[]) => x.length > 0 && x.length === y.length && x.every(m => y.includes(m))
   // « Funky Monky » et « Funky Monky Lyon » : les mêmes mots, une fois retirés ceux de l'endroit
   const ownWords = (m: string[]) => m.filter(x => !frequent.has(x))
   if (equalWords(ownWords(wordsOf(a)), ownWords(wordsOf(b)))) return true
-  return equalWords(wordsOf(a), wordsOf(b)) && metres <= VERY_NEAR_M
+  return equalWords(wordsOf(a), wordsOf(b)) && meters <= VERY_NEAR_M
 }
 
 // « 11 bis » et « 11B » sont le même numéro ; « 31-35 » contient « 35 » ; OSM note parfois plusieurs
 // numéros (« 35;39bis »).
-function numbers(numero: string): string[] {
-  return numero.toLowerCase().replace(/\s+/g, '').split(/[;,]/).flatMap(n => {
+function numbers(houseNumber: string): string[] {
+  return houseNumber.toLowerCase().replace(/\s+/g, '').split(/[;,]/).flatMap(n => {
     const range = n.match(/^(\d+)-(\d+)$/)
     return range ? [range[1], range[2]] : [n.replace(/(bis|ter|quater)$/, m => m[0])]
   })
@@ -175,8 +175,8 @@ const street = (r: string) => wordsOf(r).join(' ')
 /** Le même numéro (ou une plage qui le contient) dans la même rue. */
 export function sameAddress(a?: Candidate['address'], b?: Candidate['address']): boolean {
   if (!a || !b || street(a.street) !== street(b.street)) return false
-  const na = numbers(a.numero)
-  return numbers(b.numero).some(n => na.includes(n))
+  const na = numbers(a.number)
+  return numbers(b.number).some(n => na.includes(n))
 }
 
 // Des noms qui se ressemblent assez, à moins de 40 m ; à la même adresse, un mot commun suffit ; le même
@@ -196,26 +196,26 @@ const SAME_NAME_M = 100
  */
 export function score(a: Candidate, b: Candidate, frequent = NONE): number {
   if (!!a.toilets !== !!b.toilets) return 0
-  const metres = distanceMetres(a, b)
+  const meters = distanceMeters(a, b)
   // Le plus souvent, les deux lieux sont loin : inutile de comparer les noms (des centaines de paires).
-  if (metres > SAME_NAME_M) return 0
+  if (meters > SAME_NAME_M) return 0
   const address = sameAddress(a.address, b.address)
   const namesOf = (c: Candidate) => [c.name, ...(c.otherNames ?? [])]
-  return Math.max(...namesOf(a).flatMap(na => namesOf(b).map(nb => scoreNames(na, nb, metres, address, frequent))))
+  return Math.max(...namesOf(a).flatMap(na => namesOf(b).map(nb => scoreNames(na, nb, meters, address, frequent))))
 }
 
-function scoreNames(a: string, b: string, metres: number, address: boolean, frequent: Set<string>): number {
+function scoreNames(a: string, b: string, meters: number, address: boolean, frequent: Set<string>): number {
   if (!compatibleSpecialties(a, b)) return 0
   const names = similarity(a, b, frequent)
-  const name = sameName(a, b, frequent, metres)
+  const name = sameName(a, b, frequent, meters)
   // À la même adresse, un mot commun suffit, même un mot courant : « Le Renard » et « Le Renard Bistrot »,
   // rue du Renard.
-  const sameNumber = address && metres <= SAME_ADDRESS_M && similarity(a, b) > 0
+  const sameNumber = address && meters <= SAME_ADDRESS_M && similarity(a, b) > 0
   const c = sharedWords(a, b, frequent)
   const weak = c.n === 1 && c.ma > 1 && c.mb > 1
-  const near = metres <= (weak ? VERY_NEAR_M : NEAR_M)
+  const near = meters <= (weak ? VERY_NEAR_M : NEAR_M)
   const matched = (near && names >= 0.5) || sameNumber || name
-  return matched ? Math.max(names, name ? 1 : 0) + (address ? 1 : 0) + (1 - metres / SAME_NAME_M) : 0
+  return matched ? Math.max(names, name ? 1 : 0) + (address ? 1 : 0) + (1 - meters / SAME_NAME_M) : 0
 }
 
 export const samePlace = (a: Candidate, b: Candidate, frequent = NONE) => score(a, b, frequent) > 0
@@ -223,7 +223,7 @@ export const samePlace = (a: Candidate, b: Candidate, frequent = NONE) => score(
 // Un mot est courant s'il l'est dans l'une des deux listes (compter les deux ensemble compterait deux fois
 // chaque lieu présent des deux côtés), ou s'il est dans le nom d'une rue.
 const frequentOf = (...lists: Candidate[][]) =>
-  new Set(lists.flatMap(l => [...frequentWords(l), ...streetWords(l)]))
+  new Set(lists.flatMap(list => [...frequentWords(list), ...streetWords(list)]))
 
 /**
  * Les paires [i, j] du même lieu entre deux listes : chaque lieu n'est apparié qu'une fois, au plus
@@ -252,8 +252,8 @@ export function pair(a: Candidate[], b: Candidate[]): [number, number][] {
 export function groupDuplicates(places: Candidate[]): number[][] {
   const frequent = frequentOf(places)
   const groups: number[][] = []
-  places.forEach((l, i) => {
-    const group = groups.find(g => samePlace(places[g[0]], l, frequent))
+  places.forEach((c, i) => {
+    const group = groups.find(g => samePlace(places[g[0]], c, frequent))
     if (group) group.push(i)
     else groups.push([i])
   })
@@ -283,11 +283,11 @@ export function fromOsm(e: OsmElement): Candidate | null {
   const lon = e.lon ?? e.center?.lon
   const name = e.tags.name
   if (lat === undefined || lon === undefined || !name) return null
-  const numero = e.tags['addr:housenumber']
-  const voie = e.tags['addr:street']
+  const number = e.tags['addr:housenumber']
+  const street = e.tags['addr:street']
   return {
     id: `${e.type}/${e.id}`, name, lat, lon,
-    ...(numero && voie ? { address: { numero, street: voie } } : {}),
+    ...(number && street ? { address: { number, street } } : {}),
     ...(e.tags.amenity === 'toilets' ? { toilets: true } : {}),
   }
 }
@@ -307,7 +307,7 @@ export function fromAcceslibre(f: AcceslibreRecord): Candidate | null {
   if (f.latitude === null || f.longitude === null || !f.name) return null
   return {
     id: `acceslibre/${f.id}`, name: f.name, lat: f.latitude, lon: f.longitude,
-    ...(f.numero && f.voie ? { address: { numero: f.numero, street: f.voie } } : {}),
+    ...(f.numero && f.voie ? { address: { number: f.numero, street: f.voie } } : {}),
     ...(f.activite === 'Toilettes publiques' ? { toilets: true } : {}),
   }
 }

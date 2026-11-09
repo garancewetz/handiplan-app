@@ -1,11 +1,11 @@
 import { color, type Entrance, type Toilets } from '~/features/places/utils/color.utils'
 import type { State, Place, Line, Answer, Theme, PlaceType } from '~/types/place.types'
 
-export function osmType(t: Record<string, string>): PlaceType | null {
-  if (t.parking_space === 'disabled' || t.amenity === 'parking') return 'parking'
-  if (t.amenity === 'toilets') return 'wc'
-  if (t.amenity === 'cafe' || t.amenity === 'bar' || t.amenity === 'pub') return 'cafe'
-  if (t.amenity === 'restaurant' || t.amenity === 'fast_food') return 'restaurant'
+export function osmType(tags: Record<string, string>): PlaceType | null {
+  if (tags.parking_space === 'disabled' || tags.amenity === 'parking') return 'parking'
+  if (tags.amenity === 'toilets') return 'wc'
+  if (tags.amenity === 'cafe' || tags.amenity === 'bar' || tags.amenity === 'pub') return 'cafe'
+  if (tags.amenity === 'restaurant' || tags.amenity === 'fast_food') return 'restaurant'
   return null
 }
 
@@ -14,9 +14,9 @@ const LABELS_BY_AMENITY: Record<string, string> = {
   toilets: 'Toilettes publiques',
 }
 
-export function osmLabel(type: PlaceType, t: Record<string, string>) {
+export function osmLabel(type: PlaceType, tags: Record<string, string>) {
   if (type === 'parking') return 'Place handicapée'
-  return LABELS_BY_AMENITY[t.amenity] ?? 'Lieu'
+  return LABELS_BY_AMENITY[tags.amenity] ?? 'Lieu'
 }
 
 /**
@@ -61,70 +61,70 @@ const TOILETS_LINE: Record<Toilets, Line> = {
 const yes = (v: string | undefined) => v === 'yes' || v === 'designated'
 
 /** Les autres critères handicap du wiki, quand quelqu'un les a renseignés. Sans seuil officiel, on donne le fait sans le juger. */
-function details(t: Record<string, string>, lines: Line[]) {
+function details(tags: Record<string, string>, lines: Line[]) {
   const inside = (theme: Theme) => (answer: Answer, text: string, detail?: string) =>
     lines.push({ theme, answer, text, ...(detail ? { detail } : {}) })
   const door = inside('Entrée')
-  const stairs = Number(t.step_count)
+  const stairs = Number(tags.step_count)
   if (stairs > 0) door('info', `${stairs} marche${stairs > 1 ? 's' : ''}`)
-  if (t['ramp:wheelchair'] === 'yes') door('yes', 'Rampe à l’entrée')
-  else if (t['ramp:wheelchair'] === 'no') door('no', 'Pas de rampe')
-  if (t.automatic_door && t.automatic_door !== 'no') door('yes', 'Porte automatique')
-  const width = Math.round(parseFloat(t['door:width']) * 100)
+  if (tags['ramp:wheelchair'] === 'yes') door('yes', 'Rampe à l’entrée')
+  else if (tags['ramp:wheelchair'] === 'no') door('no', 'Pas de rampe')
+  if (tags.automatic_door && tags.automatic_door !== 'no') door('yes', 'Porte automatique')
+  const width = Math.round(parseFloat(tags['door:width']) * 100)
   if (width > 0) door('info', `Porte de ${width} cm`)
 
-  const level = Number(t.level)
+  const level = Number(tags.level)
   // OSM ne décrit pas l'ascenseur d'un lieu : on le dit, plutôt que de laisser croire qu'on y monte
   // facilement (docs/decisions/interface, D21).
   if (level > 0) inside('À l’intérieur')('warning', `Au ${level === 1 ? '1er' : `${level}e`} étage`, 'La carte ne dit pas s’il y a un ascenseur')
   else if (level < 0) inside('À l’intérieur')('warning', 'En sous-sol', 'La carte ne dit pas s’il y a un ascenseur')
 
-  if (t.hearing_loop === 'yes') inside('Accueil')('yes', 'Boucle magnétique', 'Pour les personnes malentendantes')
-  const description = t['wheelchair:description:fr'] ?? t['wheelchair:description']
+  if (tags.hearing_loop === 'yes') inside('Accueil')('yes', 'Boucle magnétique', 'Pour les personnes malentendantes')
+  const description = tags['wheelchair:description:fr'] ?? tags['wheelchair:description']
   if (description) inside('Accueil')('info', 'Précision laissée par un visiteur', description)
 }
 
 /** Transforme les étiquettes OSM en lignes simples « oui / attention / non / info ». */
-export function describeOsm(type: PlaceType, t: Record<string, string>): { state: State; lines: Line[]; advice?: string; access?: Place['access'] } {
+export function describeOsm(type: PlaceType, tags: Record<string, string>): { state: State; lines: Line[]; advice?: string; access?: Place['access'] } {
   const lines: Line[] = []
 
   if (type === 'parking') {
-    const nb = Number(t['capacity:disabled'])
+    const nb = Number(tags['capacity:disabled'])
     lines.push({ theme: 'Se garer', answer: 'yes', text: nb > 1 ? `${nb} places handicapées` : 'Place handicapée' })
     return { state: 'parking', lines }
   }
 
-  if (t.wheelchair === undefined && t['toilets:wheelchair'] === undefined) {
-    details(t, lines)
+  if (tags.wheelchair === undefined && tags['toilets:wheelchair'] === undefined) {
+    details(tags, lines)
     return { state: 'unknown', lines: [UNKNOWN, ...lines], advice: UNKNOWN_ADVICE, access: { entrance: 'unknown', toilets: 'unknown' } }
   }
 
   if (type === 'wc') {
     // Pour des toilettes publiques, le wiki demande « wheelchair » ; certains contributeurs mettent
     // toilets:wheelchair à la place : on le lit alors, sans jamais conclure « accessible » par défaut.
-    const value = t.wheelchair ?? t['toilets:wheelchair']
+    const value = tags.wheelchair ?? tags['toilets:wheelchair']
     const entrance: Entrance = value === 'no' ? 'no' : value === 'limited' ? 'partial' : yes(value) ? 'ok' : 'unknown'
     if (entrance === 'unknown') {
-      details(t, lines)
+      details(tags, lines)
       return { state: 'unknown', lines: [{ ...UNKNOWN, theme: 'Toilettes' }, ...lines], advice: UNKNOWN_ADVICE, access: { entrance: 'unknown', toilets: 'unknown' } }
     }
     // Des toilettes publiques : leur accès dit à la fois l'entrée et les toilettes.
     const access = entrance === 'no' ? { entrance, toilets: 'no' as const } : entrance === 'partial' ? { entrance, toilets: 'unknown' as const } : { entrance, toilets: 'yes' as const }
     lines.push(WC_LINE[entrance])
-    details(t, lines)
+    details(tags, lines)
     return { state: color(access.entrance, access.toilets), lines, access }
   }
 
-  const entrance: Entrance = yes(t.wheelchair) ? 'ok'
-    : t.wheelchair === 'limited' ? 'partial'
-    : t.wheelchair === 'no' ? 'no'
+  const entrance: Entrance = yes(tags.wheelchair) ? 'ok'
+    : tags.wheelchair === 'limited' ? 'partial'
+    : tags.wheelchair === 'no' ? 'no'
     : 'unknown'
   lines.push(ENTRANCE_LINE[entrance])
 
-  const wc = t['toilets:wheelchair']
+  const wc = tags['toilets:wheelchair']
   const toilets: Toilets = yes(wc) ? 'yes' : wc === 'no' ? 'no' : 'unknown'
   lines.push(TOILETS_LINE[toilets])
-  details(t, lines)
+  details(tags, lines)
 
   const state = color(entrance, toilets)
   const advice = state === 'ok' && (type === 'cafe' || type === 'restaurant')
