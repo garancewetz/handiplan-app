@@ -5,7 +5,7 @@ const marais = { lat: 48.857, lon: 2.358 }
 const place = (name: string, lat: number, lon: number, osm_key = 'amenity', city = 'Paris', osm_value?: string): PhotonPlace =>
   ({ geometry: { coordinates: [lon, lat] }, properties: { name, osm_key, osm_value, city } })
 
-describe('lieuxProches', () => {
+describe('nearbyPlaces', () => {
   it('met le lieu du même nom le plus proche en premier, et écarte ceux d’autres villes', () => {
     const results = [
       place('King Falafel', 52.07, 4.30, 'amenity', 'La Haye'),

@@ -10,7 +10,7 @@ const AT_110_M = 48.8576
 
 const place = (name: string, fields: Partial<Candidate> = {}): Candidate => ({ id: name, name, ...HERE, ...fields })
 
-describe('ressemblance', () => {
+describe('similarity', () => {
   it('compare les mots, sans accents, petits mots ni lettres doublées', () => {
     expect(similarity('L’As du Fallafel', 'AS DU FALAFEL')).toBe(1)
     expect(similarity('Cœur de Breizh', 'Coeur de Breizh')).toBe(1)
@@ -42,7 +42,7 @@ describe('ressemblance', () => {
   })
 })
 
-describe('motsCourants', () => {
+describe('frequentWords', () => {
   it('les mots d’au moins trois endroits', () => {
     expect(frequentWords([place('Kyo Marais'), place('Café du Marais', { lat: AT_78_M }), place('Pizzou Marais', { lat: 48.8590 }), place('Eataly')]))
       .toEqual(new Set(['marais']))
@@ -54,13 +54,13 @@ describe('motsCourants', () => {
   })
 })
 
-describe('motsDesRues', () => {
+describe('streetWords', () => {
   it('les mots des rues de l’endroit', () => {
     expect(streetWords([place('Confort Kebab', { address: { numero: '12', street: 'Rue Confort' } })])).toEqual(new Set(['rue', 'confort']))
   })
 })
 
-describe('memeAdresse', () => {
+describe('sameAddress', () => {
   it('reconnaît le même numéro écrit autrement, et une plage', () => {
     expect(sameAddress({ numero: '11 bis', street: 'Rue Saint-Martin' }, { numero: '11B', street: 'rue St Martin' })).toBe(true)
     expect(sameAddress({ numero: '31-35', street: 'Boulevard de Sébastopol' }, { numero: '35', street: 'Bd de Sébastopol' })).toBe(true)
@@ -70,7 +70,7 @@ describe('memeAdresse', () => {
   })
 })
 
-describe('memeLieu', () => {
+describe('samePlace', () => {
   it('reconnaît le même lieu proche avec un nom ressemblant', () => {
     expect(samePlace(place('Feria Café'), place('FERIA CAFE', { lat: AT_11_M }))).toBe(true)
     expect(samePlace(place('Pizzeria Da Mario'), place('Da Mario', { lat: AT_11_M }))).toBe(true)
@@ -130,7 +130,7 @@ describe('memeLieu', () => {
   })
 })
 
-describe('apparier', () => {
+describe('pair', () => {
   it('chaque lieu une seule fois, au plus ressemblant', () => {
     const osm = [place('Le Petit Marcel')]
     const records = [place('Marcel et fils', { lat: AT_11_M }), place('Petit Marcel', { lat: AT_11_M })]
@@ -138,7 +138,7 @@ describe('apparier', () => {
   })
 })
 
-describe('regrouper', () => {
+describe('groupDuplicates', () => {
   it('regroupe les fiches du même lieu, dans l’ordre donné', () => {
     const records = [place('Eataly'), place('Sushi Shop', { lat: AT_11_M }), place('EATALY PARIS MARAIS')]
     expect(groupDuplicates(records)).toEqual([[0, 2], [1]])

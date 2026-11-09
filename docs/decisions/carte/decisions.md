@@ -109,8 +109,8 @@ d'Acceslibre (plus de 100 colonnes par lieu) remplissait les 5 Mo disponibles.
   navigateur (IndexedDB). Les quartiers déjà vus s'affichent tout de suite ; seuls les manquants sont
   demandés, en une fois.
 - **Gardé depuis plus d'un jour** : affiché quand même, puis remis à jour en arrière-plan.
-- **Seulement ce que l'appli lit** : les étiquettes OSM de `ETIQUETTES_OSM`, les colonnes de
-  `COLONNES_ACCESLIBRE`.
+- **Seulement ce que l'appli lit** : les étiquettes OSM de `OSM_TAGS`, les colonnes de
+  `ACCESLIBRE_COLUMNS`.
 - **Acceslibre page par page** (200 lignes par page, 5 pages au plus) : avant, une seule page de 200
   lignes tronquait les quartiers denses.
 - Les données préparées restent lues en premier si elles reviennent un jour.

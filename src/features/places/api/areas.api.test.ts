@@ -23,7 +23,7 @@ const centre = { lat: 48.85625, lon: 2.35625 } // au milieu d'un quartier
 const position = (p: Point) => p
 const options = (load: () => Promise<Point[]>) => ({ dataset: 'essai', centre, radius: 50, load, position, storage })
 
-describe('chargerParQuartiers', () => {
+describe('loadByArea', () => {
   beforeEach(() => keptOnes.clear())
 
   // Le ménage ne se fait qu'une fois par ouverture de l'appli : ce test passe en premier.

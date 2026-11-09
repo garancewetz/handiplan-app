@@ -15,7 +15,7 @@ function line(fields: Partial<AcceslibreRow>): AcceslibreRow {
   }
 }
 
-describe('typeAcceslibre', () => {
+describe('acceslibreType', () => {
   it('garde les lieux où l’on entre librement', () => {
     expect(acceslibreType('Café, bar, brasserie')).toBe('cafe')
     expect(acceslibreType('Restauration rapide')).toBe('restaurant')
@@ -38,14 +38,14 @@ describe('typeAcceslibre', () => {
   })
 })
 
-describe('nomPropre', () => {
+describe('cleanName', () => {
   it('ignore les noms vides ou d’un seul caractère', () => {
     expect(cleanName('.')).toBeNull()
     expect(cleanName('Au Chien Qui Fume‎')).toBe('Au Chien Qui Fume')
   })
 })
 
-describe('decrireAcceslibre', () => {
+describe('describeAcceslibre', () => {
   it('marque « ok » une entrée de plain-pied', () => {
     const r = describeAcceslibre(line({ entree_plain_pied: true }))
     expect(r.state).toBe('ok')
@@ -80,7 +80,7 @@ describe('decrireAcceslibre', () => {
   })
 })
 
-describe('decrireAcceslibre : toutes les catégories renseignées', () => {
+describe('describeAcceslibre : toutes les catégories renseignées', () => {
   const texts = (fields: Partial<AcceslibreRow>) =>
     describeAcceslibre(line(fields)).lines.map(l => `${l.theme} · ${l.text}`)
 
@@ -119,7 +119,7 @@ describe('decrireAcceslibre : toutes les catégories renseignées', () => {
   })
 })
 
-describe('decrireAcceslibre : se tenir', () => {
+describe('describeAcceslibre : se tenir', () => {
   it('dit s’il y a une main courante, seulement là où il y a des marches', () => {
     const texts = (fields: Partial<AcceslibreRow>) => describeAcceslibre(line(fields)).lines.map(l => l.text)
     expect(texts({ entree_plain_pied: false, entree_marches: 2, entree_marches_main_courante: true })).toContain('Main courante pour se tenir')

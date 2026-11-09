@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createNodeXml, changesetXml, modifyXml, type OsmElement } from '~/features/contribution/utils/osmchange.utils'
 
-describe('xmlGroupe', () => {
+describe('changesetXml', () => {
   it('signe le groupe avec un commentaire clair, l’appli et #handiplan', () => {
     expect(changesetXml('Place ajoutée', false)).toBe(
       '<osm><changeset><tag k="comment" v="Place ajoutée"/><tag k="created_by" v="Handiplan 0.1"/><tag k="hashtags" v="#handiplan"/></changeset></osm>',
@@ -13,7 +13,7 @@ describe('xmlGroupe', () => {
   })
 })
 
-describe('xmlModification', () => {
+describe('modifyXml', () => {
   it('renvoie le point entier, avec sa version et ses nouvelles étiquettes', () => {
     const cafe: OsmElement = { type: 'node', id: 42, version: 7, lat: 48.85, lon: 2.35, tags: { name: 'Café & Co' } }
     expect(modifyXml(cafe, 99, { name: 'Café & Co', wheelchair: 'yes' })).toBe(
@@ -29,7 +29,7 @@ describe('xmlModification', () => {
   })
 })
 
-describe('xmlNouveauPoint', () => {
+describe('createNodeXml', () => {
   it('crée un point neuf, pour essayer sans toucher à la vraie carte', () => {
     expect(createNodeXml({ lat: 48.8, lon: 2.3 }, 7, { wheelchair: 'yes' })).toContain('<create><node id="-1" changeset="7" lat="48.8" lon="2.3"><tag k="wheelchair" v="yes"/></node></create>')
   })

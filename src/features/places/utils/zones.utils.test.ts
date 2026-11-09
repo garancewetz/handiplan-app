@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { areaKey, areasRectangle, distribute, areasAround } from '~/features/places/utils/zones.utils'
 
-describe('zonesAutour', () => {
+describe('areasAround', () => {
   it('ajoute les quartiers voisins près d’un coin', () => {
     // 48,8575 et 2,3575 tombent pile sur un coin de la grille (0,0025°).
     const zones = areasAround({ lat: 48.85751, lon: 2.35751 }, 50)
@@ -11,7 +11,7 @@ describe('zonesAutour', () => {
   })
 })
 
-describe('zonesAutour, au milieu d’un quartier', () => {
+describe('areasAround, au milieu d’un quartier', () => {
   it('prend les petits quartiers (≈ 280 m) qui touchent le cercle', () => {
     const middle = { lat: 48.85625, lon: 2.35625 }
     expect(areasAround(middle, 50)).toEqual([areaKey(middle.lat, middle.lon)])
@@ -22,13 +22,13 @@ describe('zonesAutour, au milieu d’un quartier', () => {
 
 const position = (p: { lat: number; lon: number }) => p
 
-describe('rectangleZones', () => {
+describe('areasRectangle', () => {
   it('couvre exactement les quartiers demandés', () => {
     expect(areasRectangle([areaKey(48.851, 2.351)])).toEqual([48.85, 2.35, 48.8525, 2.3525])
   })
 })
 
-describe('repartir', () => {
+describe('distribute', () => {
   it('range chaque élément dans son quartier, et garde les quartiers vides', () => {
     const here = areaKey(48.851, 2.351)
     const empty = areaKey(48.86, 2.36)

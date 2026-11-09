@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { changes, changesetComment, inWords, newTags, questionsFor } from '~/features/contribution/utils/questions.utils'
 
-describe('questionsPour', () => {
+describe('questionsFor', () => {
   it('pose l’entrée puis les toilettes pour un café', () => {
     expect(questionsFor('cafe').map(q => q.key)).toEqual(['wheelchair', 'toilets:wheelchair'])
   })
@@ -19,7 +19,7 @@ describe('questionsPour', () => {
   })
 })
 
-describe('nouvellesEtiquettes', () => {
+describe('newTags', () => {
   it('écrit la réponse et sa date de vérification, sans toucher au reste', () => {
     const before = { name: 'Le Bistrot', amenity: 'cafe', wheelchair: 'limited' }
     expect(newTags(before, { wheelchair: 'yes' }, new Date('2026-11-08T10:00:00Z'))).toEqual({
@@ -40,7 +40,7 @@ describe('nouvellesEtiquettes', () => {
   })
 })
 
-describe('changements', () => {
+describe('changes', () => {
   it('montre ce que dit la carte et ce que dit la personne', () => {
     expect(changes({ wheelchair: 'limited' }, { wheelchair: 'yes', 'toilets:wheelchair': 'yes' })).toEqual([
       { key: 'wheelchair', before: 'limited', after: 'yes' },
@@ -51,7 +51,7 @@ describe('changements', () => {
   })
 })
 
-describe('commentaire', () => {
+describe('changesetComment', () => {
   it('dit en clair ce qui a été vérifié', () => {
     expect(changesetComment({ wheelchair: 'yes', 'toilets:wheelchair': 'no' }, 'cafe')).toBe('Accessibilité vérifiée sur place : entrée, toilettes')
     expect(changesetComment({ wheelchair: 'yes' }, 'wc')).toBe('Accessibilité vérifiée sur place : toilettes')

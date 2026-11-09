@@ -149,7 +149,7 @@ export function App() {
         zoomedOut={view.zoomedOut}
         messages={{
           // Des places se comparent à leur distance ; des cafés, d'abord à leur facilité.
-          title: filter.id === 'garer' ? (arrival ? 'Les plus proches de l’arrivée' : 'Les plus proches') : 'Les plus faciles d’abord',
+          title: filter.id === 'park' ? (arrival ? 'Les plus proches de l’arrivée' : 'Les plus proches') : 'Les plus faciles d’abord',
           noPlace: (view.loadAround ? inArea(places, view.loadAround) : places).length === 0,
           finished,
           inFlight,

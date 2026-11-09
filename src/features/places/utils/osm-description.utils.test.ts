@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { describeOsm, osmLabel, osmType } from '~/features/places/utils/osm-description.utils'
 
-describe('typeOsm', () => {
+describe('osmType', () => {
   it('reconnaît les places, toilettes, cafés et restaurants, et rien d’autre', () => {
     expect(osmType({ amenity: 'parking_space', parking_space: 'disabled' })).toBe('parking')
     expect(osmType({ amenity: 'toilets' })).toBe('wc')
@@ -17,7 +17,7 @@ describe('typeOsm', () => {
   })
 })
 
-describe('decrireOsm', () => {
+describe('describeOsm', () => {
   it('compte les places handicapées d’un parking, sans critère étranger au handicap', () => {
     const { state, lines } = describeOsm('parking', { 'capacity:disabled': '3', fee: 'no' })
     expect(state).toBe('parking')
@@ -69,7 +69,7 @@ describe('decrireOsm', () => {
   })
 })
 
-describe('decrireOsm : détails renseignés par les bénévoles', () => {
+describe('describeOsm : détails renseignés par les bénévoles', () => {
   const texts = (t: Record<string, string>) => describeOsm('cafe', t).lines.map(l => `${l.theme} · ${l.text}`)
 
   it('ajoute les autres critères handicap du wiki, et rien d’autre', () => {

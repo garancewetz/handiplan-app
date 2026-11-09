@@ -13,7 +13,7 @@ const place = (id: string, state: State, notThere: number): Place => ({
 // Un cadre d'environ 1,1 km de haut, centré sur « ici ».
 const bounds: Bounds = { centre: here, south: here.lat - 0.005, north: here.lat + 0.005, west: here.lon - 0.005, east: here.lon + 0.005 }
 
-describe('lieuxPourCarte', () => {
+describe('placesForMap', () => {
   it('montre tout ce qui est dans le cadre, quelle que soit la couleur', () => {
     const places = [place('facile', 'ok', 1), place('difficile', 'no', 2), place('sans-info', 'unknown', 3), place('place', 'parking', 4)]
     expect(placesForMap(places, bounds).map(l => l.id)).toEqual(['facile', 'difficile', 'sans-info', 'place'])

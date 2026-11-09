@@ -14,7 +14,7 @@ function place(fields: Partial<Place>): Place {
 const CLOSE = 48.8567
 const FAR = 48.8576
 
-describe('fusionner', () => {
+describe('mergePlaces', () => {
   it('garde un seul lieu, avec la description Acceslibre et le nom OSM', () => {
     const osm = place({ name: 'Feria Café' })
     const acceslibre = place({ id: 'acceslibre/9', name: 'FERIA CAFE', state: 'ok', lat: CLOSE, sources: ['Acceslibre'] })
@@ -162,7 +162,7 @@ describe('fusionner', () => {
   })
 })
 
-describe('trier', () => {
+describe('sortPlaces', () => {
   it('met les plus faciles d’abord, puis les difficiles et les sans info mêlés, par distance', () => {
     const order = sortPlaces([
       place({ id: 'e', state: 'unknown', metres: 7 }),

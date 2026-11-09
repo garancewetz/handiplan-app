@@ -1,7 +1,8 @@
 // Les quartiers déjà chargés, gardés dans la base du navigateur (IndexedDB) : bien plus de place que
 // localStorage (environ 5 Mo), qu'un seul quartier dense d'Acceslibre suffisait à remplir.
 const BASE = 'handiplan'
-const SHOP = 'quartiers'
+// Les noms de la base et du magasin ne changent jamais : les quartiers gardés sur le téléphone y sont.
+const STORE = 'quartiers'
 // Au-delà, un quartier est oublié : les lieux changent, on le rechargera.
 const DURATION = 7 * 24 * 3600 * 1000
 
@@ -17,7 +18,7 @@ let base: Promise<IDBDatabase> | undefined
 function open() {
   base ??= new Promise((resolve, reject) => {
     const request = indexedDB.open(BASE, 1)
-    request.onupgradeneeded = () => request.result.createObjectStore(SHOP)
+    request.onupgradeneeded = () => request.result.createObjectStore(STORE)
     request.onsuccess = () => resolve(request.result)
     request.onerror = () => reject(request.error)
   })
@@ -32,11 +33,11 @@ const done = (t: IDBTransaction) => new Promise<void>((resolve, reject) => {
 /** Le stockage du téléphone, ou `null` s'il n'y en a pas (navigation privée stricte) : on charge alors à chaque fois. */
 export const browserStorage: Storage | null = typeof indexedDB === 'undefined' ? null : {
   async read(keys) {
-    const t = (await open()).transaction(SHOP)
-    const shop = t.objectStore(SHOP)
+    const t = (await open()).transaction(STORE)
+    const store = t.objectStore(STORE)
     const keptOnes = new Map<string, Kept>()
     for (const key of keys) {
-      const request = shop.get(key)
+      const request = store.get(key)
       request.onsuccess = () => {
         const g = request.result as Kept | undefined
         if (g && Date.now() - g.date < DURATION) keptOnes.set(key, g)
@@ -46,9 +47,9 @@ export const browserStorage: Storage | null = typeof indexedDB === 'undefined' ?
     return keptOnes
   },
   async write(entries) {
-    const t = (await open()).transaction(SHOP, 'readwrite')
-    const shop = t.objectStore(SHOP)
-    for (const [key, kept] of entries) shop.put(kept, key)
+    const t = (await open()).transaction(STORE, 'readwrite')
+    const store = t.objectStore(STORE)
+    for (const [key, kept] of entries) store.put(kept, key)
     await done(t)
   },
 }

@@ -4,7 +4,7 @@ import { toSuggest, withRecent, type Destination, fromStored } from '~/features/
 const address = (name: string, lat: number, count = 1): Destination => ({ address: name, lat, lon: 2.35, count })
 const names = (list: Destination[]) => list.map(d => d.address)
 
-describe('avecRecente', () => {
+describe('withRecent', () => {
   it('met la dernière destination en tête', () => {
     expect(names(withRecent([address('A', 48.80)], address('B', 48.85)))).toEqual(['B', 'A'])
   })
@@ -35,7 +35,7 @@ describe('avecRecente', () => {
   })
 })
 
-describe('aProposer', () => {
+describe('toSuggest', () => {
   it('met les plus demandées en premier, puis les dernières, cinq en tout', () => {
     const list = [address('Hier', 48.1), address('Kiné', 48.2, 9), address('Avant-hier', 48.3), address('Maison', 48.4, 5),
       address('A', 48.5), address('B', 48.6), address('C', 48.7)]

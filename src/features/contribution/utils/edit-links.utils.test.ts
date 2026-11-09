@@ -7,7 +7,7 @@ const place: Place = {
   lat: 48.88, lon: 2.43, metres: 50, lines: [], sources: ['OpenStreetMap'],
 }
 
-describe('lienModifierOsm', () => {
+describe('osmEditLink', () => {
   it('ouvre l’éditeur sur l’objet OSM', () => {
     expect(osmEditLink(place)).toBe('https://www.openstreetmap.org/edit?editor=id&node=42#hashtags=handiplan')
     expect(osmEditLink({ ...place, id: 'way/7' })).toBe('https://www.openstreetmap.org/edit?editor=id&way=7#hashtags=handiplan')
@@ -18,7 +18,7 @@ describe('lienModifierOsm', () => {
   })
 })
 
-describe('liensModification', () => {
+describe('editLinks', () => {
   it('met Acceslibre en premier quand le lieu y est', () => {
     const link = 'https://acceslibre.beta.gouv.fr/app/x'
     expect(editLinks({ ...place, acceslibreLink: link }).map(l => l.url)).toEqual([link, 'https://www.openstreetmap.org/edit?editor=id&node=42#hashtags=handiplan'])
@@ -34,7 +34,7 @@ describe('liensModification', () => {
   })
 })
 
-describe('lienAjouterOsm', () => {
+describe('osmAddLink', () => {
   it('ouvre l’éditeur au plus près du point', () => {
     expect(osmAddLink({ lat: 48.8885, lon: 2.4393 })).toBe('https://www.openstreetmap.org/edit?editor=id#map=20/48.888500/2.439300&hashtags=handiplan')
   })

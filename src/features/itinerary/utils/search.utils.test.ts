@@ -6,7 +6,7 @@ const place = (name: string, label = 'Café'): Place => ({
   id: name, type: 'cafe', state: 'ok', name, label, lat: 48.85, lon: 2.35, metres: 100, lines: [], sources: ['OpenStreetMap'],
 })
 
-describe('decouper', () => {
+describe('split', () => {
   it('met la rue en titre et la ville dessous', () => {
     expect(split('12 Rue Carnot 93230 Romainville')).toEqual({ title: '12 Rue Carnot', detail: '93230 Romainville' })
   })
@@ -16,7 +16,7 @@ describe('decouper', () => {
   })
 })
 
-describe('lieuxCorrespondants', () => {
+describe('matchingPlaces', () => {
   it('trouve un lieu sans tenir compte des accents ni des majuscules', () => {
     expect(matchingPlaces([place('Café Élo'), place('Marlette')], 'elo').map(l => l.name)).toEqual(['Café Élo'])
   })

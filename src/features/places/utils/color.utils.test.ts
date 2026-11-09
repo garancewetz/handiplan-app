@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { color } from '~/features/places/utils/color.utils'
 
-describe('couleur', () => {
+describe('color', () => {
   it('vert seulement quand tout est bon', () => {
     expect(color('ok', 'yes')).toBe('ok')
   })

@@ -10,14 +10,14 @@ const place = (id: string, point: Point, state: Place['state'] = 'ok'): Place =>
   id, ...point, state, type: 'cafe', name: id, label: 'Café', lines: [], metres: 0, sources: ['OpenStreetMap'],
 })
 
-describe('assezLoin', () => {
+describe('farEnough', () => {
   it('ignore un petit glissement, recharge après un vrai déplacement', () => {
     expect(farEnough(CENTRE, northward(50))).toBe(false)
     expect(farEnough(CENTRE, northward(400))).toBe(true)
   })
 })
 
-describe('tropDezoome', () => {
+describe('tooZoomedOut', () => {
   it('charge au zoom du quartier, pas au zoom de la ville', () => {
     expect(tooZoomedOut(17)).toBe(false)
     expect(tooZoomedOut(15)).toBe(false)
@@ -25,7 +25,7 @@ describe('tropDezoome', () => {
   })
 })
 
-describe('garderVoisins', () => {
+describe('keepNeighbours', () => {
   const near = place('proche', northward(200))
   const neighbour = place('voisin', northward(1000))
   const distant = place('lointain', northward(3000))
@@ -45,7 +45,7 @@ describe('garderVoisins', () => {
   })
 })
 
-describe('mesurerDepuis', () => {
+describe('measureFrom', () => {
   it('mesure depuis le point de référence et trie, les lieux tout bons en premier', () => {
     const [a, b, c] = measureFrom(
       [place('loin', northward(800)), place('gris', northward(10), 'no'), place('pres', northward(300))],
@@ -56,7 +56,7 @@ describe('mesurerDepuis', () => {
   })
 })
 
-describe('dansLaZone', () => {
+describe('inArea', () => {
   it('ne garde que les lieux du rayon de recherche autour du centre', () => {
     expect(inArea([place('dedans', northward(500)), place('dehors', northward(900))], CENTRE).map(l => l.id)).toEqual(['dedans'])
   })

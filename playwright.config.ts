@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
 // Tests de bout en bout : les parcours de l'appli, dans Chrome Canary, à la taille d'un téléphone.
-// Les données viennent du mode démo et de réponses simulées (e2e/support/reseau.ts) : les tests ne
+// Les données viennent du mode démo et de réponses simulées (e2e/support/network.ts) : les tests ne
 // dépendent d'aucun serveur extérieur, et ne publient jamais rien.
 const PORT = 5190
 
